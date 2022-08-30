@@ -27,6 +27,8 @@ jobs:
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: password
+          DB_HOST: localhost
+          POSTGRES_HOST: localhost
           DB_PASSWORD: password
           DB_DATABASE: postgres
           DB_USERNAME: postgres
