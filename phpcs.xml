@@ -41,7 +41,7 @@
             <property name="spacesCountAfterKeyword" type="integer" value="0"/>
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction"/>
+<!--    <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction"/>-->
     <rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile"/>
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
     <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints"/>
