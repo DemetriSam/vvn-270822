@@ -76,6 +76,13 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => 'prefer',
+            'dump' => [
+                // only the path, so without `mysqldump` or `pg_dump`
+                'dump_binary_path' => '/usr/bin',
+                'use_single_transaction',
+                // 5 minute timeout
+                'timeout' => 60 * 5,
+            ],
         ],
 
         'sqlsrv' => [
