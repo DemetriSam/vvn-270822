@@ -2,17 +2,17 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
 parameters:
+  level: 9
+  paths:
+    - app
+    - database
+    - resources
+    - routes
+    - tests
 
-    paths:
-        - app/Http/Controllers/Import
+  checkMissingIterableValueType: false
+  checkModelProperties: true
+  checkOctaneCompatibility: true
 
-    # The level 8 is the highest level
-    level: 6
 
-    excludePaths:
-        - app/Http/Controllers/Auth/*
-
-    checkMissingIterableValueType: false
-    checkModelProperties: true
-    checkOctaneCompatibility: true
 
