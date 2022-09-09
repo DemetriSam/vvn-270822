@@ -24,7 +24,7 @@ class ConfirmablePasswordController extends Controller
      * Confirm the user's password.
      *
      * @param  \Illuminate\Http\Request  $request
-     * 
+     *
      */
     public function store(Request $request)
     {
@@ -33,7 +33,7 @@ class ConfirmablePasswordController extends Controller
             'password' => $request->password,
         ]);
 
-        if (! $validated) {
+        if (! $isValidated) {
             throw ValidationException::withMessages([
                 'password' => __('auth.password'),
             ]);
