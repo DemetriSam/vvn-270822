@@ -40,12 +40,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string']
+            'name' => ['required', 'string'],
         ]);
 
-        $category = \App\Models\Category::create ([
+        \App\Models\Category::create([
             'name' => $request->name,
-            'category_id' => $request->category_id
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('category.index');
@@ -59,7 +59,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return;
     }
 
     /**
@@ -70,7 +70,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return;
     }
 
     /**
@@ -82,7 +82,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return;
     }
 
     /**
@@ -93,6 +93,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return;
     }
 }
