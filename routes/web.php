@@ -20,3 +20,9 @@ Route::get('/', function () {
 Route::get('categories', 'CategoryController@index')->name('category.index');
 Route::get('categories', 'CategoryController@create')->name('category.create');
 Route::get('categories', 'CategoryController@store')->name('category.store');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
