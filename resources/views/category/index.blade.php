@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <x-auth-card>
+    <div class="px-96">
         <form method="POST" action="{{ route('category.store') }} " enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
@@ -27,5 +27,16 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+
+        <ul>
+            @foreach ($categories as $category)
+                <li>{{ $category->id }} - {{ $category->name }}</li>
+                    <ul>
+                    @foreach ($category->childrenCategories as $childCategory)
+                        @include('category.child_category', ['child_category' => $childCategory])
+                    @endforeach
+                    </ul>
+            @endforeach
+        </ul>
+    </div>
 </x-guest-layout>
