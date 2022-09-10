@@ -17,3 +17,4 @@ supervisord.pid
 /.idea
 /.vscode
 data.ms/
+postgres-data/
