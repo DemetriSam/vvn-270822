@@ -2,6 +2,9 @@ setup-ci: env-prepare install-ci key-ci database-prepare-ci
 
 setup: env-prepare build install key database-prepare storage-link
 
+test:
+	docker-compose exec php composer exec --verbose phpunit tests
+
 test-coverage-ci:
 	composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
 
