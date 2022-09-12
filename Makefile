@@ -1,9 +1,12 @@
-setup-ci: env-prepare install-ci key-ci database-prepare-ci
+setup-ci: env-prepare install-ci key-ci database-prepare-ci install-front-ci
 
 setup: env-prepare build install key database-prepare storage-link
 
 test:
 	docker-compose exec php composer exec --verbose phpunit tests
+
+install-front-ci:
+	npm run build
 
 test-coverage-ci:
 	composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
