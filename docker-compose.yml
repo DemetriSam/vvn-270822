@@ -19,6 +19,18 @@ services:
     depends_on:
       - database
 
+#  frontend:
+#      build:
+#          context: images/frontend
+#          dockerfile: Dockerfile
+#          args:
+#              - UID=${UID}
+#      container_name: ${BB_FRONT_WORKDIR}
+#      restart: always
+#      working_dir: /var/www/${BB_FRONT_WORKDIR}
+#      volumes:
+#          - .:/var/www/${BB_FRONT_WORKDIR}
+
   # Nginx -----------------------------------------------
   nginx:
     build:
