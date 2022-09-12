@@ -68,7 +68,7 @@ jobs:
         run: make phpstan-ci
 
       - name: Run tests
-        run: make test-coverage
+        run: make test-coverage-ci
 
       - name: Run tests coverage
         uses: paambaati/codeclimate-action@v2.6.0
