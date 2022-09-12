@@ -6,6 +6,7 @@ test:
 	docker-compose exec php composer exec --verbose phpunit tests
 
 install-front-ci:
+	npm install
 	npm run build
 
 test-coverage-ci:
