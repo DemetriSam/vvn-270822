@@ -14,11 +14,17 @@ class Category extends Model
         'category_id',
     ];
 
+    /**
+     * @return \App\Models\Category
+     */
     public function categories()
     {
         return $this->hasMany(Category::class);
     }
 
+    /**
+     * @return \App\Models\Category
+     */
     public function childrenCategories()
     {
         return $this->hasMany(Category::class)->with('categories');
