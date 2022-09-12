@@ -13,6 +13,7 @@ parameters:
   excludePaths:
     - app/Http/Controllers/Auth/*
     - tests/Feature/Auth/*
+    - app/Http/Requests/Auth/LoginRequest.php
 
   checkMissingIterableValueType: false
   checkModelProperties: true

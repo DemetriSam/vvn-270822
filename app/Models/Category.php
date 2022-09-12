@@ -15,7 +15,7 @@ class Category extends Model
     ];
 
     /**
-     * @return Illuminate\Database\Eloquent\Relations\HasMany<App\Models\Category>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Category>
      */
     public function categories()
     {
@@ -23,7 +23,7 @@ class Category extends Model
     }
 
     /**
-     * @return Illuminate\Database\Eloquent\Relations\HasMany<App\Models\Category>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Category>
      */
     public function childrenCategories()
     {
