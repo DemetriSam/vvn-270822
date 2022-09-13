@@ -30,7 +30,11 @@
 
         <ul>
             @foreach ($categories as $category)
-                <li>{{ $category->id }} - {{ $category->name }}</li>
+                <li>{{ $category->id }} - {{ $category->name }} 
+                    <a href="{{ route('category.edit', ['id' => $category->id]) }}">
+                        <small>(редактировать)</small>
+                    </a>
+                </li>
                     <ul>
                     @foreach ($category->childrenCategories as $childCategory)
                         @include('category.child_category', ['child_category' => $childCategory])

@@ -1,4 +1,9 @@
-<li class="pl-10">{{ $child_category->id }} - {{ $child_category->name }}</li>
+<li class="pl-10">
+    {{ $child_category->id }} - {{ $child_category->name }}
+    <a href="{{ route('category.edit', ['id' => $child_category->id]) }}">
+        <small>(редактировать)</small>
+    </a>
+</li>
 @if ($child_category->categories)
     <ul class="pl-10">
         @foreach ($child_category->categories as $childCategory)

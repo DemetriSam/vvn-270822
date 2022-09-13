@@ -21,6 +21,12 @@ Route::get('/', function () {
 Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
 Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
+Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+Route::patch('/categories/{id}', [CategoryController::class, 'update'])->name('category.update');
+
+Route::get('/categories/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
