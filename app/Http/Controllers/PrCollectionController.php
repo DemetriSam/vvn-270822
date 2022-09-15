@@ -52,23 +52,21 @@ class PrCollectionController extends Controller
             'price' => $request->price,
         ]);
 
-        $path = $request->file('image')->store('pr_collection_images');
-        // доступ по asset('storage/' . $path)
+        if ($request->file('image')) {
+            $path = $request->file('image')->store('pr_collection_images');
+            $pr_image = \App\Models\PrImage::create([
+                'orig_img' => $path,
+                'imageable_id' => $pr_collection->id,
+                'imageable_type' => \App\Models\PrCollection::class,
+            ]);
+    
+            $asset = asset('storage/' . $pr_image->original);
+            return '<img src="' . $asset . '" />';
+        }
+        
 
 
-        $pr_image = \App\Models\PrImage::create([
-            'orig_img' => $path,
-            'imageable_id' => $pr_collection->id,
-            'imageable_type' => \App\Models\PrCollection::class,
-        ]);
 
-        $pr_image->makeResizes([
-            [300, 300],
-            [500, 600],
-        ]);
-
-        $asset = asset('storage/' . $pr_image->original);
-        return '<img src="' . $asset . '" />';
 
         return redirect()->route('pr_collection.index');
     }
