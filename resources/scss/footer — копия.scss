@@ -1,0 +1,146 @@
+footer {
+	background-color: black;
+	height: 231px;
+	color: white;
+	a, a:visited {
+		color: white;
+	}
+
+	a:hover {
+		color: #D9AE81;
+	}
+	padding-top: 35px;
+	padding-bottom: 56px;
+
+	.menu__list {
+		flex-direction: column;
+		flex-wrap: wrap;
+		row-gap: 37px;
+		height: 140px;
+	}
+
+	.menu__item {
+		text-transform: none;
+		font-size: 16px;
+		&:before {
+
+		}
+	}
+
+	.contacts__item {
+		
+
+	}
+
+	._icon-mail {
+		margin-top: 16px;
+		margin-bottom: 16px;
+	}
+
+	.contacts_in_header {
+		font-size: 14px;
+	}
+
+	._icon-mail, ._icon-phone, ._icon-pin {
+		&:before {
+			display: inline-block;
+			width: 36px;
+			height: 36px;
+			border: 1px solid #F3CCA3;
+			border: 1px solid rgba(243, 204, 163, 0.35); 
+			box-sizing: border-box;
+			border-radius: 50%;
+			vertical-align: middle;
+			text-align: center;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-size: 14px;
+			margin-right: 12px;
+
+		}
+	}
+}
+
+.footer__container {
+	align-items: stretch;
+	height: 100%;
+}
+
+.footer__item {
+
+	&.site-branding, &.copyright {
+		
+	}
+	&.menu {
+		margin-left: 146px;
+	}
+	&.copyright {
+		align-self: flex-end;
+		position: absolute;
+		font-size: 14px;
+		line-height: 19px;
+
+		/* DarkGray */
+
+		color: #888888;
+	}
+
+	&.site-branding {
+		min-width: 243px;
+		align-self: flex-start;
+		a {
+			display: flex;
+			img {
+				height: 48px;
+			}
+		}
+
+		div {
+			margin-top: 4px;
+			margin-left: 15px;
+			@media (max-width: $md4+px) {
+				margin-left: 7px;
+			}
+			height: 38px;
+			.site-name {
+				font-family: Lora;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 14px;
+				@media (max-width: $md4+px) {
+					font-size: 11px;
+					line-height: 14px;
+				}
+				line-height: 18px;
+				letter-spacing: 0.22em;
+				text-transform: uppercase;
+				color: #FFFFFF;
+					@media (max-width: $md3+px) {
+						color: white;
+					}
+			}
+
+			.site-slogan {
+				font-family: Lora;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 9px;
+				@media (max-width: $md4+px) {
+					font-size: 7px;
+				}
+				line-height: 12px;
+				letter-spacing: 0.08em;
+				color: #ECECEC;
+					@media (max-width: $md3+px) {
+						color: white;
+					}
+			}
+		}
+	}
+
+
+
+}
+//====================================================================================================
+
+//====================================================================================================

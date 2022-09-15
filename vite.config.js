@@ -7,6 +7,9 @@ export default defineConfig({
             input: [
                 'resources/css/app.scss',
                 'resources/js/app.js',
+
+                'resources/scss/style.scss',
+                'resources/js/swiper-bundle.js',
             ],
             refresh: ['resources/**'],
         }),

@@ -33,3 +33,29 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+//Коллекции
+Route::get('/pr_collections', [PrCollectionController::class, 'index'])->name('pr_collection.index');
+Route::get('/pr_collections/create', [PrCollectionController::class, 'create'])->name('pr_collection.create');
+Route::post('/pr_collections', [PrCollectionController::class, 'store'])->name('pr_collection.store');
+
+//Цвета 
+Route::get('/pr_cvets', [PrCvetController::class, 'index'])->name('pr_cvet.index');
+Route::get('/pr_cvets/create', [PrCvetController::class, 'create'])->name('pr_cvet.create');
+Route::post('/pr_cvets', [PrCvetController::class, 'store'])->name('pr_cvet.store');
+Route::get('/pr_cvets/{id}', [PrCvetController::class, 'show'])->name('pr_cvet.show');
+
+Route::get('/test_swiper', function () {
+    return view('test_swiper');
+});
+
+//Страницы каталога
+Route::get('/carpets', [Controllers\Controller::class, 'carpets'])->name('carpets');
+Route::get('/cinovki', [Controllers\Controller::class, 'cinovki'])->name('cinovki');
+
+//Главная
+Route::get('/index', [Controllers\Controller::class, 'index'])->name('index');
+
+//Избранное
+Route::get('/favorites', [Controllers\Controller::class, 'favorites'])->name('favorites');

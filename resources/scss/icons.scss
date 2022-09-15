@@ -1,0 +1,179 @@
+%ic {
+	font-family: "icons";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+[class^="_icon-"],
+[class*=" _icon-"] {
+	&:before {
+		@extend %ic;
+		display: inline;
+	}
+}
+
+
+._icon-red_heart:before, {
+  content: "\e900";
+  color: #f00;
+}
+
+._icon-CheckBox .path1:before {
+  content: "\e902";
+  color: rgb(217, 174, 129);
+}
+._icon-CheckBox .path2:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+._icon-close:before {
+  content: "\e904";
+  color: #fff;
+}
+._icon-composition .path1:before {
+  content: "\e905";
+  color: rgb(226, 231, 252);
+}
+._icon-composition .path2:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(124, 141, 200);
+}
+._icon-down:before {
+  content: "\e908";
+  color: #6b5b51;
+}
+._icon-email:before {
+  content: "\e909";
+  color: #e0400d;
+}
+._icon-fb:before {
+  content: "\e90a";
+  color: #4267b2;
+}
+._icon-heart:before {
+  content: "\e90b";
+  color: #fff;
+}
+._icon-height .path1:before {
+  content: "\e90c";
+  color: rgb(204, 227, 248);
+}
+._icon-height .path2:before {
+  content: "\e90d";
+  margin-left: -1em;
+  color: rgb(156, 188, 218);
+}
+._icon-insta:before {
+  content: "\e90e";
+}
+._icon-left:before {
+  content: "\e90f";
+  color: #112279;
+}
+._icon-link::after {
+  @extend %ic;
+  display: inline;
+  content: "\e910";
+  color: #112279;
+}
+._icon-mail:before {
+  content: "\e911";
+  color: #d9ae81;
+}
+._icon-ok:before {
+  content: "\e912";
+  color: #fff;
+}
+._icon-phone:before {
+  content: "\e913";
+  color: #d9ae81;
+}
+
+._icon-pin:before {
+  content: "\e914";
+  color: #d9ae81;
+}
+._icon-play:before {
+  content: "\e915";
+  color: #d9ae81;
+}
+._icon-p-left:before {
+  content: "\e916";
+  color: #fff;
+}
+._icon-price .path1:before {
+  content: "\e917";
+  color: rgb(245, 244, 198);
+}
+._icon-price .path2:before {
+  content: "\e918";
+  margin-left: -1em;
+  color: rgb(198, 196, 134);
+}
+._icon-p-right:before {
+  content: "\e919";
+  color: #fff;
+}
+._icon-right:before {
+  content: "\e91b";
+  color: #112279;
+}
+._icon-Search:before {
+  content: "\e91c";
+  color: #fff;
+}
+._icon-share:before {
+  content: "\e91d";
+  color: #112279;
+}
+._icon-smallburger:before {
+  content: "\e91e";
+}
+._icon-status_high:before {
+  content: "\e91f";
+  color: #67d3b2;
+}
+._icon-status_low:before {
+  content: "\e920";
+  color: #67d3b2;
+}
+._icon-status_medium:before {
+  content: "\e921";
+  color: #67d3b2;
+}
+._icon-telegram:before {
+  content: "\e922";
+  color: #039be5;
+}
+._icon-up:before {
+  content: "\e923";
+  color: #6b5b51;
+}
+._icon-viber:before {
+  content: "\e924";
+  color: #8e24aa;
+}
+._icon-wa:before {
+  content: "\e925";
+  color: #4caf50;
+}
+._icon-width .path1:before {
+  content: "\e926";
+  color: rgb(202, 236, 226);
+}
+._icon-width .path2:before {
+  content: "\e927";
+  margin-left: -1em;
+  color: rgb(103, 211, 178);
+}
+._icon-X:before {
+  content: "\e928";
+  color: #6b5b51;
+}
