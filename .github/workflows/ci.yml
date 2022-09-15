@@ -66,6 +66,11 @@ jobs:
 
       - name: Setup project
         run: make setup-ci
+        env:
+          # The hostname used to communicate with the Redis service container
+          REDIS_HOST: localhost
+          # The default Redis port
+          REDIS_PORT: 6379
 
       - name: Check lint
         run: make lint-ci
