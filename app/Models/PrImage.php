@@ -14,12 +14,10 @@ class PrImage extends Model
     protected $fillable = [
         'orig_img',
         'imageable_id',
-        'imageable_type'
+        'imageable_type',
     ];
 
     public $pr_image_resizes = [];
-
-
 
     /**
      * Get the parent imageable model (user or post).
@@ -29,16 +27,16 @@ class PrImage extends Model
         return $this->morphTo();
     }
 
-    public function make_resizes($sizes, $toReplace = false)
+    public function makeResizes($sizes, $toReplace = false)
     {
 
-        if(gettype($sizes) === 'object') {
+        if (gettype($sizes) === 'object') {
             $sizes = $sizes->resizes;
         }
 
         $image = Image::make(Storage::path($this->orig_img));
 
-        [$dir_path, $filename_body, $filename_ext] = $this->parse_filepath($this->orig_img);
+        [$dir_path, $filename_body, $filename_ext] = $this->parseFilepath($this->orig_img);
 
         $resizes = [];
 
@@ -46,7 +44,7 @@ class PrImage extends Model
             $case = $size[0];
             $width = $size[1];
             $height = $size[2];
-            
+
             $resize = clone $image;
 
             if ($case === 'product') {
@@ -58,13 +56,13 @@ class PrImage extends Model
             } else {
                 $resize->fit($width, $height);
             }
-            
-            
+
+
             $resize_format = $width . 'x' . $height;
 
-            if(!collect($this->resizes)->groupBy('format')->has($resize_format) or $toReplace) {
+            if (!collect($this->resizes)->groupBy('format')->has($resize_format) or $toReplace) {
                 $resize_file_name = $filename_body . '_' . $resize_format . '.' . $filename_ext;
-                
+
                 $full_path = Storage::disk('public')->path($dir_path) . $resize_file_name;
 
                 $resize->save(
@@ -73,23 +71,21 @@ class PrImage extends Model
                 );
 
                 $short_path = $dir_path . $resize_file_name;
-    
+
                 $fordb = (object) [
                     'format' => $resize_format,
                     'case' => $case,
-                    'file' => $short_path
+                    'file' => $short_path,
                 ];
-    
+
                 $resizes[] = $fordb;
             }
-
         }
-        
-        $this->resizes = collect($resizes)->toJson();
 
+        $this->resizes = collect($resizes)->toJson();
     }
 
-    public function parse_filepath($filepath)
+    public function parseFilepath($filepath)
     {
         $members = explode('/', $filepath);
         $reversed = array_reverse($members);
@@ -116,7 +112,7 @@ class PrImage extends Model
     /**
      * $zize - это строка типа 300x300
      */
-    public function get_resize($size, $get_path_in_filesystem = false)
+    public function getResize($size, $get_path_in_filesystem = false)
     {
 
         $resizes = json_decode($this->resizes);
@@ -128,13 +124,11 @@ class PrImage extends Model
         } else {
             return;
         }
-        
-        if ($get_path_in_filesystem) {    
+
+        if ($get_path_in_filesystem) {
             return Storage::disk('public')->path($short_path);
-            
         }
 
         return Storage::disk('public')->url($short_path);
-
     }
 }

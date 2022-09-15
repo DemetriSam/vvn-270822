@@ -39,27 +39,27 @@ class PrCvetController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'string']
+            'title' => ['required', 'string'],
         ]);
 
-        $pr_cvet = \App\Models\PrCvet::create ([
+        $pr_cvet = \App\Models\PrCvet::create([
             'title' => $request->title,
             'description' => $request->description,
-            'pr_collection_id' => $request->pr_collection_id
+            'pr_collection_id' => $request->pr_collection_id,
         ]);
 
         $images = $request->file('images');
 
-        if($request->hasFile('images')) {
+        if ($request->hasFile('images')) {
             foreach ($images as $image) {
                 $path = $image->store('pr_cvet_images');
-                $pr_image = \App\Models\PrImage::create ([
+                $pr_image = \App\Models\PrImage::create([
                     'orig_img' => $path,
                     'imageable_id' => $pr_cvet->id,
                     'imageable_type' => \App\Models\PrCvet::class,
                 ]);
 
-                $pr_image->make_resizes($pr_cvet);
+                $pr_image->makeResizes($pr_cvet);
                 $pr_image->save();
             }
         }
@@ -89,7 +89,6 @@ class PrCvetController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -101,7 +100,6 @@ class PrCvetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -112,6 +110,5 @@ class PrCvetController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }

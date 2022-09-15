@@ -14,7 +14,7 @@ class PrCvet extends Model
         'description',
         'images',
         'published',
-        'pr_collection_id'
+        'pr_collection_id',
     ];
 
     public $resizes = [
@@ -28,10 +28,10 @@ class PrCvet extends Model
         ['rec', 320, 320],
         ['rec', 480, 480],
         ['rec', 640, 640],
-        ['rec', 325, 325]
+        ['rec', 325, 325],
     ];
 
-    public function pr_collection()
+    public function prCollection()
     {
         return $this->belongsTo(PrCollection::class);
     }
@@ -39,5 +39,13 @@ class PrCvet extends Model
     public function images()
     {
         return $this->morphMany(\App\Models\PrImage::class, 'imageable');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Category>
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 }

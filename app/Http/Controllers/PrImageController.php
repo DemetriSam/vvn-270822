@@ -14,7 +14,6 @@ class PrImageController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -24,7 +23,6 @@ class PrImageController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -35,7 +33,6 @@ class PrImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -46,7 +43,6 @@ class PrImageController extends Controller
      */
     public function show(PrImage $prImage)
     {
-        //
     }
 
     /**
@@ -57,7 +53,6 @@ class PrImageController extends Controller
      */
     public function edit(PrImage $prImage)
     {
-        //
     }
 
     /**
@@ -69,7 +64,6 @@ class PrImageController extends Controller
      */
     public function update(Request $request, PrImage $prImage)
     {
-        //
     }
 
     /**
@@ -80,6 +74,5 @@ class PrImageController extends Controller
      */
     public function destroy(PrImage $prImage)
     {
-        //
     }
 }

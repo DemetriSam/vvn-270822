@@ -42,11 +42,11 @@ class PrCollectionController extends Controller
     {
 
         $request->validate([
-            'title' => ['required', 'string']
+            'title' => ['required', 'string'],
         ]);
 
 
-        $pr_collection = \App\Models\PrCollection::create ([
+        $pr_collection = \App\Models\PrCollection::create([
             'title' => $request->title,
             'description' => $request->description,
             'price' => $request->price,
@@ -54,24 +54,23 @@ class PrCollectionController extends Controller
 
         $path = $request->file('image')->store('pr_collection_images');
         // доступ по asset('storage/' . $path)
-        
 
-        $pr_image = \App\Models\PrImage::create ([
+
+        $pr_image = \App\Models\PrImage::create([
             'orig_img' => $path,
             'imageable_id' => $pr_collection->id,
             'imageable_type' => \App\Models\PrCollection::class,
         ]);
 
-        $pr_image->make_resizes([
+        $pr_image->makeResizes([
             [300, 300],
-            [500, 600]
+            [500, 600],
         ]);
 
         $asset = asset('storage/' . $pr_image->original);
         return '<img src="' . $asset . '" />';
 
         return redirect()->route('pr_collection.index');
-
     }
 
     /**
@@ -82,7 +81,6 @@ class PrCollectionController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -93,7 +91,6 @@ class PrCollectionController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -105,7 +102,6 @@ class PrCollectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -116,6 +112,5 @@ class PrCollectionController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }

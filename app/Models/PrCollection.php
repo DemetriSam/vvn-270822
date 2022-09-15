@@ -14,10 +14,10 @@ class PrCollection extends Model
         'price',
         'description',
         'images',
-        'published'
+        'published',
     ];
 
-    public function pr_cvets()
+    public function prCvets()
     {
         return $this->hasMany(PrCvet::class);
     }
@@ -25,5 +25,13 @@ class PrCollection extends Model
     public function images()
     {
         return $this->morphMany(\App\Models\PrImage::class, 'imageable');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Category>
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 }
