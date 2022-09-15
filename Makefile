@@ -3,7 +3,7 @@ setup-ci: env-prepare install-ci key-ci database-prepare-ci install-front-ci
 setup: env-prepare build install key database-prepare storage-link
 
 test:
-	docker-compose exec php composer exec --verbose phpunit tests
+	docker exec -it nalichiil-php composer exec phpunit tests
 
 install-front-ci:
 	npm install
@@ -38,22 +38,22 @@ config-clear-ci:
 	php artisan config:clear
 
 test-coverage:
-	docker-compose exec php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
+	docker exec -it nalichiil-php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
 
 lint:
-	docker-compose exec php composer exec phpcs -v
+	docker exec -it nalichiil-php composer exec phpcs -v
 
 lint-fix:
-	docker-compose exec php composer exec phpcbf -v
+	docker exec -it nalichiil-php composer exec phpcbf -v
 
 phpstan:
-	docker-compose exec php composer exec phpstan analyse
+	docker exec -it nalichiil-php composer exec phpstan analyse
 
 analyse:
-	docker-compose exec php composer exec phpstan analyse -v
+	docker exec -it nalichiil-php composer exec phpstan analyse -v
 
 config-clear:
-	docker-compose exec php php artisan config:clear
+	docker exec -it nalichiil-php php artisan config:clear
 
 ide-helper:
 	php artisan ide-helper:eloquent
@@ -83,8 +83,11 @@ key:
 	docker-compose exec php php artisan key:gen --ansi
 	docker-compose exec php php artisan jwt:secret --force
 
+migrate:
+	docker exec -it nalichiil-php php artisan migrate
+
 database-prepare:
-	docker-compose exec php php artisan migrate:fresh --seed
+	docker exec -it nalichiil-php php artisan migrate:fresh --seed
 
 storage-link:
 	docker-compose exec php php artisan storage:link

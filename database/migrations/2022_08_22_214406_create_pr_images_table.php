@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('imageable_id')->nullable();
             $table->string('imageable_type')->nullable();
             $table->json('resizes')->nullable();
-            $table->timestamps('');
+            $table->timestamps();
         });
     }
 

@@ -22,7 +22,6 @@ return new class extends Migration
             $table->json('specs')->nullable();
             $table->boolean('published')->default(false);
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
