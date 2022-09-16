@@ -9,7 +9,6 @@ export default defineConfig({
                 'resources/js/app.js',
 
                 'resources/scss/style.scss',
-                'resources/js/swiper-bundle.js',
             ],
             refresh: ['resources/**'],
         }),

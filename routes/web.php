@@ -46,10 +46,6 @@ Route::get('/pr_cvets/create', [Controllers\PrCvetController::class, 'create'])-
 Route::post('/pr_cvets', [Controllers\PrCvetController::class, 'store'])->name('pr_cvet.store');
 Route::get('/pr_cvets/{id}', [Controllers\PrCvetController::class, 'show'])->name('pr_cvet.show');
 
-Route::get('/test_swiper', function () {
-    return view('test_swiper');
-});
-
 //Страницы каталога
 Route::get('/carpets', [Controllers\Controller::class, 'carpets'])->name('carpets');
 Route::get('/cinovki', [Controllers\Controller::class, 'cinovki'])->name('cinovki');

@@ -13,6 +13,11 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
+    /**
+     * Каталог с ковровыми покрытиями
+     *
+     * @return \Illuminate\View\View
+     */
     public function carpets()
     {
         $type = 'carpets';
@@ -20,6 +25,11 @@ class Controller extends BaseController
         return view('catalog', compact('type', 'products'));
     }
 
+    /**
+     * Каталог с циновками
+     *
+     * @return \Illuminate\View\View
+     */
     public function cinovki()
     {
         $type = 'cinovki';
@@ -27,11 +37,22 @@ class Controller extends BaseController
         return view('catalog', compact('type', 'products'));
     }
 
+
+    /**
+     * Главная страница
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('index');
     }
 
+    /**
+     * Страница избранного
+     *
+     * @return \Illuminate\View\View
+     */
     public function favorites()
     {
         return view('favorites');

@@ -17,6 +17,9 @@ class PrCvet extends Model
         'pr_collection_id',
     ];
 
+    /**
+     * @var array
+     */
     public $resizes = [
         ['product', 574, 574],
         ['product', 689, 689],
@@ -31,11 +34,17 @@ class PrCvet extends Model
         ['rec', 325, 325],
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<PrCollection>
+     */
     public function prCollection()
     {
         return $this->belongsTo(PrCollection::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<PrImage>
+     */
     public function images()
     {
         return $this->morphMany(\App\Models\PrImage::class, 'imageable');

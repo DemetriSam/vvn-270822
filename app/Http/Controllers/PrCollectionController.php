@@ -13,7 +13,7 @@ class PrCollectionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class PrCollectionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -36,7 +36,7 @@ class PrCollectionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return string|\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -59,56 +59,11 @@ class PrCollectionController extends Controller
                 'imageable_id' => $pr_collection->id,
                 'imageable_type' => \App\Models\PrCollection::class,
             ]);
-    
-            $asset = asset('storage/' . $pr_image->original);
+
+            $asset = asset('storage/' . $pr_image->orig_img);
             return '<img src="' . $asset . '" />';
         }
-        
-
-
-
 
         return redirect()->route('pr_collection.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
     }
 }

@@ -17,15 +17,28 @@ class PrImage extends Model
         'imageable_type',
     ];
 
+    /**
+     * @var array
+     */
     public $pr_image_resizes = [];
 
     /**
      * Get the parent imageable model (user or post).
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function imageable()
     {
         return $this->morphTo();
     }
+
+    /**
+     * Make resizes for a given image
+     * 
+     * @param array|object $sizes
+     * @param bool $toReplace нужно ли перезаписать файлы ресайзов при их наличии
+     * @return null
+     */
 
     public function makeResizes($sizes, $toReplace = false)
     {
@@ -63,7 +76,12 @@ class PrImage extends Model
             if (!collect($this->resizes)->groupBy('format')->has($resize_format) or $toReplace) {
                 $resize_file_name = $filename_body . '_' . $resize_format . '.' . $filename_ext;
 
+                $save_path = Storage::disk('public')->path($dir_path);
                 $full_path = Storage::disk('public')->path($dir_path) . $resize_file_name;
+
+                if (!file_exists($save_path)) {
+                    mkdir($save_path);
+                }
 
                 $resize->save(
                     $full_path,
@@ -85,6 +103,11 @@ class PrImage extends Model
         $this->resizes = collect($resizes)->toJson();
     }
 
+
+    /**
+     * @param string $filepath
+     * @return array
+     */
     public function parseFilepath($filepath)
     {
         $members = explode('/', $filepath);
@@ -110,12 +133,14 @@ class PrImage extends Model
     }
 
     /**
-     * $zize - это строка типа 300x300
+     * @param string $size строка типа 300x300
+     * @param bool $get_path_in_filesystem если нужен путь до файла на диске вместо url
+     * @return string|null
      */
     public function getResize($size, $get_path_in_filesystem = false)
     {
 
-        $resizes = json_decode($this->resizes);
+        $resizes = $this->resizes ? json_decode($this->resizes) : null;
 
         $proper = collect($resizes)->firstWhere('format', $size);
 

@@ -1,5 +1,4 @@
 <x-layout>
-
     <section class="product-card">
         <div class="product-card__items the-product" data-nid="59">
             <div class="product-card__item product-card__item_h1 h1 nodes__label">
@@ -31,22 +30,22 @@
                                 <picture>
                                     <source 
                                         srcset="
-                                            {{ $image->get_resize('574x574') }} 1x,
-                                            {{ $image->get_resize('689x689') }} 1.2x,
-                                            {{ $image->get_resize('861x861') }} 1.5x
+                                            {{ $image->getResize('574x574') }} 1x,
+                                            {{ $image->getResize('689x689') }} 1.2x,
+                                            {{ $image->getResize('861x861') }} 1.5x
                                         " 
                                         media="all and (min-width: 574px)" 
                                         type="image/jpeg" 
                                     />
                                     <source 
                                         srcset="
-                                            {{ $image->get_resize('414x700') }} 1x,
-                                            {{ $image->get_resize('621x1050') }} 1.5x,
-                                            {{ $image->get_resize('828x1400') }} 2x
+                                            {{ $image->getResize('414x700') }} 1x,
+                                            {{ $image->getResize('621x1050') }} 1.5x,
+                                            {{ $image->getResize('828x1400') }} 2x
                                         " 
                                         type="image/jpeg" 
                                     />                 
-                                    <img src="{{ $image->get_resize('325x325') }}" class="the-node-image" />
+                                    <img src="{{ $image->getResize('325x325') }}" class="the-node-image" />
                                 </picture>
                                 <div class="gallery__sharing sharing">
                                     <div class="sharing__wrapper">
@@ -60,7 +59,7 @@
                                         </div>
                                         <div class="sharing__button sharing__button_share">
                                             <div class="sharing__pic sharing__pic_share"><img
-                                                    src="http://localhost/../../img/icons/share.svg" alt=""></div>
+                                                    src="/img/icons/share.svg" alt=""></div>
                                             <div class="sharing__label">Поделиться</div>
 
                                         </div>
@@ -70,7 +69,7 @@
                                                 <span class="span_desktop">Копировать</span>
                                             </div>
                                             <div class="sharing__pic sharing__pic_copylink"><img
-                                                    src="http://localhost/../../img/icons/link.svg" alt=""></div>
+                                                    src="/img/icons/link.svg" alt=""></div>
                                         </div>
                                     </div>
                                 </div>

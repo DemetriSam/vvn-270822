@@ -19,6 +19,7 @@ parameters:
   checkMissingIterableValueType: false
   checkModelProperties: true
   checkOctaneCompatibility: true
+  checkGenericClassInNonGenericObjectType: false
 
 
 

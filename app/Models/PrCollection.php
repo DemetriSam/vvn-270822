@@ -17,11 +17,18 @@ class PrCollection extends Model
         'published',
     ];
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrCvet>
+     */
     public function prCvets()
     {
         return $this->hasMany(PrCvet::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<PrImage>
+     */
     public function images()
     {
         return $this->morphMany(\App\Models\PrImage::class, 'imageable');
