@@ -1,4 +1,9 @@
-<x-guest-layout>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
     <x-auth-card>
         <form method="POST" action="{{ route('category.update', ['id' => $category->id]) }} " enctype="multipart/form-data">
             @csrf
@@ -30,4 +35,4 @@
         </form>
         <a  href="{{ route('category.delete', ['id' => $category->id]) }}" class="red">Удалить</a>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>
