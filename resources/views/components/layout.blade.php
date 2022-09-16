@@ -11,6 +11,7 @@
         <script type="module" src="/swiper-bundle.min.js"></script>
         @vite([
             'resources/scss/style.scss',
+            'resources/js/src_js/app.js',
             'resources/js/app.js',
         ])
     </head>
