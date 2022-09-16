@@ -24,7 +24,7 @@ class PrImage extends Model
 
     /**
      * Get the parent imageable model (user or post).
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function imageable()
@@ -34,7 +34,7 @@ class PrImage extends Model
 
     /**
      * Make resizes for a given image
-     * 
+     *
      * @param array|object $sizes
      * @param bool $toReplace нужно ли перезаписать файлы ресайзов при их наличии
      * @return null

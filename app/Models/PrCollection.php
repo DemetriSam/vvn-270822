@@ -17,7 +17,6 @@ class PrCollection extends Model
         'published',
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrCvet>
      */
