@@ -23,7 +23,6 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -34,7 +33,6 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -45,7 +43,6 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -56,7 +53,6 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -68,7 +64,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -79,6 +74,5 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }
