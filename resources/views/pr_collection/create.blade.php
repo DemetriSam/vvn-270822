@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <x-auth-card>
-        <form method="POST"  action="{{ route('pr_collection.store') }}" enctype="multipart/form-data">
+        <form method="POST"  action="{{ route('pr_collections.store') }}" enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
                 <a href="/">

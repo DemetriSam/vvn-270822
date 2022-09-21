@@ -64,6 +64,6 @@ class PrCollectionController extends Controller
             return '<img src="' . $asset . '" />';
         }
 
-        return redirect()->route('pr_collection.index');
+        return redirect()->route('pr_collections.index');
     }
 }

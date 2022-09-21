@@ -66,7 +66,7 @@ class PrCvetController extends Controller
 
 
 
-        return redirect()->route('pr_cvet.index');
+        return redirect()->route('pr_cvets.index');
     }
 
     /**
