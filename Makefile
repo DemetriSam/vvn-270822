@@ -80,8 +80,8 @@ install:
 	docker-compose exec php composer install
 
 key:
-	docker-compose exec php php artisan key:gen --ansi
-	docker-compose exec php php artisan jwt:secret --force
+	docker exec -it nalichiil-php php artisan key:gen --ansi
+	docker exec -it nalichiil-php php artisan jwt:secret --force
 
 migrate:
 	docker exec -it nalichiil-php php artisan migrate

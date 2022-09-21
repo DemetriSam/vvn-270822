@@ -106,6 +106,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 }

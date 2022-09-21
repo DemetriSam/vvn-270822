@@ -15,7 +15,7 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -31,14 +31,8 @@ Route::group([
         Route::resource('users', Controllers\UsersController::class);
 
         //Категории
-        Route::get('/categories', [Controllers\CategoryController::class, 'index'])->name('category.index');
-        Route::get('/categories/create', [Controllers\CategoryController::class, 'create'])->name('category.create');
-        Route::post('/categories', [Controllers\CategoryController::class, 'store'])->name('category.store');
-        Route::get('/categories/{id}/edit', [Controllers\CategoryController::class, 'edit'])->name('category.edit');
-        Route::patch('/categories/{id}', [Controllers\CategoryController::class, 'update'])->name('category.update');
-
+        Route::resource('categories', Controllers\CategoryController::class);
         Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('category.delete');
-        Route::delete('/categories/{id}', [Controllers\CategoryController::class, 'destroy'])->name('category.destroy');
 
         //Коллекции
         Route::get('/pr_collections', [Controllers\PrCollectionController::class, 'index'])->name('pr_collection.index');

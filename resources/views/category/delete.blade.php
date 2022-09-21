@@ -15,7 +15,7 @@
             Я уверен, что хочу удалить категорию {{ $category->id }} - {{ $category->name }}. При нажатии на эту ссылку категория будет удалена безвозвратно
         </p>
 
-        <form method="POST" action="{{ route('category.destroy', ['id' => $category->id]) }} " enctype="multipart/form-data">
+        <form method="POST" action="{{ route('categories.destroy', ['category' => $category]) }} " enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
                 <a href="/">
@@ -28,7 +28,7 @@
             </x-button>
             </div>
         </form>
-        <a  href="{{ route('category.edit', ['id' => $category->id]) }}" class="red bold">
+        <a  href="{{ route('categories.edit', ['category' => $category]) }}" class="red bold">
             Вернуться назад
         </a>
     </x-auth-card>
