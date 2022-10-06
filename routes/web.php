@@ -32,7 +32,7 @@ Route::group([
 
         //Категории
         Route::resource('categories', Controllers\CategoryController::class);
-        Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('category.delete');
+        Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('categories.delete');
 
         //Коллекции
         Route::resource('pr_collections', Controllers\PrCollectionController::class);

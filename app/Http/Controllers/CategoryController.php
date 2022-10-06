@@ -48,7 +48,7 @@ class CategoryController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
         /**
@@ -82,7 +82,7 @@ class CategoryController extends Controller
         $category->fill(compact('name', 'category_id'));
         $category->save();
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     /**
