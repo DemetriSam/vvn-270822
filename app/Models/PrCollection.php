@@ -18,7 +18,7 @@ class PrCollection extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrCvet>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function prCvets()
     {

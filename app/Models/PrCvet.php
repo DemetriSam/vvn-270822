@@ -35,9 +35,9 @@ class PrCvet extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<PrCollection>
-     */
-    public function prCollection()
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * */
+    public function prCollection(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(PrCollection::class);
     }
