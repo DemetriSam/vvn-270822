@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PrCvet extends Model
 {
     use HasFactory;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'title',
