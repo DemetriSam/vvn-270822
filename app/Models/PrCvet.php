@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class PrCvet extends Model
 {
@@ -44,7 +45,7 @@ class PrCvet extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<PrImage>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function images()
     {
@@ -52,7 +53,7 @@ class PrCvet extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Category>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function categories()
     {

@@ -26,7 +26,7 @@ class PrCollection extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<PrImage>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function images()
     {
@@ -34,7 +34,7 @@ class PrCollection extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Category>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function categories()
     {

@@ -3,7 +3,7 @@ setup-ci: env-prepare install-ci key-ci database-prepare-ci install-front-ci
 setup: env-prepare build install key database-prepare storage-link
 
 test:
-	docker exec -it nalichiil-php composer exec phpunit tests
+	docker compose exec php composer exec --verbose phpunit tests
 
 install-front-ci:
 	npm install
@@ -38,22 +38,22 @@ config-clear-ci:
 	php artisan config:clear
 
 test-coverage:
-	docker exec -it nalichiil-php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
+	docker compose exec php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
 
 lint:
-	docker exec -it nalichiil-php composer exec phpcs -v
+	docker compose exec php composer exec phpcs -v
 
 lint-fix:
-	docker exec -it nalichiil-php composer exec phpcbf -v
+	docker compose exec php composer exec phpcbf -v
 
 phpstan:
-	docker exec -it nalichiil-php composer exec phpstan analyse
+	docker compose exec php composer exec phpstan analyse
 
 analyse:
-	docker exec -it nalichiil-php composer exec phpstan analyse -v
+	docker compose exec php composer exec phpstan analyse -v
 
 config-clear:
-	docker exec -it nalichiil-php php artisan config:clear
+	docker compose exec php php artisan config:clear
 
 ide-helper:
 	php artisan ide-helper:eloquent
@@ -63,34 +63,31 @@ ide-helper:
 
 update:
 	git pull
-	docker-compose exec php composer install
-	docker-compose exec php php artisan migrate --force
-	docker-compose exec php php artisan optimize
+	docker compose exec php composer install
+	docker compose exec php php artisan migrate --force
+	docker compose exec php php artisan optimize
 
 seeder:
-	docker-compose exec php php artisan db:seed
+	docker compose exec php php artisan db:seed
 
 env-prepare:
 	cp -n .env.example .env || true
 
 build:
-	docker-compose up -d --build
+	docker compose up -d --build
 
 install:
-	docker-compose exec php composer install
+	docker compose exec php composer install
 
 key:
-	docker exec -it nalichiil-php php artisan key:gen --ansi
-	docker exec -it nalichiil-php php artisan jwt:secret --force
-
-migrate:
-	docker exec -it nalichiil-php php artisan migrate
+	docker compose exec php php artisan key:gen --ansi
+	docker compose exec php php artisan jwt:secret --force
 
 database-prepare:
-	docker exec -it nalichiil-php php artisan migrate:fresh --seed
+	docker compose exec php php artisan migrate:fresh --seed
 
 storage-link:
-	docker-compose exec php php artisan storage:link
+	docker compose exec php php artisan storage:link
 
 heroku-build:
 	composer install
@@ -100,4 +97,4 @@ heroku-build:
 	php artisan parse-vk-users
 
 db-import-from-backup:
-	docker-compose exec -T database psql -d tapigo-database -U postgres  < data
+	docker compose exec -T database psql -d tapigo-database -U postgres  < data

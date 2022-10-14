@@ -26,7 +26,7 @@ class Files
             );
             $model
                 ->addMedia(Storage::disk('public')->path($path . 'jpg'))
-                ->toMediaCollection('image', config('app.flysystem_driver'));
+                ->toMediaCollection('image', $this->config('app.flysystem_driver'));
         }
     }
 
@@ -39,4 +39,16 @@ class Files
 
         return $dir . $string . '/' . $string;
     }
+
+    public function config(string $input): string
+    {
+        $result = config($input);
+
+        if(is_string($result)) {
+            return $result;
+        } else {
+            return '';
+        }
+    }
 }
+
