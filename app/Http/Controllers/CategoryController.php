@@ -51,7 +51,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
-        /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

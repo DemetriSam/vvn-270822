@@ -48,23 +48,9 @@ class PrCvetController extends Controller
             'pr_collection_id' => $request->pr_collection_id,
         ]);
 
-        $images = $request->file('images');
-
-        if ($request->hasFile('images')) {
-            foreach ($images as $image) {
-                $path = $image->store('pr_cvet_images');
-                $pr_image = \App\Models\PrImage::create([
-                    'orig_img' => $path,
-                    'imageable_id' => $pr_cvet->id,
-                    'imageable_type' => \App\Models\PrCvet::class,
-                ]);
-
-                $pr_image->makeResizes($pr_cvet);
-                $pr_image->save();
-            }
-        }
-
-
+        $pr_cvet
+            ->addMediaFromRequest('images')
+            ->toMediaCollection();
 
         return redirect()->route('pr_cvets.index');
     }
@@ -79,5 +65,63 @@ class PrCvetController extends Controller
     {
         $pr_cvet = PrCvet::find($id);
         return view('pr_cvet.show', compact('pr_cvet'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $pr_cvet = PrCvet::find($id);
+        return view('pr_cvet.edit', compact('pr_cvet'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $pr_cvet = PrCvet::findOrFail($id);
+        $request->validate([
+            'name' => ['required', 'string'],
+        ]);
+
+        $name = $request->name;
+        $pr_cvet_id = $request->pr_cvet_id;
+        $pr_cvet->fill(compact('name', 'pr_cvet_id'));
+        $pr_cvet->save();
+
+        return redirect()->route('categories.index');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function delete($id)
+    {
+        $pr_cvet = PrCvet::find($id);
+        return view('pr_cvet.delete', compact('pr_cvet'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        PrCvet::destroy($id);
+        return redirect()->route('categories.index');
     }
 }

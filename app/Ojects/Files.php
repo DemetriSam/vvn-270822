@@ -47,7 +47,7 @@ class Files
         if(is_string($result)) {
             return $result;
         } else {
-            return '';
+            throw new \Exception("the config is not a string, check input: $input");
         }
     }
 }

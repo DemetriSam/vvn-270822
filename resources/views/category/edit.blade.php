@@ -33,6 +33,6 @@
                 </x-button>
             </div>
         </form>
-        <a  href="{{ route('category.delete', ['id' => $category->id]) }}" class="red">Удалить</a>
+        <a  href="{{ route('categories.delete', ['id' => $category->id]) }}" class="red">Удалить</a>
     </x-auth-card>
 </x-app-layout>
