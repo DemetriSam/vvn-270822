@@ -18,3 +18,5 @@ supervisord.pid
 /.vscode
 data.ms/
 postgres-data/
+images/nginx/ssl/production.crt
+images/nginx/ssl/production.key
