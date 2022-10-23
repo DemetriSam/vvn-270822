@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
-
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -23,7 +22,7 @@ class PrCvet extends Model implements HasMedia
         'pr_collection_id',
     ];
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this
             ->addMediaConversion('preview')
@@ -48,9 +47,6 @@ class PrCvet extends Model implements HasMedia
         ['rec', 325, 325],
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * */
     public function prCollection(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(PrCollection::class);

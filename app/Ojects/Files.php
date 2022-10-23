@@ -44,11 +44,10 @@ class Files
     {
         $result = config($input);
 
-        if(is_string($result)) {
+        if (is_string($result)) {
             return $result;
         } else {
             throw new \Exception("the config is not a string, check input: $input");
         }
     }
 }
-
