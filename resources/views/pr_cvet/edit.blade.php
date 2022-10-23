@@ -5,8 +5,9 @@
         </h2>
     </x-slot>
     <x-auth-card>
-        <form method="POST" action="{{ route('pr_cvets.store') }} " enctype="multipart/form-data">
+        <form method="POST" action="{{ route('pr_cvets.update', compact('pr_cvet')) }} " enctype="multipart/form-data">
             @csrf
+            <input name="_method" type="hidden" value="PATCH">
             <x-slot name="logo">
                 <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
@@ -69,6 +70,22 @@
                     autofocus 
                 />
             </div>
+
+            @php
+                $mediaItems = $pr_cvet->getMedia();
+            @endphp
+            @foreach ($mediaItems as $mediaItem)
+                <div>
+                    <x-input 
+                        id=images_for_remove
+                        type="checkbox"
+                        name="images_for_remove[]"
+                        value="{{ $mediaItem->name }}"
+                    />
+                    <x-label class="inline-block" for="images_for_remove" value="Удалить картинкy {{ $mediaItem->getUrl() }}?" />
+                </div>
+            @endforeach
+
 
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ml-3">

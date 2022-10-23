@@ -16,8 +16,8 @@ class PrCvetController extends Controller
      */
     public function index()
     {
-        $cvets = PrCvet::all();
-        return view('pr_cvet.index', compact('cvets'));
+        $pr_cvets = PrCvet::all();
+        return view('pr_cvet.index', compact('pr_cvets'));
     }
 
     /**
@@ -49,8 +49,10 @@ class PrCvetController extends Controller
         ]);
 
         $pr_cvet
-            ->addMediaFromRequest('images')
-            ->toMediaCollection();
+            ->addMultipleMediaFromRequest(['images'])
+            ->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection();
+            });
 
         return redirect()->route('pr_cvets.index');
     }
@@ -88,17 +90,26 @@ class PrCvetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $pr_cvet = PrCvet::findOrFail($id);
+        $prCvet = PrCvet::findOrFail($id);
         $request->validate([
-            'name' => ['required', 'string'],
+            'title' => ['required', 'string'],
         ]);
 
-        $name = $request->name;
-        $pr_cvet_id = $request->pr_cvet_id;
-        $pr_cvet->fill(compact('name', 'pr_cvet_id'));
-        $pr_cvet->save();
+        $title = $request->title;
+        $description = $request->description;
+        $imagesForRemove = $request->images_for_remove;
 
-        return redirect()->route('categories.index');
+        $mediaItems = $prCvet->getMedia();
+
+        foreach ($imagesForRemove as $name) {
+            $mediaItems->firstWhere('name', $name)->delete();
+        }
+
+
+        $prCvet->fill(compact('title', 'description'));
+        $prCvet->save();
+
+        return redirect()->route('pr_cvets.index');
     }
 
     /**
@@ -122,6 +133,6 @@ class PrCvetController extends Controller
     public function destroy($id)
     {
         PrCvet::destroy($id);
-        return redirect()->route('categories.index');
+        return redirect()->route('pr_cvets.index');
     }
 }
