@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <x-auth-card>
-        <form method="POST" action="{{ route('pr_cvets.update', compact('pr_cvet')) }} " enctype="multipart/form-data">
+        <form method="POST" action="{{ route('pr_cvets.update', ['pr_cvet' => $prCvet]) }} " enctype="multipart/form-data">
             @csrf
             <input name="_method" type="hidden" value="PATCH">
             <x-slot name="logo">
@@ -21,7 +21,7 @@
                     class="block mt-1 w-full" 
                     type="text" 
                     name="title" 
-                    :value="old('title') ?? $pr_cvet->title" 
+                    :value="old('title') ?? $prCvet->title" 
                     required 
                     autofocus 
                 />
@@ -35,7 +35,7 @@
                     class="block mt-1 w-full" 
                     type="text" 
                     name="description" 
-                    :value="old('description') ?? $pr_cvet->description" 
+                    :value="old('description') ?? $prCvet->description" 
                     autofocus 
                 />
             </div>
@@ -47,7 +47,7 @@
                     class="block mt-1 w-full" 
                     type="text" 
                     name="pr_collection_id" 
-                    :value="old('pr_collection_id') ?? $pr_cvet->pr_collection_id" 
+                    :value="old('pr_collection_id') ?? $prCvet->pr_collection_id" 
                     autofocus 
                 />
             </div>
@@ -72,7 +72,7 @@
             </div>
 
             @php
-                $mediaItems = $pr_cvet->getMedia();
+                $mediaItems = $prCvet->getMedia('images');
             @endphp
             @foreach ($mediaItems as $mediaItem)
                 <div>

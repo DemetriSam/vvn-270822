@@ -2,7 +2,7 @@
     <section class="product-card">
         <div class="product-card__items the-product" data-nid="59">
             <div class="product-card__item product-card__item_h1 h1 nodes__label">
-                <h1>{{ $pr_cvet->title }}</h1>
+                <h1>{{ $prCvet->title }}</h1>
             </div>
             <div class="product-card__item product-card__item_gallery gallery nodes__img">
                 <div class="gallery-thumbs" id="gallery-thumbs">
@@ -15,8 +15,7 @@
                 <div class="swiper-grid">
                     <div class="swiper swiper-main" id="swiper-main">
                         <div class="swiper-wrapper">
-                            @if($pr_cvet->images)
-                            @foreach ($pr_cvet->images as $image)
+                            @foreach ($images as $image)
                             <div class="slides swiper-slide gallery__slide">
                                 <div class="gallery__header">
                                     <div class="indicator">
@@ -26,27 +25,7 @@
                                     </div>
                                     <div class="stock-status">Много на складе</div>
                                 </div>
-
-                                <picture>
-                                    <source 
-                                        srcset="
-                                            {{ $image->getResize('574x574') }} 1x,
-                                            {{ $image->getResize('689x689') }} 1.2x,
-                                            {{ $image->getResize('861x861') }} 1.5x
-                                        " 
-                                        media="all and (min-width: 574px)" 
-                                        type="image/jpeg" 
-                                    />
-                                    <source 
-                                        srcset="
-                                            {{ $image->getResize('414x700') }} 1x,
-                                            {{ $image->getResize('621x1050') }} 1.5x,
-                                            {{ $image->getResize('828x1400') }} 2x
-                                        " 
-                                        type="image/jpeg" 
-                                    />                 
-                                    <img src="{{ $image->getResize('325x325') }}" class="the-node-image" />
-                                </picture>
+                                {{ $image('product') }}
                                 <div class="gallery__sharing sharing">
                                     <div class="sharing__wrapper">
                                         <div class="sharing__icons">
@@ -75,7 +54,6 @@
                                 </div>
                             </div>
                             @endforeach
-                            @endif
                         </div>
                         <!-- If we need pagination -->
                         <div class="swiper-pagination"></div>
@@ -126,7 +104,7 @@
             </div>
             <div class="product-card__item product-card__item_description description">
                 <p class="block-description">Описание</p>
-                <p>{{ $pr_cvet->description }}</p>
+                <p>{{ $prCvet->description }}</p>
             </div>
         </div>
     </section>

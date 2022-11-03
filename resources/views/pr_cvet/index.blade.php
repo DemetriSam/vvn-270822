@@ -9,8 +9,10 @@
     <a href="{{ route('pr_cvets.edit', compact('pr_cvet')) }}">
         <small>(редактировать)</small>
     </a>
-
-    {{ $pr_cvet->getFirstMedia() }}
+    @php
+        $image = $pr_cvet->getFirstMedia('images');
+    @endphp
+    {{ $image ? $image('preview') : null }}
 
     <!--
     @if ($pr_cvet->images)
