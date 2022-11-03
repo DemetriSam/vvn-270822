@@ -49,7 +49,7 @@ class PrCvetController extends Controller
         ]);
 
         $this->addImages($request);
-        
+
 
         return redirect()->route('pr_cvets.index');
     }
@@ -131,7 +131,7 @@ class PrCvetController extends Controller
 
     public function addImages(PrCvet $prCvet, Request $request)
     {
-        if(isset($request->images)) {
+        if (isset($request->images)) {
             $prCvet
                 ->addMultipleMediaFromRequest(['images'])
                 ->each(function ($fileAdder) {
@@ -143,8 +143,8 @@ class PrCvetController extends Controller
     public function deleteImages(PrCvet $prCvet, Request $request)
     {
         $imagesForRemove = $request->images_for_remove;
-        
-        if($imagesForRemove) {
+
+        if ($imagesForRemove) {
             $mediaItems = $prCvet->getMedia('images');
             foreach ($imagesForRemove as $name) {
                 $mediaItems->firstWhere('name', $name)->delete();

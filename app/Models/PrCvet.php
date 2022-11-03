@@ -52,9 +52,6 @@ class PrCvet extends Model implements HasMedia
         ['rec', 325, 325],
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * */
     public function prCollection(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(PrCollection::class);
