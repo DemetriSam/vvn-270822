@@ -1,6 +1,11 @@
-<x-guest-layout>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
     <x-auth-card>
-        <form method="POST" action="{{ route('category.update', ['id' => $category->id]) }} " enctype="multipart/form-data">
+        <form method="POST" action="{{ route('categories.update', ['category' => $category]) }} " enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
                 <a href="/">
@@ -28,6 +33,6 @@
                 </x-button>
             </div>
         </form>
-        <a  href="{{ route('category.delete', ['id' => $category->id]) }}" class="red">Удалить</a>
+        <a  href="{{ route('categories.delete', ['id' => $category->id]) }}" class="red">Удалить</a>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

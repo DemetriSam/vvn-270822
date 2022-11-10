@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,22 +15,44 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
-
-Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
-Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
-Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
-Route::patch('/categories/{id}', [CategoryController::class, 'update'])->name('category.update');
-
-Route::get('/categories/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');
-Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => ['auth','role:admin'],
+    ], function ($router) {
+        Route::resource('users', Controllers\UsersController::class);
+
+        //Категории
+        Route::resource('categories', Controllers\CategoryController::class);
+        Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('categories.delete');
+
+        //Коллекции
+        Route::resource('pr_collections', Controllers\PrCollectionController::class);
+
+        //Цвета
+        Route::resource('pr_cvets', Controllers\PrCvetController::class);
+
+});
+
+
+
 require __DIR__.'/auth.php';
+
+
+//Страницы каталога
+Route::get('/carpets', [Controllers\Controller::class, 'carpets'])->name('carpets');
+Route::get('/cinovki', [Controllers\Controller::class, 'cinovki'])->name('cinovki');
+
+//Главная
+Route::get('/', [Controllers\Controller::class, 'index'])->name('index');
+
+//Избранное
+Route::get('/favorites', [Controllers\Controller::class, 'favorites'])->name('favorites');

@@ -14,11 +14,13 @@ parameters:
     - app/Http/Controllers/Auth/*
     - tests/Feature/Auth/*
     - app/Http/Requests/Auth/LoginRequest.php
-    - database/migrations/2022_09_13_100406_create_permission_tables.php 
+    - database/migrations/2022_09_13_100406_create_permission_tables.php
+    - app/Console/Commands/CheckSslCommand.php
 
   checkMissingIterableValueType: false
   checkModelProperties: true
   checkOctaneCompatibility: true
+  checkGenericClassInNonGenericObjectType: false
 
 
 

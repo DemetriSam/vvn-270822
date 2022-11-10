@@ -48,10 +48,10 @@ class CategoryController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
-        /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -82,7 +82,7 @@ class CategoryController extends Controller
         $category->fill(compact('name', 'category_id'));
         $category->save();
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -106,6 +106,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 }

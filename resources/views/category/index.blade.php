@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="px-96">
-        <form method="POST" action="{{ route('category.store') }} " enctype="multipart/form-data">
+        <form method="POST" action="{{ route('categories.store') }} " enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
                 <a href="/">
@@ -31,7 +31,7 @@
         <ul>
             @foreach ($categories as $category)
                 <li>{{ $category->id }} - {{ $category->name }} 
-                    <a href="{{ route('category.edit', ['id' => $category->id]) }}">
+                    <a href="{{ route('categories.edit', ['category' => $category]) }}">
                         <small>(редактировать)</small>
                     </a>
                 </li>
