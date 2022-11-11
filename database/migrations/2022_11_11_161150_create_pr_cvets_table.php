@@ -15,13 +15,16 @@ return new class extends Migration
     {
         Schema::create('pr_cvets', function (Blueprint $table) {
             $table->id();
+            $table->string('nameInFolder');
             $table->string('title');
             $table->foreignId('pr_collection_id')->constrained();
+            $table->foreignId('color')->constrained();
             $table->text('description')->nullable();
-            $table->string('color')->nullable();
-            $table->json('specs')->nullable();
             $table->boolean('published')->default(false);
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->boolean('inStock')->default(false);
+            $table->float('currentPrice');
+            $table->float('salePrice');
+            $table->integer('sort');
             $table->timestamps();
         });
     }

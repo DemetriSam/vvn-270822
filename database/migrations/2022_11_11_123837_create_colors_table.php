@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pr_collections', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->float('price');
-            $table->json('specs')->nullable();
-            $table->boolean('published')->default(false);
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pr_collections');
+        Schema::dropIfExists('colors');
     }
 };

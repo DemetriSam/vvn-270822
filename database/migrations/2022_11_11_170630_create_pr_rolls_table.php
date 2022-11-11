@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pr_images', function (Blueprint $table) {
+        Schema::create('pr_rolls', function (Blueprint $table) {
             $table->id();
-            $table->string('orig_img');
-            $table->foreignId('imageable_id')->nullable();
-            $table->string('imageable_type')->nullable();
-            $table->json('resizes')->nullable();
+            $table->string('vendorCode');
+            $table->float('quantity_m2');
+            $table->foreignId('pr_cvet_id')->constrained();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pr_images');
+        Schema::dropIfExists('pr_rolls');
     }
 };
