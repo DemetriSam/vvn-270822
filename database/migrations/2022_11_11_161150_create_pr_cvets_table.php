@@ -20,11 +20,14 @@ return new class extends Migration
             $table->foreignId('pr_collection_id')->constrained();
             $table->foreignId('color')->constrained();
             $table->text('description')->nullable();
-            $table->boolean('published')->default(false);
-            $table->boolean('inStock')->default(false);
-            $table->float('currentPrice');
-            $table->float('salePrice');
-            $table->integer('sort');
+
+            $table->enum('published', ['true', 'false'])->default('false'); 
+            //to add new_enum_value:
+            //ALTER TYPE name ADD VALUE [ IF NOT EXISTS ] new_enum_value [ { BEFORE | AFTER } neighbor_enum_value ]
+
+            $table->float('current_price');
+            $table->float('sale_price')->nullable();
+            $table->unsignedInteger('sort')->nullable();
             $table->timestamps();
         });
     }

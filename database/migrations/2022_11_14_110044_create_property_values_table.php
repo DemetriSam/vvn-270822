@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('property_values', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('machine_name');
-            $table->string('color_hash');
+            $table->foreignId('property_id')->nullable();
+            $table->string('value')->nullable();
+            $table->unsignedInteger('sort')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('property_values');
     }
 };

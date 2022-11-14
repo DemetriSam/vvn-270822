@@ -12,11 +12,18 @@
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
             </x-slot>
-            <!-- Title -->
+            <!-- Name -->
             <div>
-                <x-label for="title" value="Название коллекции" />
+                <x-label for="name" value="Название коллекции" />
 
-                <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+            </div>
+
+            <!-- Nickname -->
+            <div>
+                <x-label for="nickname" value="Псевдоним" />
+
+                <x-input id="nickname" class="block mt-1 w-full" type="text" name="nickname" :value="old('nickname')" autofocus />
             </div>
 
 
@@ -28,6 +35,13 @@
             </div>
             <!-- Specs -->
 
+            <!-- Category -->
+            <div>
+                <x-label for="category" value="Принадлежит к категории" />
+
+                <x-input id="category" class="block mt-1 w-full" type="text" name="category" :value="old('category')" autofocus />
+            </div>
+            <!-- Specs -->
             
             <!-- Price -->
             <div>

@@ -10,11 +10,13 @@ class PrCollection extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'price',
+        'name',
+        'nickname',
+        'default_price',
         'description',
         'images',
         'published',
+        'category_id',
     ];
 
     /**

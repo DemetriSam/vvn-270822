@@ -41,17 +41,19 @@ class PrCollectionController extends Controller
     public function store(Request $request)
     {
 
+
+
         $request->validate([
-            'title' => ['required', 'string'],
+            'name' => ['required', 'string'],
         ]);
 
 
         $pr_collection = \App\Models\PrCollection::create([
-            'title' => $request->title,
+            'name' => $request->name,
             'description' => $request->description,
-            'price' => $request->price,
+            'default_price' => $request->price,
+            'category_id' => $request->category,
         ]);
-
         if ($request->file('image')) {
             $path = $request->file('image')->store('pr_collection_images');
             $pr_image = \App\Models\PrImage::create([
