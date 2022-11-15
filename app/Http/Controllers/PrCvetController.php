@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PrCvet;
+use App\Models\PrCollection;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -38,20 +39,33 @@ class PrCvetController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
-            'title' => ['required', 'string'],
+            'name_in_folder' => ['required', 'string'],
         ]);
+        $prCollection = PrCollection::find($request->pr_collection_id);
+        $collectionName = $prCollection->nickname ?? $prCollection->name;
+        $nameInCollection = $request->name_in_folder;
+        $title = "$collectionName $nameInCollection";
+
+        $currentPrice = $prCollection->default_price;
+
+        
 
         $prCvet = \App\Models\PrCvet::create([
-            'title' => $request->title,
+            'name_in_folder' => $request->name_in_folder,
+            'title' => $title,
             'description' => $request->description,
             'pr_collection_id' => $request->pr_collection_id,
+            'current_price' => $currentPrice,
         ]);
 
-        $this->addImages($request);
+        $this->addImages($prCvet, $request);
 
 
-        return redirect()->route('pr_cvets.index');
+        return $prCollection ?
+            redirect()->route('pr_collections.show', $prCollection) :
+            redirect()->route('pr_cvets.index');
     }
 
     /**

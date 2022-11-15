@@ -16,10 +16,13 @@ class PrCvet extends Model implements HasMedia
 
     protected $fillable = [
         'title',
+        'name_in_folder',
         'description',
         'images',
         'published',
         'pr_collection_id',
+        'color',
+        'current_price',
     ];
 
     public function registerMediaConversions(?Media $media = null): void

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePropertyRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StorePropertyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->hasRole('admin');
     }
 
     /**
@@ -24,6 +25,8 @@ class StorePropertyRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => ['required'],
+            'category_id' => ['required'],
         ];
     }
 }

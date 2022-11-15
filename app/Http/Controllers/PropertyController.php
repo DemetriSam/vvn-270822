@@ -34,6 +34,9 @@ class PropertyController extends Controller
      */
     public function store(StorePropertyRequest $request)
     {
+        $name = $request->name;
+        $category_id = $request->category_id;
+        Property::create(compact('name', 'category_id'));
     }
 
     /**

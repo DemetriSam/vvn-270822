@@ -14,17 +14,6 @@
     @endphp
     {{ $image ? $image('preview') : null }}
 
-    <!--
-    @if ($pr_cvet->images)
-        @foreach ($pr_cvet->images as $image )
-            <span>
-                <img src="{{ $image->getResize('325x325') }}" />
-                
-            </span>
-        @endforeach    
-    @endif
-    -->
-
     <p>&nbsp</p>
 @endforeach
 

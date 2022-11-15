@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PrCollection;
+use App\Models\PrCvet;
 use App\Models\PrImage;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -40,9 +41,6 @@ class PrCollectionController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
         $request->validate([
             'name' => ['required', 'string'],
         ]);
@@ -64,6 +62,75 @@ class PrCollectionController extends Controller
 
             $asset = asset('storage/' . $pr_image->orig_img);
             return '<img src="' . $asset . '" />';
+        }
+
+        return redirect()->route('pr_collections.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $prCollection = PrCollection::find($id);
+        $prCvets = PrCvet::where('pr_collection_id', $id)->get();
+        return view('pr_collection.show', compact('prCollection', 'prCvets'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $prCollection = PrCollection::find($id);
+        return view('pr_collection.edit', compact('prCollection'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $prCollection = PrCollection::findOrFail($id);
+        $request->validate([
+            'name' => ['required', 'string'],
+        ]);
+
+        $name = $request->name;
+        $nickname = $request->nickname;
+        $description = $request->description;
+        $default_price = $request->default_price;
+        $category_id = $request->category_id;
+
+        $prCollection->fill(compact(
+            'name',
+            'nickname',
+            'description',
+            'default_price',
+            'category_id',
+        ));
+
+        $prCollection->save();
+
+        if($nickname) {
+            $prCvets = PrCvet::where('pr_collection_id', $id)->get();
+            $prCvets->each(function($prCvet) use ($prCollection, $nickname) {
+                $collectionName = $nickname;
+                $nameInCollection = $prCvet->name_in_folder;
+                $title = "$collectionName $nameInCollection";
+                $prCvet->title = $title;
+                $prCvet->save();
+            });
         }
 
         return redirect()->route('pr_collections.index');

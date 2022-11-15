@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Property;
 
 class CategoryController extends Controller
 {
@@ -18,6 +19,7 @@ class CategoryController extends Controller
         $categories = Category::whereNull('category_id')
             ->with('childrenCategories')
             ->get();
+   
         return view('category.index', compact('categories'));
     }
 
@@ -107,5 +109,16 @@ class CategoryController extends Controller
     {
         Category::destroy($id);
         return redirect()->route('categories.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     */
+    public function show(int $id)
+    {
+        $category = Category::find($id);
+        $properties = Property::where('category_id', $id)->get();
+        return view('category.show', compact('category', 'properties'));
     }
 }

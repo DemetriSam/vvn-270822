@@ -30,7 +30,7 @@
 
         <ul>
             @foreach ($categories as $category)
-                <li>{{ $category->id }} - {{ $category->name }} 
+                <li>{{ $category->id }} - <a href="{{ route('categories.show', $category->id)}}">{{ $category->name }}</a> 
                     <a href="{{ route('categories.edit', ['category' => $category]) }}">
                         <small>(редактировать)</small>
                     </a>

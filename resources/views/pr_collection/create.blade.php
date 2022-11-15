@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            Создать коллекцию
         </h2>
     </x-slot>
-    <x-auth-card>
+    <x-form-card>
         <form method="POST"  action="{{ route('pr_collections.store') }}" enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
@@ -63,6 +63,6 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+    </x-form-card>
 
 </x-app-layout>

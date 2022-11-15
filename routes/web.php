@@ -34,6 +34,10 @@ Route::group([
         Route::resource('categories', Controllers\CategoryController::class);
         Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('categories.delete');
 
+        //Характеристики
+        Route::resource('properties', Controllers\PropertyController::class);
+        Route::get('/properties/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('properties.delete');
+
         //Коллекции
         Route::resource('pr_collections', Controllers\PrCollectionController::class);
 

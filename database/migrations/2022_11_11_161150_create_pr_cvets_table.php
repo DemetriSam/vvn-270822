@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('pr_cvets', function (Blueprint $table) {
             $table->id();
-            $table->string('nameInFolder');
+            $table->string('name_in_folder');
             $table->string('title');
             $table->foreignId('pr_collection_id')->constrained();
-            $table->foreignId('color')->constrained();
+            $table->foreignId('color')->nullable();
             $table->text('description')->nullable();
 
             $table->enum('published', ['true', 'false'])->default('false'); 

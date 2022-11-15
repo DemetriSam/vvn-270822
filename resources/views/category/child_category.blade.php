@@ -1,5 +1,5 @@
 <li class="pl-10">
-    {{ $child_category->id }} - {{ $child_category->name }}
+    {{ $child_category->id }} - <a href="{{ route('categories.show', $child_category->id) }}">{{ $child_category->name }}</a>
     <a href="{{ route('categories.edit', ['category' => $child_category]) }}">
         <small>(редактировать)</small>
     </a>
