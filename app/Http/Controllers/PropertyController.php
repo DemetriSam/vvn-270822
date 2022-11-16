@@ -37,6 +37,8 @@ class PropertyController extends Controller
         $name = $request->name;
         $category_id = $request->category_id;
         Property::create(compact('name', 'category_id'));
+
+        return redirect()->route('categories.show', $category_id);
     }
 
     /**
@@ -57,6 +59,7 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
+        return view('property.edit', compact('property'));
     }
 
     /**
@@ -68,6 +71,12 @@ class PropertyController extends Controller
      */
     public function update(UpdatePropertyRequest $request, Property $property)
     {
+        $name = $request->name;
+        $property->fill(compact('name'));
+        $property->save();
+
+        $category_id = $property->category_id;
+        return redirect()->route('categories.show', $category_id);
     }
 
     /**
@@ -78,5 +87,8 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
+        $category_id = $property->category_id;
+        Property::destroy($property->id);
+        return redirect()->route('categories.show', $category_id);
     }
 }

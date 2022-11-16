@@ -36,13 +36,15 @@ Route::group([
 
         //Характеристики
         Route::resource('properties', Controllers\PropertyController::class);
-        Route::get('/properties/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('properties.delete');
+        Route::get('/properties/{id}/delete', [Controllers\PropertyController::class, 'delete'])->name('properties.delete');
 
         //Коллекции
         Route::resource('pr_collections', Controllers\PrCollectionController::class);
-
+        Route::get('/properties/{id}/delete', [Controllers\PrCollectionController::class, 'delete'])->name('pr_collections.delete');
+        
         //Цвета
         Route::resource('pr_cvets', Controllers\PrCvetController::class);
+        Route::get('/properties/{id}/delete', [Controllers\PrCvetController::class, 'delete'])->name('pr_cvets.delete');
 
 });
 
@@ -60,3 +62,5 @@ Route::get('/', [Controllers\Controller::class, 'index'])->name('index');
 
 //Избранное
 Route::get('/favorites', [Controllers\Controller::class, 'favorites'])->name('favorites');
+
+Route::get('/test', fn() => 'test');
