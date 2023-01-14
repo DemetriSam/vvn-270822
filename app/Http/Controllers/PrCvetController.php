@@ -39,7 +39,7 @@ class PrCvetController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'name_in_folder' => ['required', 'string'],
         ]);
@@ -50,7 +50,7 @@ class PrCvetController extends Controller
 
         $currentPrice = $prCollection->default_price;
 
-        
+
 
         $prCvet = \App\Models\PrCvet::create([
             'name_in_folder' => $request->name_in_folder,

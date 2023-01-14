@@ -122,9 +122,9 @@ class PrCollectionController extends Controller
 
         $prCollection->save();
 
-        if($nickname) {
+        if ($nickname) {
             $prCvets = PrCvet::where('pr_collection_id', $id)->get();
-            $prCvets->each(function($prCvet) use ($prCollection, $nickname) {
+            $prCvets->each(function ($prCvet) use ($nickname) {
                 $collectionName = $nickname;
                 $nameInCollection = $prCvet->name_in_folder;
                 $title = "$collectionName $nameInCollection";

@@ -3,7 +3,7 @@ setup-ci: env-prepare install-ci key-ci database-prepare-ci install-front-ci
 setup: env-prepare build install key database-prepare storage-link
 
 test:
-	docker compose exec php composer exec --verbose phpunit tests
+	docker compose exec php php artisan test
 
 install-front-ci:
 	npm install

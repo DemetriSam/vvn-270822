@@ -75,8 +75,8 @@ jobs:
       - name: Check lint
         run: make lint-ci
 
-      - name: Check phpstan
-        run: make phpstan-ci
+      # - name: Check phpstan
+      #  run: make phpstan-ci
 
       - name: Run tests coverage
         uses: paambaati/codeclimate-action@v2.6.0

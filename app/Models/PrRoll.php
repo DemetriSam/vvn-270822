@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PrRoll extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'vendor_code',
+        'quantity_m2',
+        'pr_cvet_id',
+    ];
 }

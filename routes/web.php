@@ -46,6 +46,9 @@ Route::group([
         Route::resource('pr_cvets', Controllers\PrCvetController::class);
         Route::get('/properties/{id}/delete', [Controllers\PrCvetController::class, 'delete'])->name('pr_cvets.delete');
 
+        //Загрузка файлов для обновления остатков
+        Route::post('/upload', [Controllers\PrRollController::class, 'uploadCsvFile'])->name('upload.csv');
+
 });
 
 
