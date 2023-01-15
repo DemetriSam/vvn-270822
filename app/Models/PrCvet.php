@@ -85,7 +85,7 @@ class PrCvet extends Model implements HasMedia
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function rolls()
+    public function prRolls()
     {
         return $this->hasMany(PrRoll::class);
     }

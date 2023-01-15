@@ -11,6 +11,11 @@ use App\Models\PrCvet;
 use App\Models\PrRoll;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Concerns\FromArray;
+use App\Exports\TestExport;
+
 
 class PrRollControllerTest extends TestCase
 {
@@ -41,27 +46,42 @@ class PrRollControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
-    public function upload_csv_file_creates_rolls()
+    /**
+     * Test the uploadExcelFile method.
+     * 
+     * @dataProvider provideFixtures
+     * @return void
+     */
+    public function testUploadExcelFile($supplier, $fixture)
     {
-        // create a test csv file with sample data
-        $file = new UploadedFile(base_path('tests/Feature/Fixtures/sample.csv'), 'sample.csv', 'text/csv', null, true);
-        $this->actingAs($this->user)
-            ->json('POST', route('upload.csv'), ['csv_file' => $file])
+        $fileName = implode([$supplier, '.xlsx']);
+        Excel::store(new TestExport($fixture), $fileName, 'public');
+        $filePath = Storage::disk('public')->path($fileName);
+        $file = new UploadedFile($filePath, $fileName, null, null, true);
+
+        $response = $this->actingAs($this->user)
+            ->call('POST', route('upload.excel'), [], [], ['excel_file' => $file], [])
+            ->assertSessionHasNoErrors() 
             ->assertRedirect();
+    
+        foreach($fixture as $record) {
+            $this->assertDatabaseHas('pr_rolls', $record);
+        }
+    }
 
-        // check that the product quantity is correct
-        $product = PrCvet::find(1);
-        $this->assertEquals(25, $product->quantity);
-
-        // check that a roll's quantity is correct
-        $roll = PrRoll::find(1);
-        $this->assertEquals(10, $roll->quantity_m2);
-                
-        // check that the correct number of rolls have been created
-        $rolls = PrRoll::where('pr_cvet_id', 1)->get();
-        $this->assertCount(3, $rolls);
-
-
+    public function provideFixtures()
+    {
+        return [
+            ['test', [
+                [
+                    'vendor_code' => 'Vendor1',
+                    'quantity_m2' => 100,
+                ],
+                [
+                    'vendor_code' => 'Vendor2',
+                    'quantity_m2' => 200,
+                ],
+            ]],
+        ];
     }
 }

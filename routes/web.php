@@ -48,6 +48,7 @@ Route::group([
 
         //Загрузка файлов для обновления остатков
         Route::post('/upload', [Controllers\PrRollController::class, 'uploadCsvFile'])->name('upload.csv');
+        Route::post('/upload/excel', [Controllers\PrRollController::class, 'uploadExcelFile'])->name('upload.excel');
 
 });
 

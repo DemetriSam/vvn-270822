@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PrCollection;
 
 class Category extends Model
 {
@@ -28,5 +29,13 @@ class Category extends Model
     public function childrenCategories()
     {
         return $this->hasMany(Category::class)->with('categories');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function prCollections()
+    {
+        return $this->hasMany(PrCollection::class);
     }
 }
