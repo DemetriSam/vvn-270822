@@ -14,5 +14,11 @@ class PrRoll extends Model
         'vendor_code',
         'quantity_m2',
         'pr_cvet_id',
+        'supplier_id',
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

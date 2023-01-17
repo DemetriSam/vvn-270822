@@ -2,9 +2,9 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class TestExport implements FromArray
+class TestExport implements FromCollection
 {
     private $rows;
 
@@ -13,7 +13,7 @@ class TestExport implements FromArray
         $this->rows = $rows;
     }
 
-    public function array(): array
+    public function collection()
     {
         return $this->rows;
     }

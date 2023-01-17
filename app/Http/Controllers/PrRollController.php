@@ -89,13 +89,13 @@ class PrRollController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function uploadExcelFile(Request $request, PrRollsImport $import)
+    public function uploadExcelFile(string $supplier, Request $request)
     {
         $request->validate([
             'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
         ]);
-
-        Excel::import($import, $request->file('excel_file'));
+        $file = $request->file('excel_file');
+        Excel::import(new PrRollsImport($supplier), $file);
         return redirect()->route('pr_cvets.index')->with('success', 'Excel file uploaded successfully');
     }
 }
