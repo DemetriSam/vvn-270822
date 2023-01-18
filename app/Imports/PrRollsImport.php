@@ -10,25 +10,18 @@ use App\Models\PrCollection;
 use App\Models\Category;
 use App\Models\Supplier;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
+use App\Services\Stockupdate\RulesFactory;
 
 class PrRollsImport implements ToCollection, WithCalculatedFormulas
 {
     private $supplier;
-    private $mappers;
+    private $rules;
 
     public function __construct(string $supplier)
     {
         $this->supplier = $supplier;
-        $this->mappers = [
-            'test' => [
-                'vendor_code' => 0,
-                'quantity_m2' => 1,
-            ],
-            'dizanarium' => [
-                'vendor_code' => 0,
-                'quantity_m2' => 3,
-            ]
-        ];
+        $factory = new RulesFactory();
+        $this->rules = $factory->getRules($supplier);
     }
 
     public function collection(Collection $rows)
@@ -42,13 +35,13 @@ class PrRollsImport implements ToCollection, WithCalculatedFormulas
     private function createStructureOfProduct($row)
     {
         $supplier = Supplier::firstOrCreate(['name' => $this->supplier]);
-        $mapper = $this->mappers[$this->supplier];
-        $vendor_code = $row[$mapper['vendor_code']];
-        $quantity_m2 = $row[$mapper['quantity_m2']];
-        if($row[$mapper['quantity_m2']] === null) {
+        $map = $this->rules->getMap();
+        $vendor_code = $row[$map['vendor_code']];
+        $quantity_m2 = $row[$map['quantity_m2']];
+        if ($row[$map['quantity_m2']] === null) {
             return;
         }
-        
+
         $roll = PrRoll::firstOrNew([
             'vendor_code' => $vendor_code,
             'quantity_m2' => $quantity_m2,

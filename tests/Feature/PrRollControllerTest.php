@@ -13,7 +13,6 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Concerns\FromArray;
 use App\Exports\TestExport;
 use App\Imports\PrRollsImport;
 use Illuminate\Http\File;

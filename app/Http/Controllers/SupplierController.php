@@ -83,11 +83,11 @@ class SupplierController extends Controller
             'name' => 'required|string|max:255',
             'file_structure' => 'nullable|json',
         ]);
-    
+
         $supplier->name = $validatedData['name'];
         $supplier->file_structure = $validatedData['file_structure'];
         $supplier->save();
-    
+
         return redirect()->route('suppliers.index');
     }
 
