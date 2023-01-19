@@ -21,4 +21,9 @@ class PrRoll extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function prCvet()
+    {
+        return $this->belongsTo(PrCvet::class);
+    }
 }

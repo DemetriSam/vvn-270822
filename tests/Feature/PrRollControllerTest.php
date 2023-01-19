@@ -8,7 +8,10 @@ use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use App\Models\User;
 use App\Models\PrCvet;
+use App\Models\PrCollection;
 use App\Models\PrRoll;
+use App\Models\Category;
+use App\Models\Supplier;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Maatwebsite\Excel\Facades\Excel;
@@ -54,6 +57,9 @@ class PrRollControllerTest extends TestCase
      */
     public function testUploadExcelFile($supplier, $fixture = null)
     {
+        $rollForDeleting = PrRoll::factory()->for(Supplier::firstOrCreate(['name' => $supplier]))->create();
+        $this->assertDatabaseHas('pr_rolls', $rollForDeleting->only('vendor_code'));
+
         $fileName = implode([$supplier, '.xlsx']);
         if(is_array($fixture)) {
             $fixture = collect($fixture);
@@ -78,6 +84,8 @@ class PrRollControllerTest extends TestCase
         foreach($fixture as $record) {
             $this->assertDatabaseHas('pr_rolls', $record);
         }
+
+        $this->assertDatabaseMissing('pr_rolls', $rollForDeleting->only('vendor_code'));
     }
 
     public function provideFixtures()

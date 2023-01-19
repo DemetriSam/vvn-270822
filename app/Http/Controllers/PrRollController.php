@@ -11,9 +11,32 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PrRollsImport;
+use App\Services\Stockupdate\Slugger;
 
 class PrRollController extends Controller
 {
+
+    /**
+     * Handle the Excel file upload and create/update rolls.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function uploadExcelFile(string $supplier, Request $request, Slugger $slugger)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
+        ]);
+        $file = $request->file('excel_file');
+        $import = new PrRollsImport($supplier);
+        Excel::import($import, $file);
+        
+        $sluged = $slugger->setUniqueSlugs($import->get(), 'vendor_code', 'slug');
+        dump($sluged->pluck('slug'));
+        return redirect()->route('pr_cvets.index')
+            ->with('success', 'Excel file uploaded successfully');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -83,19 +106,5 @@ class PrRollController extends Controller
     {
     }
 
-    /**
-     * Handle the Excel file upload and create/update rolls.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function uploadExcelFile(string $supplier, Request $request)
-    {
-        $request->validate([
-            'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
-        ]);
-        $file = $request->file('excel_file');
-        Excel::import(new PrRollsImport($supplier), $file);
-        return redirect()->route('pr_cvets.index')->with('success', 'Excel file uploaded successfully');
-    }
+
 }

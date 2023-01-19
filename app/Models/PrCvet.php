@@ -43,6 +43,7 @@ class PrCvet extends Model implements HasMedia
         if ($property === 'quantity') {
             return $this->rolls()->pluck('quantity_m2')->sum();
         }
+        return parent::__get($property);
     }
 
     /**
