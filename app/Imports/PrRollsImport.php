@@ -17,14 +17,12 @@ class PrRollsImport implements ToCollection, WithCalculatedFormulas
     private $supplier;
     private $rules;
     private $import;
-    private $save;
 
-    public function __construct(string $supplier, $save = false)
+    public function __construct(string $supplier)
     {
         $this->supplier = $supplier;
         $factory = new RulesFactory();
         $this->rules = $factory->getRules($supplier);
-        $this->save = $save;
     }
 
     public function get()
@@ -34,7 +32,10 @@ class PrRollsImport implements ToCollection, WithCalculatedFormulas
 
     public function collection(Collection $rows)
     {
-        $rows->shift();
+        for ($i = 0; $i < $this->rules->delTopLines; $i++) {
+            $rows->shift();
+        }
+
         $map = $this->rules->getMap();
         $supplier = $this->supplier;
 
@@ -45,38 +46,5 @@ class PrRollsImport implements ToCollection, WithCalculatedFormulas
         });
 
         $this->import = $import;
-
-        if ($this->save) {
-            $this->createStructureOfProducts($import);
-        }
-    }
-
-    private function createStructureOfProducts($import)
-    {
-        $supplier = Supplier::firstOrCreate(['name' => $this->supplier]);
-
-        $import->each(function ($i) use ($supplier) {
-            $roll = PrRoll::firstOrNew([
-                'vendor_code' => $i['vendor_code'],
-                'quantity_m2' => isset($i['quantity_m2']) ? $i['quantity_m2'] : 0,
-                'supplier_id' => $supplier->id,
-            ]);
-            $cvet = PrCvet::firstOrNew([
-                'name_in_folder' => 'placeholder',
-                'title' => 'placeholder',
-                'current_price' => 0,
-            ]);
-
-            $collection = PrCollection::firstOrNew([
-                'name' => 'placeholder',
-                'default_price' => 0,
-            ]);
-
-            $category = Category::firstOrcreate(['name' => 'placeholder']);
-
-            $category->prCollections()->save($collection);
-            $collection->prCvets()->save($cvet);
-            $cvet->prRolls()->save($roll);
-        });
     }
 }

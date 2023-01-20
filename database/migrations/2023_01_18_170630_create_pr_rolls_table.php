@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('vendor_code')->nullable();
             $table->string('slug')->nullable();
             $table->float('quantity_m2');
-            $table->foreignId('pr_cvet_id')->constrained();
+            $table->foreignId('pr_cvet_id')->nullable();
             $table->foreignId('supplier_id')->constrained();
             $table->timestamps();
         });

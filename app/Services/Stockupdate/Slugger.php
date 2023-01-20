@@ -9,20 +9,23 @@ class Slugger
 {
     public function setUniqueSlugs(Collection $collection, $baseField, $slugField)
     {
+        $result = collect();
 
-        return $collection->map(function ($row) use ($collection, $baseField, $slugField) {
+        $collection->sortBy('vendor_code')->each(function ($row) use ($result, $baseField, $slugField) {
             if (!isset($row[$baseField])) {
-                return $row;
+                return false;
             }
 
             $slug = Str::slug($row[$baseField]);
             $i = 1;
-            while ($collection->pluck($slugField)->contains($slug)) {
+            while ($result->pluck($slugField)->contains($slug)) {
                 $slug = implode('-', [$slug, $i]);
                 $i++;
             }
             $row[$slugField] = $slug;
-            return $row;
+            $result->push($row);
         });
+
+        return $result;
     }
 }

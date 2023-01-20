@@ -4,6 +4,7 @@ namespace App\Services\Stockupdate;
 
 class TestRules
 {
+    public $delTopLines = 0;
     public function getMap()
     {
         return [

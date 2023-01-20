@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Exports\TestExport;
 use App\Imports\PrRollsImport;
 use Illuminate\Http\File;
+use App\Services\Stockupdate\Slugger;
 
 class PrRollControllerTest extends TestCase
 {
@@ -57,12 +58,36 @@ class PrRollControllerTest extends TestCase
      */
     public function testUploadExcelFile($supplier, $fixture = null)
     {
-        $rollForDeleting = PrRoll::factory()->for(Supplier::firstOrCreate(['name' => $supplier]))->create();
-        $this->assertDatabaseHas('pr_rolls', $rollForDeleting->only('vendor_code'));
+        $slugger = new Slugger;
+        //create test data in db
+        PrRoll::factory()
+            ->for(Supplier::firstOrCreate(['name' => $supplier]))
+            ->count(3)
+            ->create(['vendor_code' => 'old']);
+
+        PrRoll::factory()
+            ->for(Supplier::firstOrCreate(['name' => $supplier]))
+            ->count(2)
+            ->create(['vendor_code' => 'changed']);
+
+        PrRoll::factory()
+            ->for(Supplier::firstOrCreate(['name' => $supplier]))
+            ->count(1)
+            ->create(['vendor_code' => 'same', 'quantity_m2' => 23.22]);
+
+        $current = PrRoll::where(
+            'supplier_id',
+            Supplier::where('name', $supplier)->first()->id,
+        )->get();
+
+        $slugger
+            ->setUniqueSlugs($current, 'vendor_code', 'slug')
+            ->each(fn ($row) => $row->save());
 
         $fileName = implode([$supplier, '.xlsx']);
         if (is_array($fixture)) {
             $fixture = collect($fixture);
+            $fixture = $slugger->setUniqueSlugs($fixture, 'vendor_code', 'slug');
             Excel::store(new TestExport($fixture), $fileName);
         } else {
             $file = new File(__DIR__ . '/Fixtures/' . $fileName);
@@ -80,47 +105,46 @@ class PrRollControllerTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 
-        $fixture->shift();
+        // $fixture->shift();
         foreach ($fixture as $record) {
             $this->assertDatabaseHas('pr_rolls', $record);
         }
 
-        $this->assertDatabaseMissing('pr_rolls', $rollForDeleting->only('vendor_code'));
+        $this->assertDataBaseMissing('pr_rolls', ['vendor_code' => 'old']);
     }
 
     public function provideFixtures()
     {
         return [
-            ['test', [
+            [
+                'test',
                 [
-                    'vendor_code' => 'Vendor',
-                    'quantity_m2' => 'Quantity',
+                    [
+                        'vendor_code' => 'new',
+                        'quantity_m2' => 100,
+                    ],
+                    [
+                        'vendor_code' => 'new',
+                        'quantity_m2' => 200,
+                    ],
+                    [
+                        'vendor_code' => 'new',
+                        'quantity_m2' => 300,
+                    ],
+                    [
+                        'vendor_code' => 'same',
+                        'quantity_m2' => 23.22,
+                    ],
+                    [
+                        'vendor_code' => 'changed',
+                        'quantity_m2' => 200,
+                    ],
+                    [
+                        'vendor_code' => 'changed',
+                        'quantity_m2' => 200,
+                    ],
                 ],
-                [
-                    'vendor_code' => 'new',
-                    'quantity_m2' => 100,
-                ],
-                [
-                    'vendor_code' => 'new',
-                    'quantity_m2' => 200,
-                ],
-                [
-                    'vendor_code' => 'new',
-                    'quantity_m2' => 300,
-                ],
-                [
-                    'vendor_code' => 'same',
-                    'quantity_m2' => 200,
-                ],
-                [
-                    'vendor_code' => 'same',
-                    'quantity_m2' => 200,
-                ],
-                [
-                    'vendor_code' => 'same',
-                    'quantity_m2' => 200,
-                ],
-            ]],
+            ],
             // ['dizanarium'],
         ];
     }

@@ -18,12 +18,15 @@ class InnerRepresentation
     {
         $f = $first->pluck('slug');
         $s = $second->pluck('slug');
-        $slugs = $f->merge($s);
-        dump($slugs);
+
+        $slugs = $f->merge($s)->unique();
 
         $this->innrep = $slugs->map(function ($slug) use ($first, $second) {
             $value1 = $first->firstWhere('slug', $slug);
             $value2 = $second->firstWhere('slug', $slug);
+
+            $q1 = $value1 ? $value1->quantity_m2 : null;
+            $q2 = $value2 ? $value2->quantity_m2 : null;
 
             if (!$first->pluck('slug')->contains($slug)) {
                 return [
@@ -41,7 +44,10 @@ class InnerRepresentation
                 ];
             }
 
-            if ($value1 === $value2) {
+            if ($q1 == $q2) {
+                if ($q2 === null) {
+                    return [];
+                }
                 return [
                     'slug' => $slug,
                     'type' => 'unchanged',
@@ -52,8 +58,8 @@ class InnerRepresentation
             return [
                 'slug' => $slug,
                 'type' => 'changed',
-                'value1' => $value1,
-                'value2' => $value2,
+                'value_old' => $value1,
+                'value' => $value2,
             ];
         });
     }

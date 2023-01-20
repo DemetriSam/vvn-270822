@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePrRollRequest;
 use App\Http\Requests\UpdatePrRollRequest;
 use App\Models\PrRoll;
-use App\Models\PrCvet;
-use App\Models\PrCollection;
-use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -33,50 +30,50 @@ class PrRollController extends Controller
 
         $import = new PrRollsImport($supplier);
         Excel::import($import, $file);
-
         $update = $slugger
             ->setUniqueSlugs($import->get(), 'vendor_code', 'slug')
             ->map(fn ($row) => PrRoll::make($row));
 
-        //create test data in db
-        PrRoll::factory()
-            ->for(Supplier::firstOrCreate(['name' => $supplier]))
-            ->count(3)
-            ->create(['vendor_code' => 'old']);
-
-        PrRoll::factory()
-            ->for(Supplier::firstOrCreate(['name' => $supplier]))
-            ->count(3)
-            ->create(['vendor_code' => 'same']);
-
-        $current = PrRoll::where(
-            'supplier_id',
-            Supplier::where('name', $supplier)->first()->id,
-        )->get();
-
-        $current = $slugger
-            ->setUniqueSlugs($current, 'vendor_code', 'slug')
-            ->each(fn ($row) => $row->save());
+        $supplier_id = Supplier::firstOrCreate(['name' => $supplier])->id;
+        $current = PrRoll::where('supplier_id', $supplier_id)->get();
 
         $innrep->createInnerRepresentation($current, $update);
-        dump(
-            $innrep
-                ->getDiff()
-                ->map(
-                    fn ($row) => [
-                        $row['type'],
-                        'slug' => isset($row['value']) ? $row['value']->slug : $row['value1']->slug
-                    ]
-                )
-                ->toArray()
-        );
-        $innrep->getDiff()->each(function ($node) {
-            $type = $node['type'];
+        // dump(
+        //     $innrep
+        //         ->getDiff()
+        //         ->map(
+        //             fn ($row) => [
+        //                 $row['type'],
+        //                 'slug' => isset($row['value']) ? $row['value']->slug : $row['value1']->slug,
+        //                 'value1' => isset($row['value1']) ? $row['value1']->quantity_m2 : $row['value']->quantity_m2,
+        //                 'value2' => isset($row['value2']) ? $row['value2']->quantity_m2 : $row['value']->quantity_m2,
+        //             ]
+        //         )
+        //         ->toArray()
+        // );
 
-            switch ($type) {
-                case 'added':
-            }
-        });
+        $innrep
+            ->getDiff()
+            ->reject(fn ($node) => empty($node))
+            ->each(function ($node) use ($supplier_id) {
+                $type = $node['type'];
+                $value = $node['value'];
+
+                switch ($type) {
+                    case 'added':
+                        $value->supplier_id = $supplier_id;
+                        PrRoll::create($node['value']->toArray());
+                        break;
+                    case 'changed':
+                        $updated = PrRoll::where('slug', $value['slug'])->first();
+                        $updated->quantity_m2 = $value->quantity_m2;
+                        $updated->save();
+                        break;
+                    case 'deleted':
+                        $deleted = PrRoll::where('slug', $value['slug'])->first();
+                        $deleted->delete();
+                }
+            });
 
 
         return redirect()->route('pr_cvets.index')
