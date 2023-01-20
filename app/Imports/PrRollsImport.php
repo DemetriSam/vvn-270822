@@ -16,6 +16,8 @@ class PrRollsImport implements ToCollection, WithCalculatedFormulas
 {
     private $supplier;
     private $rules;
+    private $import;
+    private $save;
 
     public function __construct(string $supplier, $save = false)
     {
@@ -32,19 +34,21 @@ class PrRollsImport implements ToCollection, WithCalculatedFormulas
 
     public function collection(Collection $rows)
     {
-        $rows->shift();        
+        $rows->shift();
         $map = $this->rules->getMap();
         $supplier = $this->supplier;
 
-        $import = $rows->map(function($row) use ($map, $supplier) {
+        $import = $rows->map(function ($row) use ($map, $supplier) {
             $vendor_code = $row[$map['vendor_code']];
             $quantity_m2 = $row[$map['quantity_m2']];
             return compact('vendor_code', 'quantity_m2', 'supplier');
         });
 
         $this->import = $import;
-        
-        if($this->save) {$this->createStructureOfProducts($import);}
+
+        if ($this->save) {
+            $this->createStructureOfProducts($import);
+        }
     }
 
     private function createStructureOfProducts($import)
@@ -62,14 +66,14 @@ class PrRollsImport implements ToCollection, WithCalculatedFormulas
                 'title' => 'placeholder',
                 'current_price' => 0,
             ]);
-    
+
             $collection = PrCollection::firstOrNew([
                 'name' => 'placeholder',
                 'default_price' => 0,
             ]);
-    
+
             $category = Category::firstOrcreate(['name' => 'placeholder']);
-    
+
             $category->prCollections()->save($collection);
             $collection->prCvets()->save($cvet);
             $cvet->prRolls()->save($roll);

@@ -61,7 +61,7 @@ class PrRollControllerTest extends TestCase
         $this->assertDatabaseHas('pr_rolls', $rollForDeleting->only('vendor_code'));
 
         $fileName = implode([$supplier, '.xlsx']);
-        if(is_array($fixture)) {
+        if (is_array($fixture)) {
             $fixture = collect($fixture);
             Excel::store(new TestExport($fixture), $fileName);
         } else {
@@ -77,11 +77,11 @@ class PrRollControllerTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->call('POST', route('upload.excel', compact('supplier')), [], [], ['excel_file' => $file], [])
-            ->assertSessionHasNoErrors() 
+            ->assertSessionHasNoErrors()
             ->assertRedirect();
-    
+
         $fixture->shift();
-        foreach($fixture as $record) {
+        foreach ($fixture as $record) {
             $this->assertDatabaseHas('pr_rolls', $record);
         }
 
@@ -97,15 +97,31 @@ class PrRollControllerTest extends TestCase
                     'quantity_m2' => 'Quantity',
                 ],
                 [
-                    'vendor_code' => 'Vendor1',
+                    'vendor_code' => 'new',
                     'quantity_m2' => 100,
                 ],
                 [
-                    'vendor_code' => 'Vendor2',
+                    'vendor_code' => 'new',
+                    'quantity_m2' => 200,
+                ],
+                [
+                    'vendor_code' => 'new',
+                    'quantity_m2' => 300,
+                ],
+                [
+                    'vendor_code' => 'same',
+                    'quantity_m2' => 200,
+                ],
+                [
+                    'vendor_code' => 'same',
+                    'quantity_m2' => 200,
+                ],
+                [
+                    'vendor_code' => 'same',
                     'quantity_m2' => 200,
                 ],
             ]],
-            ['dizanarium'],
+            // ['dizanarium'],
         ];
     }
 }

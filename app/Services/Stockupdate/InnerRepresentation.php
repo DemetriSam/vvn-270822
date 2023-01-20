@@ -3,23 +3,29 @@
 namespace App\Services\Stockupdate;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class InnerRepresentation
 {
+    private $innrep;
+
     public function getDiff()
     {
-
+        return $this->innrep;
     }
 
-    public function createInnerRepresentaion(Collection $first, Collection $second)
+    public function createInnerRepresentation(Collection $first, Collection $second)
     {
-        $slugs = $first->merge($second)->pluck('slug')->unique()->values()->sort();
+        $f = $first->pluck('slug');
+        $s = $second->pluck('slug');
+        $slugs = $f->merge($s);
+        dump($slugs);
 
-        return $slugs->map(function($slug) use ($first, $second) {
+        $this->innrep = $slugs->map(function ($slug) use ($first, $second) {
             $value1 = $first->firstWhere('slug', $slug);
             $value2 = $second->firstWhere('slug', $slug);
 
-            if(!$first->pluck('slug')->contains($slug)) {
+            if (!$first->pluck('slug')->contains($slug)) {
                 return [
                     'slug' => $slug,
                     'type' => 'added',
@@ -27,7 +33,7 @@ class InnerRepresentation
                 ];
             }
 
-            if(!$second->pluck('slug')->contains($slug)) {
+            if (!$second->pluck('slug')->contains($slug)) {
                 return [
                     'slug' => $slug,
                     'type' => 'deleted',
@@ -35,7 +41,7 @@ class InnerRepresentation
                 ];
             }
 
-            if($value1 === $value2) {
+            if ($value1 === $value2) {
                 return [
                     'slug' => $slug,
                     'type' => 'unchanged',
@@ -49,7 +55,6 @@ class InnerRepresentation
                 'value1' => $value1,
                 'value2' => $value2,
             ];
-
         });
     }
 }

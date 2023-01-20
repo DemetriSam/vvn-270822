@@ -7,20 +7,21 @@ use Illuminate\Support\Str;
 
 class Slugger
 {
-    public function setUniqueSlugs(Collection $collection, $baseField, $slugField) {
+    public function setUniqueSlugs(Collection $collection, $baseField, $slugField)
+    {
 
-        return $collection->map(function($row) use($collection, $baseField, $slugField) {
-            if(!isset($row[$baseField])) {
+        return $collection->map(function ($row) use ($collection, $baseField, $slugField) {
+            if (!isset($row[$baseField])) {
                 return $row;
             }
 
             $slug = Str::slug($row[$baseField]);
             $i = 1;
-            while ($collection->pluck('slug')->contains($slug)) {
+            while ($collection->pluck($slugField)->contains($slug)) {
                 $slug = implode('-', [$slug, $i]);
                 $i++;
             }
-            $row['slug'] = $slug;
+            $row[$slugField] = $slug;
             return $row;
         });
     }

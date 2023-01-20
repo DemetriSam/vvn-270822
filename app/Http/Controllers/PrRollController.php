@@ -8,10 +8,12 @@ use App\Models\PrRoll;
 use App\Models\PrCvet;
 use App\Models\PrCollection;
 use App\Models\Category;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PrRollsImport;
 use App\Services\Stockupdate\Slugger;
+use App\Services\Stockupdate\InnerRepresentation;
 
 class PrRollController extends Controller
 {
@@ -22,17 +24,61 @@ class PrRollController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function uploadExcelFile(string $supplier, Request $request, Slugger $slugger)
+    public function uploadExcelFile(string $supplier, Request $request, Slugger $slugger, InnerRepresentation $innrep)
     {
         $request->validate([
             'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
         ]);
         $file = $request->file('excel_file');
+
         $import = new PrRollsImport($supplier);
         Excel::import($import, $file);
-        
-        $sluged = $slugger->setUniqueSlugs($import->get(), 'vendor_code', 'slug');
-        dump($sluged->pluck('slug'));
+
+        $update = $slugger
+            ->setUniqueSlugs($import->get(), 'vendor_code', 'slug')
+            ->map(fn ($row) => PrRoll::make($row));
+
+        //create test data in db
+        PrRoll::factory()
+            ->for(Supplier::firstOrCreate(['name' => $supplier]))
+            ->count(3)
+            ->create(['vendor_code' => 'old']);
+
+        PrRoll::factory()
+            ->for(Supplier::firstOrCreate(['name' => $supplier]))
+            ->count(3)
+            ->create(['vendor_code' => 'same']);
+
+        $current = PrRoll::where(
+            'supplier_id',
+            Supplier::where('name', $supplier)->first()->id,
+        )->get();
+
+        $current = $slugger
+            ->setUniqueSlugs($current, 'vendor_code', 'slug')
+            ->each(fn ($row) => $row->save());
+
+        $innrep->createInnerRepresentation($current, $update);
+        dump(
+            $innrep
+                ->getDiff()
+                ->map(
+                    fn ($row) => [
+                        $row['type'],
+                        'slug' => isset($row['value']) ? $row['value']->slug : $row['value1']->slug
+                    ]
+                )
+                ->toArray()
+        );
+        $innrep->getDiff()->each(function ($node) {
+            $type = $node['type'];
+
+            switch ($type) {
+                case 'added':
+            }
+        });
+
+
         return redirect()->route('pr_cvets.index')
             ->with('success', 'Excel file uploaded successfully');
     }
@@ -105,6 +151,4 @@ class PrRollController extends Controller
     public function destroy(PrRoll $prRoll)
     {
     }
-
-
 }

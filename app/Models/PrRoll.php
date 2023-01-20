@@ -15,6 +15,7 @@ class PrRoll extends Model
         'quantity_m2',
         'pr_cvet_id',
         'supplier_id',
+        'slug',
     ];
 
     public function supplier()
