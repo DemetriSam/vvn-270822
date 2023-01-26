@@ -15,46 +15,33 @@ use App\Services\Stockupdate\InnerRepresentation;
 class PrRollController extends Controller
 {
 
-    /**
-     * Handle the Excel file upload and create/update rolls.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function uploadExcelFile(string $supplier, Request $request, Slugger $slugger, InnerRepresentation $innrep)
+    public function renderUploadForm()
+    {
+        $suppliers = Supplier::all();
+        return view('pr_roll.upload_form', compact('suppliers'));
+    }
+
+    public function renderCheckPage(InnerRepresentation $innrep)
+    {
+        $diff = $innrep->getDiff();
+        return view('pr_rolls.check_diff', compact('diff'));
+    }
+
+    public function renderEditForm(InnerRepresentation $innrep)
+    {
+        $diff = $innrep->getDiff();
+        return view('pr_rolls.edit_diff', compact('diff'));
+    }
+
+    public function updateDatabase(Request $request, InnerRepresentation $innrep)
     {
         $request->validate([
-            'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
+            'supplier_id' => 'required',
         ]);
-        $file = $request->file('excel_file');
-
-        $import = new PrRollsImport($supplier);
-        Excel::import($import, $file);
-        $update = $slugger
-            ->setUniqueSlugs($import->get(), 'vendor_code', 'slug')
-            ->map(fn ($row) => PrRoll::make($row));
-
-        $supplier_id = Supplier::firstOrCreate(['name' => $supplier])->id;
-        $current = PrRoll::where('supplier_id', $supplier_id)->get();
-
-        $innrep->createInnerRepresentation($current, $update);
-        // dump(
-        //     $innrep
-        //         ->getDiff()
-        //         ->map(
-        //             fn ($row) => [
-        //                 $row['type'],
-        //                 'slug' => isset($row['value']) ? $row['value']->slug : $row['value1']->slug,
-        //                 'value1' => isset($row['value1']) ? $row['value1']->quantity_m2 : $row['value']->quantity_m2,
-        //                 'value2' => isset($row['value2']) ? $row['value2']->quantity_m2 : $row['value']->quantity_m2,
-        //             ]
-        //         )
-        //         ->toArray()
-        // );
+        $supplier_id = $request->supplier_id;
 
         $innrep
             ->getDiff()
-            ->reject(fn ($node) => empty($node))
             ->each(function ($node) use ($supplier_id) {
                 $type = $node['type'];
                 $value = $node['value'];
@@ -75,6 +62,48 @@ class PrRollController extends Controller
                 }
             });
 
+        return redirect()->route('pr_cvets.index')
+            ->with('success', 'Excel file uploaded successfully');
+    }
+
+    /**
+     * Handle the Excel file upload and create/update rolls.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function uploadExcelFile(Request $request, Slugger $slugger, InnerRepresentation $innrep)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
+            'supplier_id' => 'required',
+        ]);
+        $file = $request->file('excel_file');
+        $supplier_id = $request->supplier_id;
+        $supplier = Supplier::find($supplier_id)->name;
+
+        $import = new PrRollsImport($supplier);
+        Excel::import($import, $file);
+        $update = $slugger
+            ->setUniqueSlugs($import->get(), 'vendor_code', 'slug')
+            ->map(fn ($row) => PrRoll::make($row));
+
+        $current = PrRoll::where('supplier_id', $supplier_id)->get();
+
+        $innrep->createInnerRepresentation($current, $update);
+        // dump(
+        //     $innrep
+        //         ->getDiff()
+        //         ->map(
+        //             fn ($row) => [
+        //                 $row['type'],
+        //                 'slug' => isset($row['value']) ? $row['value']->slug : $row['value1']->slug,
+        //                 'value1' => isset($row['value1']) ? $row['value1']->quantity_m2 : $row['value']->quantity_m2,
+        //                 'value2' => isset($row['value2']) ? $row['value2']->quantity_m2 : $row['value']->quantity_m2,
+        //             ]
+        //         )
+        //         ->toArray()
+        // );
 
         return redirect()->route('pr_cvets.index')
             ->with('success', 'Excel file uploaded successfully');

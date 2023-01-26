@@ -26,35 +26,46 @@ Route::get('/dashboard', function () {
 
 Route::group([
     'prefix' => 'admin',
-    'middleware' => ['auth','role:admin'],
-    ], function ($router) {
-        Route::resource('users', Controllers\UsersController::class);
+    'middleware' => ['auth', 'role:admin'],
+], function ($router) {
+    Route::resource('users', Controllers\UsersController::class);
 
-        //Категории
-        Route::resource('categories', Controllers\CategoryController::class);
-        Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])->name('categories.delete');
+    //Категории
+    Route::resource('categories', Controllers\CategoryController::class);
+    Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])
+        ->name('categories.delete');
 
-        //Характеристики
-        Route::resource('properties', Controllers\PropertyController::class);
-        Route::get('/properties/{id}/delete', [Controllers\PropertyController::class, 'delete'])->name('properties.delete');
+    //Характеристики
+    Route::resource('properties', Controllers\PropertyController::class);
+    Route::get('/properties/{id}/delete', [Controllers\PropertyController::class, 'delete'])
+        ->name('properties.delete');
 
-        //Коллекции
-        Route::resource('pr_collections', Controllers\PrCollectionController::class);
-        Route::get('/properties/{id}/delete', [Controllers\PrCollectionController::class, 'delete'])->name('pr_collections.delete');
-        
-        //Цвета
-        Route::resource('pr_cvets', Controllers\PrCvetController::class);
-        Route::get('/properties/{id}/delete', [Controllers\PrCvetController::class, 'delete'])->name('pr_cvets.delete');
+    //Коллекции
+    Route::resource('pr_collections', Controllers\PrCollectionController::class);
+    Route::get('/properties/{id}/delete', [Controllers\PrCollectionController::class, 'delete'])
+        ->name('pr_collections.delete');
 
-        //Загрузка файлов для обновления остатков
-        Route::post('/upload', [Controllers\PrRollController::class, 'uploadCsvFile'])->name('upload.csv');
-        Route::post('/upload/excel/{supplier}', [Controllers\PrRollController::class, 'uploadExcelFile'])->name('upload.excel');
+    //Цвета
+    Route::resource('pr_cvets', Controllers\PrCvetController::class);
+    Route::get('/properties/{id}/delete', [Controllers\PrCvetController::class, 'delete'])
+        ->name('pr_cvets.delete');
 
+    //Загрузка файлов для обновления остатков
+    Route::post('/upload/excel/', [Controllers\PrRollController::class, 'uploadExcelFile'])
+        ->name('upload.excel');
+    Route::get('/upload/excel/', [Controllers\PrRollController::class, 'renderUploadForm'])
+        ->name('upload.form');
+    Route::get('/upload/excel/check', [Controllers\PrRollController::class, 'renderCheckPage'])
+        ->name('upload.check');
+    Route::get('/upload/excel/edit', [Controllers\PrRollController::class, 'renderEditForm'])
+        ->name('upload.edit');
+    Route::post('/upload/update-db', [Controllers\PrRollController::class, 'updateDatabase'])
+        ->name('upload.update.db');
 });
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 //Страницы каталога
@@ -67,4 +78,4 @@ Route::get('/', [Controllers\Controller::class, 'index'])->name('index');
 //Избранное
 Route::get('/favorites', [Controllers\Controller::class, 'favorites'])->name('favorites');
 
-Route::get('/test', fn() => 'test');
+Route::get('/test', fn () => 'test');

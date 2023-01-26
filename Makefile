@@ -101,3 +101,11 @@ heroku-build:
 
 db-import-from-backup:
 	docker compose exec -T database psql -d tapigo-database -U postgres  < data
+
+db-start:
+	sudo service postgresql start
+
+ls-start:
+	php artisan serve
+
+start: db-start ls-start

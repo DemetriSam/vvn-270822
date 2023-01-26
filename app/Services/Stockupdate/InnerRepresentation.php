@@ -7,21 +7,25 @@ use Illuminate\Support\Collection;
 
 class InnerRepresentation
 {
-    private $innrep;
-
     public function getDiff()
     {
-        return $this->innrep;
+        return session('diff')->reject(fn ($node) => empty($node));
     }
 
-    public function createInnerRepresentation(Collection $first, Collection $second)
+    function createInnerRepresentation(Collection $first, Collection $second)
+    {
+        $diff = $this->diff($first, $second);
+        session(compact('diff'));
+    }
+
+    public function diff(Collection $first, Collection $second)
     {
         $f = $first->pluck('slug');
         $s = $second->pluck('slug');
 
         $slugs = $f->merge($s)->unique();
 
-        $this->innrep = $slugs->map(function ($slug) use ($first, $second) {
+        return $slugs->map(function ($slug) use ($first, $second) {
             $value1 = $first->firstWhere('slug', $slug);
             $value2 = $second->firstWhere('slug', $slug);
 

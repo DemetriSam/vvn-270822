@@ -32,8 +32,7 @@
                 </div>
                 <div class="design-form__agree">
 
-                    <p><input type="checkbox"></input> Даю свое согласие на обработку <a
-                            src="#">персональных
+                    <p><input type="checkbox"></input> Даю свое согласие на обработку <a src="#">персональных
                             данных</a></p>
                 </div>
                 <div class="design-form__button button">Отправить форму</div>
