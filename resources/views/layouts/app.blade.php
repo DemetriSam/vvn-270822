@@ -23,10 +23,14 @@
                     {{ $header }}
                 </div>
             </header>
-
+            @if(session()->has('errors') and app()->environment() === 'development')
+                {{ session()->get('errors') }}
+            @endif
             <!-- Page Content -->
             <main>
+                <x-container>
                 {{ $slot }}
+                </x-container>
             </main>
         </div>
     </body>

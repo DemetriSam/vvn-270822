@@ -14,7 +14,6 @@ use App\Services\Stockupdate\InnerRepresentation;
 
 class PrRollController extends Controller
 {
-
     public function renderUploadForm()
     {
         $suppliers = Supplier::all();
@@ -23,14 +22,40 @@ class PrRollController extends Controller
 
     public function renderCheckPage(InnerRepresentation $innrep)
     {
-        $diff = $innrep->getDiff();
-        return view('pr_rolls.check_diff', compact('diff'));
+        return view('pr_roll.check_diff', ['diff' => $innrep->getDiff()]);
+    }
+    public function checkAgain(Request $request, Slugger $slugger, InnerRepresentation $innrep)
+    {
+        $request->validate([
+            'vendor_code.*' => 'required',
+            'quantity_m2.*' => 'required',
+            'supplier_id' => 'required',
+        ]);
+        $vendor_codes = $request->input('vendor_code');
+        $quantities_m2 = $request->input('quantity_m2');
+        $supplier_id = $request->input('supplier_id');
+
+        $update = [];
+        for ($i = 0; $i < count($vendor_codes); $i++) {
+            $vendor_code = $vendor_codes[$i];
+            $quantity_m2 = $quantities_m2[$i];
+
+            $update[] = compact('vendor_code', 'quantity_m2');
+        }
+
+        $update = $slugger
+            ->setUniqueSlugs(collect($update), 'vendor_code', 'slug')
+            ->map(fn($row) => PrRoll::make($row));
+
+        $current = PrRoll::where('supplier_id', $supplier_id)->get();
+        $innrep->createInnerRepresentation($current, $update, $supplier_id);
+
+        return view('pr_roll.check_diff', ['diff' => $innrep->getDiff()]);
     }
 
     public function renderEditForm(InnerRepresentation $innrep)
     {
-        $diff = $innrep->getDiff();
-        return view('pr_rolls.edit_diff', compact('diff'));
+        return view('pr_roll.edit_diff', ['diff' => $innrep->getDiff()]);
     }
 
     public function updateDatabase(Request $request, InnerRepresentation $innrep)
@@ -41,7 +66,8 @@ class PrRollController extends Controller
         $supplier_id = $request->supplier_id;
 
         $innrep
-            ->getDiff()
+            //clean data from session avoiding repeated call to db with the same data
+            ->pullDiff()
             ->each(function ($node) use ($supplier_id) {
                 $type = $node['type'];
                 $value = $node['value'];
@@ -49,7 +75,7 @@ class PrRollController extends Controller
                 switch ($type) {
                     case 'added':
                         $value->supplier_id = $supplier_id;
-                        PrRoll::create($node['value']->toArray());
+                        PrRoll::create($value->toArray());
                         break;
                     case 'changed':
                         $updated = PrRoll::where('slug', $value['slug'])->first();
@@ -59,11 +85,12 @@ class PrRollController extends Controller
                     case 'deleted':
                         $deleted = PrRoll::where('slug', $value['slug'])->first();
                         $deleted->delete();
+                        break;
                 }
             });
 
-        return redirect()->route('pr_cvets.index')
-            ->with('success', 'Excel file uploaded successfully');
+        return redirect()->route('upload.check')
+            ->with('success', 'Database is updated successfully');
     }
 
     /**
@@ -86,26 +113,13 @@ class PrRollController extends Controller
         Excel::import($import, $file);
         $update = $slugger
             ->setUniqueSlugs($import->get(), 'vendor_code', 'slug')
-            ->map(fn ($row) => PrRoll::make($row));
+            ->map(fn($row) => PrRoll::make($row));
 
         $current = PrRoll::where('supplier_id', $supplier_id)->get();
 
-        $innrep->createInnerRepresentation($current, $update);
-        // dump(
-        //     $innrep
-        //         ->getDiff()
-        //         ->map(
-        //             fn ($row) => [
-        //                 $row['type'],
-        //                 'slug' => isset($row['value']) ? $row['value']->slug : $row['value1']->slug,
-        //                 'value1' => isset($row['value1']) ? $row['value1']->quantity_m2 : $row['value']->quantity_m2,
-        //                 'value2' => isset($row['value2']) ? $row['value2']->quantity_m2 : $row['value']->quantity_m2,
-        //             ]
-        //         )
-        //         ->toArray()
-        // );
+        $innrep->createInnerRepresentation($current, $update, $supplier_id);
 
-        return redirect()->route('pr_cvets.index')
+        return redirect()->route('upload.check')
             ->with('success', 'Excel file uploaded successfully');
     }
 

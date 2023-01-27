@@ -57,6 +57,8 @@ Route::group([
         ->name('upload.form');
     Route::get('/upload/excel/check', [Controllers\PrRollController::class, 'renderCheckPage'])
         ->name('upload.check');
+    Route::post('/upload/excel/check', [Controllers\PrRollController::class, 'checkAgain'])
+        ->name('upload.check');
     Route::get('/upload/excel/edit', [Controllers\PrRollController::class, 'renderEditForm'])
         ->name('upload.edit');
     Route::post('/upload/update-db', [Controllers\PrRollController::class, 'updateDatabase'])

@@ -9,13 +9,19 @@ class InnerRepresentation
 {
     public function getDiff()
     {
-        return session('diff')->reject(fn ($node) => empty($node));
+        return optional(session('diff'))->reject(fn ($node) => empty($node));
     }
 
-    function createInnerRepresentation(Collection $first, Collection $second)
+    public function pullDiff()
     {
-        $diff = $this->diff($first, $second);
-        session(compact('diff'));
+        return session()->pull('diff');
+    }
+
+    public function createInnerRepresentation(Collection $first, Collection $second, int $supplier_id)
+    {
+        session(['diff' => $this->diff($first, $second)]);
+        session(['update' => $second]);
+        session(['supplier_id' => $supplier_id]);
     }
 
     public function diff(Collection $first, Collection $second)
@@ -48,7 +54,7 @@ class InnerRepresentation
                 ];
             }
 
-            if ($q1 == $q2) {
+            if ($q1 === $q2) {
                 if ($q2 === null) {
                     return [];
                 }

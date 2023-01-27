@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('pr_rolls', function (Blueprint $table) {
             $table->id();
             $table->string('vendor_code')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('slug')->nullable()->unique();
             $table->float('quantity_m2');
             $table->foreignId('pr_cvet_id')->nullable();
             $table->foreignId('supplier_id')->constrained();

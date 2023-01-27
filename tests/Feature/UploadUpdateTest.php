@@ -70,8 +70,7 @@ class UploadUpdateTest extends TestCase
     {
         $fileName = implode([$this->supplier->name, '.xlsx']);
 
-        if (is_array($fixture)) {
-            $fixture = collect($fixture);
+        if ($fixture !== null) {
             $fixture = $this->slugger->setUniqueSlugs($fixture, 'vendor_code', 'slug');
             Excel::store(new TestExport($fixture), $fileName);
         } else {
@@ -113,7 +112,6 @@ class UploadUpdateTest extends TestCase
      */
     public function testDiffCanBeEdited($fixture)
     {
-        $fixture = collect($fixture);
         $fixture = $this->slugger->setUniqueSlugs($fixture, 'vendor_code', 'slug');
         $params = $fixture->toArray();
 
@@ -131,36 +129,34 @@ class UploadUpdateTest extends TestCase
 
     public function provideFixtures()
     {
-        return [
+        $fixture = [
             [
-                [
-                    [
-                        'vendor_code' => 'new',
-                        'quantity_m2' => 100,
-                    ],
-                    [
-                        'vendor_code' => 'new',
-                        'quantity_m2' => 200,
-                    ],
-                    [
-                        'vendor_code' => 'new',
-                        'quantity_m2' => 300,
-                    ],
-                    [
-                        'vendor_code' => 'same',
-                        'quantity_m2' => 23.22,
-                    ],
-                    [
-                        'vendor_code' => 'changed',
-                        'quantity_m2' => 200,
-                    ],
-                    [
-                        'vendor_code' => 'changed',
-                        'quantity_m2' => 200,
-                    ],
-                ],
+                'vendor_code' => 'new',
+                'quantity_m2' => 100,
             ],
-            // ['dizanarium'],
+            [
+                'vendor_code' => 'new',
+                'quantity_m2' => 200,
+            ],
+            [
+                'vendor_code' => 'new',
+                'quantity_m2' => 300,
+            ],
+            [
+                'vendor_code' => 'same',
+                'quantity_m2' => 23.22,
+            ],
+            [
+                'vendor_code' => 'changed',
+                'quantity_m2' => 200,
+            ],
+            [
+                'vendor_code' => 'changed',
+                'quantity_m2' => 200,
+            ],
+        ];
+        return [
+            [collect($fixture)],
         ];
     }
 }
