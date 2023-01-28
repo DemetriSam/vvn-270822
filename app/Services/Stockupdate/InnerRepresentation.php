@@ -4,12 +4,17 @@ namespace App\Services\Stockupdate;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use App\Models\PrRoll;
 
 class InnerRepresentation
 {
+    public function __construct(Slugger $slugger)
+    {
+        $this->slugger = $slugger;
+    }
     public function getDiff()
     {
-        return optional(session('diff'))->reject(fn ($node) => empty($node));
+        return optional(session('diff'))->reject(fn($node) => empty($node));
     }
 
     public function pullDiff()
@@ -17,8 +22,22 @@ class InnerRepresentation
         return session()->pull('diff');
     }
 
-    public function createInnerRepresentation(Collection $first, Collection $second, int $supplier_id)
+    public function setDataForUpdate($data, $supplier_id)
     {
+        $this->update = $this->slugger
+            ->setUniqueSlugs(collect($data), 'vendor_code', 'slug')
+            ->map(fn($row) => PrRoll::make($row));
+
+        $this->supplier_id = $supplier_id;
+        $this->current = PrRoll::where('supplier_id', $supplier_id)->get();
+    }
+
+    public function createInnerRepresentation()
+    {
+        $first = $this->current;
+        $second = $this->update;
+        $supplier_id = $this->supplier_id;
+
         session(['diff' => $this->diff($first, $second)]);
         session(['update' => $second]);
         session(['supplier_id' => $supplier_id]);
@@ -54,6 +73,7 @@ class InnerRepresentation
                 ];
             }
 
+            //unstrict comparsion for proper result for kind of 60 ? 60.00
             if ($q1 === $q2) {
                 if ($q2 === null) {
                     return [];

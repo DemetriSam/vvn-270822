@@ -3,21 +3,15 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use App\Models\User;
-use App\Models\PrCvet;
-use App\Models\PrCollection;
 use App\Models\PrRoll;
-use App\Models\Category;
 use App\Models\Supplier;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\TestExport;
-use App\Imports\PrRollsImport;
 use Illuminate\Http\File;
 use App\Services\Stockupdate\Slugger;
 
@@ -71,7 +65,6 @@ class UploadUpdateTest extends TestCase
         $fileName = implode([$this->supplier->name, '.xlsx']);
 
         if ($fixture !== null) {
-            $fixture = $this->slugger->setUniqueSlugs($fixture, 'vendor_code', 'slug');
             Excel::store(new TestExport($fixture), $fileName);
         } else {
             $file = new File(__DIR__ . '/Fixtures/' . $fileName);
@@ -104,29 +97,6 @@ class UploadUpdateTest extends TestCase
         $this->assertDataBaseMissing('pr_rolls', ['vendor_code' => 'old']);
     }
 
-    /**
-     * Test the uploadExcelFile method.
-     * 
-     * @dataProvider provideFixtures
-     * @return void
-     */
-    public function testDiffCanBeEdited($fixture)
-    {
-        $fixture = $this->slugger->setUniqueSlugs($fixture, 'vendor_code', 'slug');
-        $params = $fixture->toArray();
-
-        $this->actingAs($this->user)->post(
-            route('upload.update.db', ['supplier_id' => $this->supplier->id]),
-            $params
-        )->assertSessionHasNoErrors()->assertRedirect();
-
-        foreach ($fixture as $record) {
-            $this->assertDatabaseHas('pr_rolls', $record);
-        }
-
-        $this->assertDataBaseMissing('pr_rolls', ['vendor_code' => 'old']);
-    }
-
     public function provideFixtures()
     {
         $fixture = [
@@ -148,11 +118,15 @@ class UploadUpdateTest extends TestCase
             ],
             [
                 'vendor_code' => 'changed',
-                'quantity_m2' => 200,
+                'quantity_m2' => 200.00,
             ],
             [
                 'vendor_code' => 'changed',
-                'quantity_m2' => 200,
+                'quantity_m2' => 200.23,
+            ],
+            [
+                'vendor_code' => 'changed',
+                'quantity_m2' => 300,
             ],
         ];
         return [

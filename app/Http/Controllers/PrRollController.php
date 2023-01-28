@@ -9,7 +9,6 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PrRollsImport;
-use App\Services\Stockupdate\Slugger;
 use App\Services\Stockupdate\InnerRepresentation;
 
 class PrRollController extends Controller
@@ -24,31 +23,33 @@ class PrRollController extends Controller
     {
         return view('pr_roll.check_diff', ['diff' => $innrep->getDiff()]);
     }
-    public function checkAgain(Request $request, Slugger $slugger, InnerRepresentation $innrep)
+    public function checkAgain(Request $request, InnerRepresentation $innrep)
     {
         $request->validate([
             'vendor_code.*' => 'required',
             'quantity_m2.*' => 'required',
             'supplier_id' => 'required',
         ]);
+        $slugs = $request->input('slug');
         $vendor_codes = $request->input('vendor_code');
         $quantities_m2 = $request->input('quantity_m2');
         $supplier_id = $request->input('supplier_id');
+        $deletes = $request->input('delete');
 
         $update = [];
         for ($i = 0; $i < count($vendor_codes); $i++) {
+            $slug = $slugs[$i];
+            if (isset($deletes[$slug])) {
+                continue;
+            }
             $vendor_code = $vendor_codes[$i];
             $quantity_m2 = $quantities_m2[$i];
 
             $update[] = compact('vendor_code', 'quantity_m2');
         }
 
-        $update = $slugger
-            ->setUniqueSlugs(collect($update), 'vendor_code', 'slug')
-            ->map(fn($row) => PrRoll::make($row));
-
-        $current = PrRoll::where('supplier_id', $supplier_id)->get();
-        $innrep->createInnerRepresentation($current, $update, $supplier_id);
+        $innrep->setDataForUpdate($update, $supplier_id);
+        $innrep->createInnerRepresentation();
 
         return view('pr_roll.check_diff', ['diff' => $innrep->getDiff()]);
     }
@@ -66,7 +67,7 @@ class PrRollController extends Controller
         $supplier_id = $request->supplier_id;
 
         $innrep
-            //clean data from session avoiding repeated call to db with the same data
+            //pull to clean data from session avoiding repeated call to db with the same data
             ->pullDiff()
             ->each(function ($node) use ($supplier_id) {
                 $type = $node['type'];
@@ -99,7 +100,7 @@ class PrRollController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function uploadExcelFile(Request $request, Slugger $slugger, InnerRepresentation $innrep)
+    public function uploadExcelFile(Request $request, InnerRepresentation $innrep)
     {
         $request->validate([
             'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
@@ -111,13 +112,9 @@ class PrRollController extends Controller
 
         $import = new PrRollsImport($supplier);
         Excel::import($import, $file);
-        $update = $slugger
-            ->setUniqueSlugs($import->get(), 'vendor_code', 'slug')
-            ->map(fn($row) => PrRoll::make($row));
 
-        $current = PrRoll::where('supplier_id', $supplier_id)->get();
-
-        $innrep->createInnerRepresentation($current, $update, $supplier_id);
+        $innrep->setDataForUpdate($import->get(), $supplier_id);
+        $innrep->createInnerRepresentation();
 
         return redirect()->route('upload.check')
             ->with('success', 'Excel file uploaded successfully');
