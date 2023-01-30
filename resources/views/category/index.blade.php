@@ -1,4 +1,7 @@
-<x-guest-layout>
+<x-app-layout>
+    <x-slot name="header">
+        Категории
+    </x-slot>
     <div class="px-96">
         <form method="POST" action="{{ route('categories.store') }} " enctype="multipart/form-data">
             @csrf
@@ -43,4 +46,4 @@
             @endforeach
         </ul>
     </div>
-</x-guest-layout>
+</x-app-layout>

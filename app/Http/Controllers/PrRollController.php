@@ -127,6 +127,8 @@ class PrRollController extends Controller
      */
     public function index()
     {
+        $prRolls = PrRoll::all();
+        return view('pr_roll.index', ['prRolls' => $prRolls]);
     }
 
     /**

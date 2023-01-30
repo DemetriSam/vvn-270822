@@ -20,7 +20,7 @@ Route::get('/welcome', function () {
 });
 
 
-Route::get('/dashboard', function () {
+Route::get('/admin', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
@@ -42,13 +42,17 @@ Route::group([
 
     //Коллекции
     Route::resource('pr_collections', Controllers\PrCollectionController::class);
-    Route::get('/properties/{id}/delete', [Controllers\PrCollectionController::class, 'delete'])
+    Route::get('/pr_collections/{id}/delete', [Controllers\PrCollectionController::class, 'delete'])
         ->name('pr_collections.delete');
 
     //Цвета
     Route::resource('pr_cvets', Controllers\PrCvetController::class);
-    Route::get('/properties/{id}/delete', [Controllers\PrCvetController::class, 'delete'])
+    Route::get('/pr_cvets/{id}/delete', [Controllers\PrCvetController::class, 'delete'])
         ->name('pr_cvets.delete');
+    //Рулоны
+    Route::resource('pr_rolls', Controllers\PrRollController::class);
+    Route::get('/pr_rolls/{id}/delete', [Controllers\PrRollController::class, 'delete'])
+        ->name('pr_rolls.delete');
 
     //Загрузка файлов для обновления остатков
     Route::post('/upload/excel/', [Controllers\PrRollController::class, 'uploadExcelFile'])

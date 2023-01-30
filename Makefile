@@ -26,10 +26,10 @@ database-prepare-ci:
 	php artisan migrate:fresh --seed
 
 lint-ci:
-	composer exec phpcs -v
+	composer exec --verbose phpcs -- --standard=PSR12
 
 lint-fix-ci:
-	composer exec phpcbf -v
+	composer exec --verbose phpcbf -- --standard=PSR12
 
 phpstan-ci:
 	composer exec phpstan analyse
@@ -44,10 +44,10 @@ test-coverage:
 	docker compose exec php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
 
 lint:
-	docker compose exec php composer exec phpcs -v
+	docker compose exec php composer exec --verbose phpcs -- --standard=PSR12
 
 lint-fix:
-	docker compose exec php composer exec phpcbf -v
+	docker compose exec php composer exec --verbose phpcbf -- --standard=PSR12
 
 phpstan:
 	docker compose exec php composer exec phpstan analyse

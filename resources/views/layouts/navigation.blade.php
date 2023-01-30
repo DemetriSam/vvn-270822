@@ -17,6 +17,31 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        Категории
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('pr_collections.index')" :active="request()->routeIs('pr_collections.index')">
+                        Коллекции
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('pr_cvets.index')" :active="request()->routeIs('pr_cvets.index')">
+                        Цвета
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('properties.index')" :active="request()->routeIs('properties.index')">
+                        Характеристики
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('pr_rolls.index')" :active="request()->routeIs('pr_rolls.index')">
+                        Рулоны
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('upload.form')" :active="request()->routeIs('upload.form')">
                         Импорт остатков
                     </x-nav-link>
