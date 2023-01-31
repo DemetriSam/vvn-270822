@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pr_rolls', function (Blueprint $table) {
+        Schema::create('pr_collection_property_value', function (Blueprint $table) {
             $table->id();
-            $table->string('vendor_code');
-            $table->string('slug')->nullable()->unique();
-            $table->float('quantity_m2');
-            $table->foreignId('pr_cvet_id')->nullable();
-            $table->foreignId('supplier_id')->constrained();
+            $table->foreignId('pr_collection_id')->constrained();
+            $table->foreignId('property_value_id')->constrained();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pr_rolls');
+        Schema::dropIfExists('pr_collection_pr_property_value');
     }
 };

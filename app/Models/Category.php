@@ -38,4 +38,9 @@ class Category extends Model
     {
         return $this->hasMany(PrCollection::class);
     }
+
+    public function properties()
+    {
+        return $this->belongsToMany(Property::class);
+    }
 }

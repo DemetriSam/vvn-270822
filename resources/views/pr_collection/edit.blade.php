@@ -62,13 +62,15 @@
             <div>
                 <x-label for="category_id" value="Принадлежит к категории" />
 
-                <x-input id="category_id" 
-                    class="block mt-1 w-full" 
-                    type="text" 
-                    name="category_id" 
-                    :value="old('category_id') ?? $prCollection->category_id" 
-                    autofocus 
-                />
+                <select name="category_id" id="category_id">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            @if ($prCollection->category->id == $category->id)
+                                selected
+                            @endif
+                        >{{ $category->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <!-- Specs -->
             
@@ -93,6 +95,23 @@
 
                 <x-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" autofocus />
             </div>
+
+            @if ($prCollection->category->properties)
+                @foreach ($prCollection->category->properties as $property)
+                <div>
+                    <x-label for="prop-{{ $property->id }}" value="{{ $property->name }}" />
+                    <select name="properties[{{ $property->id }}]" id="prop-{{ $property->id }}">
+                        @foreach ($property->values as $value)
+                            <option value="{{ $value->id }}" 
+                                @if ($prCollection->properties->firstWhere('id', $value->id))
+                                    selected
+                                @endif
+                                >{{ $value->value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endforeach
+            @endif     
             
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ml-3">

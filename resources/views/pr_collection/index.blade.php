@@ -15,6 +15,7 @@
             <th>Цена по умолчанию</th>
             <th>Категория</th>
             <th>Вес при сортировке</th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
                 <td>{{ $collection->default_price }}</td>
                 <td>{{ $collection->category?->name }}</td>
                 <td>{{ $collection->sort }}</td>
+                <td><a href="{{ route('pr_collections.edit', ['pr_collection' => $collection]) }}">Редактировать</a></td>
             </tr>
         @endforeach
     </tbody>

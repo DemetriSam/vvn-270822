@@ -18,6 +18,11 @@ class PrRoll extends Model
         'slug',
     ];
 
+    protected $casts = [
+        'created_at' => 'date:d.m.Y',
+        'updated_at' => 'date:d.m.Y',
+    ];
+
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);

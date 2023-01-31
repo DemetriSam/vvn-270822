@@ -13,9 +13,9 @@
             <th>Заголовок</th>
             <th>Оттенок</th>
             <th>Статус публикации</th>
-            <th>Текущая цена</th>
-            <th>Цена распродажи</th>
-            <th>Вес при сортировке</th>
+            <th>Изображение</th>
+            <th>Вес</th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -32,9 +32,11 @@
                 <td>{{ $cvet->title }}</td>
                 <td>{{ $cvet->color?->name }}</td>
                 <td>{{ $cvet->published }}</td>
-                <td>{{ $cvet->current_price }}</td>
-                <td>{{ $cvet->sale_price }}</td>
+                <td>{{ $cvet->image ? 'yes' : 'no' }}</td>
                 <td>{{ $cvet->sort }}</td>
+                <td>
+                    <a href="{{ route('pr_cvets.edit', ['pr_cvet' => $cvet->id]) }}">Редактировать</a>
+                </td>
             </tr>
         @endforeach
     </tbody>

@@ -27,6 +27,11 @@ class PrCollection extends Model
         return $this->hasMany(PrCvet::class);
     }
 
+    public function properties()
+    {
+        return $this->belongsToMany(PropertyValue::class);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

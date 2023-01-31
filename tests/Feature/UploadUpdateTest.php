@@ -17,7 +17,6 @@ use App\Services\Stockupdate\Slugger;
 
 class UploadUpdateTest extends TestCase
 {
-
     use RefreshDataBase;
 
     const SUPPLIER = 'test';
@@ -34,7 +33,7 @@ class UploadUpdateTest extends TestCase
         $adminRole = Role::create(['name' => 'admin']);
         $this->user->assignRole($adminRole);
 
-        $this->slugger = new Slugger;
+        $this->slugger = new Slugger();
 
         $this->supplier = Supplier::firstOrCreate(['name' => self::SUPPLIER]);
         PrRoll::factory()->for($this->supplier)->count(3)->create(['vendor_code' => 'old']);
@@ -56,7 +55,7 @@ class UploadUpdateTest extends TestCase
 
     /**
      * Test the uploadExcelFile method.
-     * 
+     *
      * @dataProvider provideFixtures
      * @return void
      */

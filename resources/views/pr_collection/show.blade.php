@@ -4,6 +4,7 @@
             Коллекция {{ $prCollection->name }}
         </h2>
         <p>Псевдоним: {{ $prCollection->nickname }}</p>
+        <p>Категория: {{ $prCollection->category->name }}</p>
         <p><a href="{{ route('pr_collections.edit', ['pr_collection' => $prCollection])}}"><small>редактировать</small></a></p>
     </x-slot>
 
@@ -12,11 +13,34 @@
             <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
                 Заполнить характеристики коллекции
             </h3>
+            @if ($prCollection->category->properties)
+            <form action="{{ route('pr_collections.update.properties') }}">
+                @foreach ($prCollection->category->properties as $property)
+                <div>
+                    <x-label for="{{ $property->id }}" value="{{ $property->name }}" />
+                    <select name="{{ $property->id }}" id="{{ $property->id }}">
+                        @foreach ($property->values as $value)
+                            <option value="{{ $value->id }}">{{ $value->value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endforeach 
+                <x-button class="">
+                    <p>Submit</p>
+                </x-button>
+            </form>
+            @endif            
         </x-form-card>
         <x-form-card>
             <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
                 Характеристики коллекции
             </h3>
+            @if ($prCollection->category->properties)
+                @foreach ($prCollection->category->properties as $property)
+                    <p>{{$property->name}}</p>
+                @endforeach 
+            @endif
+
         </x-form-card>
         <x-form-card>
             <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">Добавить товар в коллекцию {{ $prCollection->name }}</h3>

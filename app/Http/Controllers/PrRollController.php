@@ -103,7 +103,10 @@ class PrRollController extends Controller
     public function uploadExcelFile(Request $request, InnerRepresentation $innrep)
     {
         $request->validate([
-            'excel_file' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
+            'excel_file' => 'required|
+                file|
+                mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|
+                max:2048',
             'supplier_id' => 'required',
         ]);
         $file = $request->file('excel_file');
@@ -168,6 +171,9 @@ class PrRollController extends Controller
      */
     public function edit(PrRoll $prRoll)
     {
+        $prCvets = \App\Models\PrCvet::all();
+        $suppliers = \App\Models\Supplier::all();
+        return view('pr_roll.edit', compact('prRoll', 'prCvets', 'suppliers'));
     }
 
     /**
@@ -179,6 +185,9 @@ class PrRollController extends Controller
      */
     public function update(UpdatePrRollRequest $request, PrRoll $prRoll)
     {
+        $input = $request->input();
+        $prRoll->fill($input);
+        $prRoll->save();
     }
 
     /**

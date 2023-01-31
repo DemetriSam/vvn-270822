@@ -40,10 +40,17 @@ Route::group([
     Route::get('/properties/{id}/delete', [Controllers\PropertyController::class, 'delete'])
         ->name('properties.delete');
 
+    //Значения характеристик
+    Route::resource('property_values', Controllers\PropertyController::class);
+    Route::get('/property_values/{id}/delete', [Controllers\PropertyController::class, 'delete'])
+        ->name('property_values.delete');
+
     //Коллекции
     Route::resource('pr_collections', Controllers\PrCollectionController::class);
     Route::get('/pr_collections/{id}/delete', [Controllers\PrCollectionController::class, 'delete'])
         ->name('pr_collections.delete');
+    Route::post('/pr_collections/id/update/properties', [Controllers\PrCollectionController::class, 'updateProperties'])
+        ->name('pr_collections.update.properties');
 
     //Цвета
     Route::resource('pr_cvets', Controllers\PrCvetController::class);

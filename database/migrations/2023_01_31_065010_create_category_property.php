@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pr_rolls', function (Blueprint $table) {
+        Schema::create('category_property', function (Blueprint $table) {
             $table->id();
-            $table->string('vendor_code');
-            $table->string('slug')->nullable()->unique();
-            $table->float('quantity_m2');
-            $table->foreignId('pr_cvet_id')->nullable();
-            $table->foreignId('supplier_id')->constrained();
+            $table->foreignId('category_id');
+            $table->foreignId('property_id');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pr_rolls');
+        Schema::dropIfExists('category_property');
     }
 };

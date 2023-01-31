@@ -44,10 +44,10 @@ test-coverage:
 	docker compose exec php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
 
 lint:
-	docker compose exec php composer exec --verbose phpcs -- --standard=PSR12
+	composer exec --verbose phpcs -- --standard=PSR12 app
 
 lint-fix:
-	docker compose exec php composer exec --verbose phpcbf -- --standard=PSR12
+	composer exec --verbose phpcbf -- --standard=PSR12 app
 
 phpstan:
 	docker compose exec php composer exec phpstan analyse

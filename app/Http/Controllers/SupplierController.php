@@ -102,7 +102,8 @@ class SupplierController extends Controller
         $relatedRolls = $supplier->prRolls()->count();
 
         if ($relatedRolls > 0) {
-            return redirect()->route('suppliers.index')->with('error', 'This supplier has related rolls and can not be deleted.');
+            return redirect()->route('suppliers.index')
+                ->with('error', 'This supplier has related rolls and can not be deleted.');
         } else {
             $supplier->delete();
             return redirect()->route('suppliers.index')->with('success', 'Supplier deleted successfully.');
