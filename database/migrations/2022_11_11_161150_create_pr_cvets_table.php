@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('color')->nullable();
             $table->text('description')->nullable();
 
-            $table->enum('published', ['true', 'false'])->default('false'); 
+            $table->enum('published', ['true', 'false'])->default('false');
             //to add new_enum_value:
             //ALTER TYPE name ADD VALUE [ IF NOT EXISTS ] new_enum_value [ { BEFORE | AFTER } neighbor_enum_value ]
 

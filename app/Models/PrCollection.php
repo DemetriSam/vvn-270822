@@ -27,6 +27,11 @@ class PrCollection extends Model
         return $this->hasMany(PrCvet::class);
     }
 
+    public function properties()
+    {
+        return $this->belongsToMany(PropertyValue::class);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
@@ -35,11 +40,8 @@ class PrCollection extends Model
         return $this->morphMany(\App\Models\PrImage::class, 'imageable');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function categories()
+    public function category()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 }

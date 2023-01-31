@@ -3,7 +3,10 @@ setup-ci: env-prepare install-ci key-ci database-prepare-ci install-front-ci
 setup: env-prepare build install key database-prepare storage-link
 
 test:
-	docker compose exec php composer exec --verbose phpunit tests
+	docker compose exec php php artisan test --testsuite=Feature
+
+unit-test:
+	docker compose exec php php artisan test --testsuite=Unit
 
 install-front-ci:
 	npm install
@@ -23,10 +26,10 @@ database-prepare-ci:
 	php artisan migrate:fresh --seed
 
 lint-ci:
-	composer exec phpcs -v
+	composer exec --verbose phpcs -- --standard=PSR12
 
 lint-fix-ci:
-	composer exec phpcbf -v
+	composer exec --verbose phpcbf -- --standard=PSR12
 
 phpstan-ci:
 	composer exec phpstan analyse
@@ -41,10 +44,10 @@ test-coverage:
 	docker compose exec php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
 
 lint:
-	docker compose exec php composer exec phpcs -v
+	composer exec --verbose phpcs -- --standard=PSR12 app
 
 lint-fix:
-	docker compose exec php composer exec phpcbf -v
+	composer exec --verbose phpcbf -- --standard=PSR12 app
 
 phpstan:
 	docker compose exec php composer exec phpstan analyse
@@ -98,3 +101,11 @@ heroku-build:
 
 db-import-from-backup:
 	docker compose exec -T database psql -d tapigo-database -U postgres  < data
+
+db-start:
+	sudo service postgresql start
+
+ls-start:
+	php artisan serve
+
+start: db-start ls-start

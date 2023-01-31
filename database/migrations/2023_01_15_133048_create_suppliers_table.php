@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pr_rolls', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->string('vendorCode');
-            $table->float('quantity_m2');
-            $table->foreignId('pr_cvet_id')->constrained();
+            $table->string('name');
+            $table->json('file_structure')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pr_rolls');
+        Schema::dropIfExists('suppliers');
     }
 };

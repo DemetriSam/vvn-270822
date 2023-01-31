@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdatePrRollRequest extends FormRequest
 {
@@ -13,17 +14,20 @@ class UpdatePrRollRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->hasRole('admin');
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function rules()
     {
         return [
+            'vendor_code' => 'required',
+            'quantity_m2' => 'required',
+            'supplier_id' => 'required',
         ];
     }
 }

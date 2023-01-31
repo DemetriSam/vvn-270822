@@ -13,4 +13,9 @@ class Property extends Model
         'name',
         'category_id',
     ];
+
+    public function values()
+    {
+        return $this->hasMany(\App\Models\PropertyValue::class);
+    }
 }

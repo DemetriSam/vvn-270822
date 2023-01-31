@@ -28,7 +28,8 @@ class PrCvetController extends Controller
      */
     public function create()
     {
-        return view('pr_cvet.create');
+        $prCollections = PrCollection::all();
+        return view('pr_cvet.create', ['prCollections' => $prCollections]);
     }
 
     /**
@@ -39,7 +40,7 @@ class PrCvetController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'name_in_folder' => ['required', 'string'],
         ]);
@@ -50,7 +51,7 @@ class PrCvetController extends Controller
 
         $currentPrice = $prCollection->default_price;
 
-        
+
 
         $prCvet = \App\Models\PrCvet::create([
             'name_in_folder' => $request->name_in_folder,
@@ -74,10 +75,10 @@ class PrCvetController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(PrCvet $prCvet)
     {
-        $prCvet = PrCvet::find($id);
         $images = $prCvet->getMedia('images');
+
         return view('pr_cvet.show', compact('prCvet', 'images'));
     }
 
@@ -90,7 +91,8 @@ class PrCvetController extends Controller
     public function edit($id)
     {
         $prCvet = PrCvet::find($id);
-        return view('pr_cvet.edit', compact('prCvet'));
+        $prCollections = PrCollection::all();
+        return view('pr_cvet.edit', compact('prCvet', 'prCollections'));
     }
 
     /**

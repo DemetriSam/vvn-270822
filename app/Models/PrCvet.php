@@ -38,6 +38,14 @@ class PrCvet extends Model implements HasMedia
             ->nonQueued();
     }
 
+    public function __get($property)
+    {
+        if ($property === 'quantity') {
+            return $this->rolls()->pluck('quantity_m2')->sum();
+        }
+        return parent::__get($property);
+    }
+
     /**
      * @var array
      */
@@ -74,5 +82,12 @@ class PrCvet extends Model implements HasMedia
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function prRolls()
+    {
+        return $this->hasMany(PrRoll::class);
     }
 }

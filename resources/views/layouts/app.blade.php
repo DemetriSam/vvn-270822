@@ -20,13 +20,19 @@
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+                    <div class="flex w-full gap-1 justify-between">
+                        {{ $header }}
+                    </div>
                 </div>
             </header>
-
+            @if(session()->has('errors') and app()->environment() === 'development')
+                {{ session()->get('errors') }}
+            @endif
             <!-- Page Content -->
             <main>
+                <x-container>
                 {{ $slot }}
+                </x-container>
             </main>
         </div>
     </body>

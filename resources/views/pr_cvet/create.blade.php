@@ -1,16 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            Создать новый цвет
         </h2>
     </x-slot>
-    <x-auth-card>
+    <x-form-card>
         <form method="POST" action="{{ route('pr_cvets.store') }} " enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
             </x-slot>
             <!-- Title -->
             <div>
@@ -28,8 +25,11 @@
                         <!-- Description -->
             <div>
                 <x-label for="pr_collection_id" value="Коллекция" />
-
-                <x-input id="pr_collection_id" class="block mt-1 w-full" type="text" name="pr_collection_id" :value="old('pr_collection_id')" autofocus />
+                <select name="pr_collection_id" id="pr_collection_id">
+                    @foreach ($prCollections as $collection)
+                        <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <!-- Specs -->
 
@@ -49,5 +49,5 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+    </x-form-card>
 </x-app-layout>

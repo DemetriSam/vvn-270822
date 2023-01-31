@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <x-auth-card>
+    <x-form-card>
         <form method="POST" action="{{ route('pr_cvets.update', ['pr_cvet' => $prCvet]) }} " enctype="multipart/form-data">
             @csrf
             <input name="_method" type="hidden" value="PATCH">
@@ -39,17 +39,14 @@
                     autofocus 
                 />
             </div>
-                        <!-- Description -->
+                       
             <div>
                 <x-label for="pr_collection_id" value="Коллекция" />
-                <x-input 
-                    id="pr_collection_id" 
-                    class="block mt-1 w-full" 
-                    type="text" 
-                    name="pr_collection_id" 
-                    :value="old('pr_collection_id') ?? $prCvet->pr_collection_id" 
-                    autofocus 
-                />
+                <select name="pr_collection_id" id="pr_collection_id">
+                    @foreach ($prCollections as $collection)
+                        <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <!-- Specs -->
 
@@ -93,5 +90,5 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+    </x-form-card>
 </x-app-layout>

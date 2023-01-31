@@ -38,8 +38,11 @@
             <!-- Category -->
             <div>
                 <x-label for="category" value="Принадлежит к категории" />
-
-                <x-input id="category" class="block mt-1 w-full" type="text" name="category" :value="old('category')" autofocus />
+                <select name="category_id" id="category">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <!-- Specs -->
             

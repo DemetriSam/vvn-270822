@@ -25,7 +25,7 @@ class ConfirmablePasswordController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
-     * 
+     *
      */
     public function store(Request $request)
     {

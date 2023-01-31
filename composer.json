@@ -26,6 +26,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/scout": "^v9.4.9",
         "laravel/tinker": "^2.7",
+        "laravelcollective/html": "^6.3",
         "league/flysystem-aws-s3-v3": "^3.0.21",
         "league/glide": "^2.2",
         "maatwebsite/excel": "3.*",

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\PrCollection;
 use App\Models\PrCvet;
 use App\Models\PrImage;
+use App\Models\PropertyValue;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -18,7 +20,6 @@ class PrCollectionController extends Controller
      */
     public function index()
     {
-
         $collections = PrCollection::all();
         return view('pr_collection.index', compact('collections'));
     }
@@ -30,7 +31,8 @@ class PrCollectionController extends Controller
      */
     public function create()
     {
-        return view('pr_collection.create');
+        $categories = Category::all();
+        return view('pr_collection.create', ['categories' => $categories]);
     }
 
     /**
@@ -64,7 +66,7 @@ class PrCollectionController extends Controller
             return '<img src="' . $asset . '" />';
         }
 
-        return redirect()->route('pr_collections.index');
+        return redirect()->route('pr_collections.edit', ['pr_collection' => $pr_collection]);
     }
 
     /**
@@ -88,8 +90,9 @@ class PrCollectionController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $prCollection = PrCollection::find($id);
-        return view('pr_collection.edit', compact('prCollection'));
+        return view('pr_collection.edit', compact('prCollection', 'categories'));
     }
 
     /**
@@ -99,9 +102,8 @@ class PrCollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PrCollection $prCollection)
     {
-        $prCollection = PrCollection::findOrFail($id);
         $request->validate([
             'name' => ['required', 'string'],
         ]);
@@ -120,11 +122,22 @@ class PrCollectionController extends Controller
             'category_id',
         ));
 
+        if (isset($request->properties)) {
+            foreach ($request->properties as $property_id => $value) {
+                $oldValue = PropertyValue::firstWhere('property_id', $property_id);
+                if ($oldValue) {
+                    $prCollection->properties()->detach($oldValue->id);
+                }
+                $prCollection->properties()->attach($value);
+            }
+        }
+
+
         $prCollection->save();
 
-        if($nickname) {
+        if ($nickname) {
             $prCvets = PrCvet::where('pr_collection_id', $id)->get();
-            $prCvets->each(function($prCvet) use ($prCollection, $nickname) {
+            $prCvets->each(function ($prCvet) use ($nickname) {
                 $collectionName = $nickname;
                 $nameInCollection = $prCvet->name_in_folder;
                 $title = "$collectionName $nameInCollection";
