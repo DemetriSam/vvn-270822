@@ -11,9 +11,9 @@
             </x-slot>
             <!-- Title -->
             <div>
-                <x-label for="title" value="Название товара" />
+                <x-label for="name_in_folder" value="Название товара" />
 
-                <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
+                <x-input id="name_in_folder" class="block mt-1 w-full" type="text" name="name_in_folder" :value="old('name_in_folder')" required autofocus />
             </div>
 
             <!-- Description -->
