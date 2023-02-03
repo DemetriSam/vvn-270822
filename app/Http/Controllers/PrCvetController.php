@@ -45,7 +45,11 @@ class PrCvetController extends Controller
             'name_in_folder' => ['required', 'string'],
         ]);
         $prCollection = PrCollection::find($request->pr_collection_id);
-        $collectionName = $prCollection->nickname ?? $prCollection->name;
+        if ($prCollection->name && $prCollection->nickname) {
+            $collectionName = $prCollection->nickname ?? $prCollection->name;
+        } else {
+            $collectionName = 'no collection';
+        }
         $nameInCollection = $request->name_in_folder;
         $title = "$collectionName $nameInCollection";
 
@@ -88,9 +92,8 @@ class PrCvetController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(PrCvet $prCvet)
     {
-        $prCvet = PrCvet::find($id);
         $prCollections = PrCollection::all();
         return view('pr_cvet.edit', compact('prCvet', 'prCollections'));
     }
@@ -102,20 +105,28 @@ class PrCvetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PrCvet $prCvet)
     {
-        $prCvet = PrCvet::findOrFail($id);
         $request->validate([
-            'title' => ['required', 'string'],
+            'name_in_folder' => ['required', 'string'],
         ]);
 
-        $title = $request->title;
+        $name_in_folder = $request->name_in_folder;
         $description = $request->description;
+
+        $prCollection = PrCollection::find($request->pr_collection_id);
+        if ($prCollection->name && $prCollection->nickname) {
+            $collectionName = $prCollection->nickname ?? $prCollection->name;
+        } else {
+            $collectionName = 'no collection';
+        }
+        $nameInCollection = $request->name_in_folder;
+        $title = "$collectionName $nameInCollection";
 
         $this->deleteImages($prCvet, $request);
         $this->addImages($prCvet, $request);
 
-        $prCvet->fill(compact('title', 'description'));
+        $prCvet->fill(compact('name_in_folder', 'description', 'title'));
         $prCvet->save();
 
         return redirect()->route('pr_cvets.index');

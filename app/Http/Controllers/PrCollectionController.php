@@ -50,9 +50,10 @@ class PrCollectionController extends Controller
 
         $pr_collection = \App\Models\PrCollection::create([
             'name' => $request->name,
+            'nickname' => $request->nickname,
             'description' => $request->description,
-            'default_price' => $request->price,
-            'category_id' => $request->category,
+            'default_price' => $request->default_price,
+            'category_id' => $request->category_id,
         ]);
         if ($request->file('image')) {
             $path = $request->file('image')->store('pr_collection_images');
@@ -136,7 +137,7 @@ class PrCollectionController extends Controller
         $prCollection->save();
 
         if ($nickname) {
-            $prCvets = PrCvet::where('pr_collection_id', $id)->get();
+            $prCvets = PrCvet::where('pr_collection_id', $prCollection->id)->get();
             $prCvets->each(function ($prCvet) use ($nickname) {
                 $collectionName = $nickname;
                 $nameInCollection = $prCvet->name_in_folder;

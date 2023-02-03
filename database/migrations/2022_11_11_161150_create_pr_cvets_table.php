@@ -25,7 +25,7 @@ return new class extends Migration
             //to add new_enum_value:
             //ALTER TYPE name ADD VALUE [ IF NOT EXISTS ] new_enum_value [ { BEFORE | AFTER } neighbor_enum_value ]
 
-            $table->float('current_price');
+            $table->float('current_price')->nullable();
             $table->float('sale_price')->nullable();
             $table->unsignedInteger('sort')->nullable();
             $table->timestamps();

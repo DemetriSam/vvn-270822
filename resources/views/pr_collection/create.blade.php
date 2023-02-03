@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <x-form-card>
-        <form method="POST"  action="{{ route('pr_collections.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('pr_collections.store') }}" enctype="multipart/form-data">
             @csrf
             <x-slot name="logo">
                 <a href="/">
@@ -40,17 +40,17 @@
                 <x-label for="category" value="Принадлежит к категории" />
                 <select name="category_id" id="category">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
             <!-- Specs -->
-            
+
             <!-- Price -->
             <div>
-                <x-label for="price" value="Цена" />
+                <x-label for="default_price" value="Цена" />
 
-                <x-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" required autofocus />
+                <x-input id="default_price" class="block mt-1 w-full" type="text" name="default_price" :value="old('default_price')" required autofocus />
             </div>
 
             <!-- Image -->
@@ -59,7 +59,7 @@
 
                 <x-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" autofocus />
             </div>
-            
+
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ml-3">
                     <p>Submit</p>

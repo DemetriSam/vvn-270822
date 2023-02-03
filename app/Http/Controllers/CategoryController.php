@@ -59,9 +59,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::find($id);
         return view('category.edit', compact('category'));
     }
 

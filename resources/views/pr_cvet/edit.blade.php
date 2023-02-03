@@ -15,36 +15,21 @@
             </x-slot>
             <!-- Title -->
             <div>
-                <x-label for="title" value="Название товара" />
-                <x-input 
-                    id="title" 
-                    class="block mt-1 w-full" 
-                    type="text" 
-                    name="title" 
-                    :value="old('title') ?? $prCvet->title" 
-                    required 
-                    autofocus 
-                />
+                <x-label for="name_in_folder" value="Название товара" />
+                <x-input id="name_in_folder" class="block mt-1 w-full" type="text" name="name_in_folder" :value="old('name_in_folder') ?? $prCvet->name_in_folder" required autofocus />
             </div>
 
             <!-- Description -->
             <div>
                 <x-label for="description" value="Описание товара" />
-                <x-input 
-                    id="description" 
-                    class="block mt-1 w-full" 
-                    type="text" 
-                    name="description" 
-                    :value="old('description') ?? $prCvet->description" 
-                    autofocus 
-                />
+                <x-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description') ?? $prCvet->description" autofocus />
             </div>
-                       
+
             <div>
                 <x-label for="pr_collection_id" value="Коллекция" />
                 <select name="pr_collection_id" id="pr_collection_id">
                     @foreach ($prCollections as $collection)
-                        <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                    <option value="{{ $collection->id }}">{{ $collection->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -53,34 +38,21 @@
 
 
             <!-- Image -->
-            
+
             <div>
                 <x-label for="images" value="Изображение" />
 
-                <x-input 
-                    id="images" 
-                    class="block mt-1 w-full" 
-                    type="file" 
-                    name="images[]" 
-                    :value="old('image')" 
-                    multiple 
-                    autofocus 
-                />
+                <x-input id="images" class="block mt-1 w-full" type="file" name="images[]" :value="old('image')" multiple autofocus />
             </div>
 
             @php
-                $mediaItems = $prCvet->getMedia('images');
+            $mediaItems = $prCvet->getMedia('images');
             @endphp
             @foreach ($mediaItems as $mediaItem)
-                <div>
-                    <x-input 
-                        id=images_for_remove
-                        type="checkbox"
-                        name="images_for_remove[]"
-                        value="{{ $mediaItem->name }}"
-                    />
-                    <x-label class="inline-block" for="images_for_remove" value="Удалить картинкy {{ $mediaItem->getUrl() }}?" />
-                </div>
+            <div>
+                <x-input id=images_for_remove type="checkbox" name="images_for_remove[]" value="{{ $mediaItem->name }}" />
+                <x-label class="inline-block" for="images_for_remove" value="Удалить картинкy {{ $mediaItem->getUrl() }}?" />
+            </div>
             @endforeach
 
 

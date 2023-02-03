@@ -20,7 +20,6 @@ class PrCvetFactory extends Factory
         return [
             'name_in_folder' => fake()->name(),
             'title' => fake()->name(),
-            'current_price' => 98.22,
             'pr_collection_id' => PrCollection::factory()->create()->id,
         ];
     }

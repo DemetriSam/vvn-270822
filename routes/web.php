@@ -28,8 +28,8 @@ Route::group([
     'prefix' => 'admin',
     'middleware' => ['auth', 'role:admin'],
 ], function ($router) {
-    Route::resource('users', Controllers\UsersController::class);
-
+    Route::get('/users', [Controllers\UsersController::class, 'index'])
+        ->name('users.index');
     //Категории
     Route::resource('categories', Controllers\CategoryController::class);
     Route::get('/categories/{id}/delete', [Controllers\CategoryController::class, 'delete'])
