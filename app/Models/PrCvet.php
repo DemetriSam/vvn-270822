@@ -36,12 +36,24 @@ class PrCvet extends Model implements HasMedia
             ->addMediaConversion('product')
             ->withResponsiveImages()
             ->nonQueued();
+
+        $this
+            ->addMediaConversion('rec')
+            ->withResponsiveImages()
+            ->nonQueued();
     }
 
     public function __get($property)
     {
         if ($property === 'quantity') {
             return $this->rolls()->pluck('quantity_m2')->sum();
+        }
+        if ($property === 'price') {
+            if ($this->current_price) {
+                return $this->current_price;
+            }
+
+            return $this->prCollection->default_price;
         }
         return parent::__get($property);
     }

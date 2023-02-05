@@ -63,4 +63,5 @@
             </div>
         </form>
     </x-form-card>
+    {{$prCvet->getFirstMedia('images')('product')}}
 </x-app-layout>
