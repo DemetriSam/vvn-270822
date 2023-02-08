@@ -33,7 +33,15 @@ class PrCvet extends Model implements HasMedia
             ->nonQueued();
 
         $this
-            ->addMediaConversion('product')
+            ->addMediaConversion('product_narrow')
+            ->width(902)
+            ->withResponsiveImages()
+            ->nonQueued();
+
+        $this
+            ->addMediaConversion('product_wide')
+            ->width(902)
+            ->fit(Manipulations::FIT_CROP, 902, 1204)
             ->withResponsiveImages()
             ->nonQueued();
 

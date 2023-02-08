@@ -63,5 +63,34 @@
             </div>
         </form>
     </x-form-card>
-    {{$prCvet->getFirstMedia('images')('product')}}
+    <style>
+        .wide {
+            display: none;
+        }
+
+        .narrow {
+            display: block;
+        }
+
+        @media (min-width: 981.98px) {
+            .narrow {
+                display: none;
+            }
+
+            .wide {
+                display: block;
+            }
+        }
+    </style>
+    <div class="narrow">
+        @if($prCvet->getFirstMedia('images'))
+        {{$prCvet->getFirstMedia('images')('product_narrow')}}
+        @endif
+    </div>
+    <div class="wide"> @if($prCvet->getFirstMedia('images'))
+        {{$prCvet->getFirstMedia('images')('product_wide')}}
+        @endif
+    </div>
+
+
 </x-app-layout>
