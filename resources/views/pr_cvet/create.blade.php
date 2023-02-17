@@ -26,8 +26,20 @@
             <div>
                 <x-label for="pr_collection_id" value="Коллекция" />
                 <select name="pr_collection_id" id="pr_collection_id">
+                    <option value="">----------------</option>
                     @foreach ($prCollections as $collection)
                         <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <x-label for="color_id" value="Цвет коврового покрытия" />
+                <select name="color_id" id="color_id">
+                    <option value="">----------------</option>
+                    @foreach ($colors as $color)
+                        <option value="{{ $color->id }}" 
+                            @if(old('color') == $color->id) selected @endif>{{ $color->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>

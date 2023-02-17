@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\PrCvet;
 use App\Models\PrCollection;
+use App\Models\Color;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -17,7 +19,7 @@ class PrCvetController extends Controller
      */
     public function index()
     {
-        $pr_cvets = PrCvet::all();
+        $pr_cvets = PrCvet::paginate(20);
         return view('pr_cvet.index', compact('pr_cvets'));
     }
 
@@ -29,7 +31,8 @@ class PrCvetController extends Controller
     public function create()
     {
         $prCollections = PrCollection::all();
-        return view('pr_cvet.create', ['prCollections' => $prCollections]);
+        $colors = Color::all();
+        return view('pr_cvet.create', compact('prCollections', 'colors'));
     }
 
     /**
@@ -45,13 +48,13 @@ class PrCvetController extends Controller
             'name_in_folder' => ['required', 'string'],
         ]);
         $prCollection = PrCollection::find($request->pr_collection_id);
-        if ($prCollection->name && $prCollection->nickname) {
+        if ($prCollection->name || $prCollection->nickname) {
             $collectionName = $prCollection->nickname ?? $prCollection->name;
         } else {
             $collectionName = 'no collection';
         }
         $nameInCollection = $request->name_in_folder;
-        $title = "$collectionName $nameInCollection";
+        $title = "$nameInCollection $collectionName";
 
         $currentPrice = $prCollection->default_price;
 
@@ -63,6 +66,7 @@ class PrCvetController extends Controller
             'description' => $request->description,
             'pr_collection_id' => $request->pr_collection_id,
             'current_price' => $currentPrice,
+            'color_id' => $request->color_id,
         ]);
 
         $this->addImages($prCvet, $request);
@@ -81,9 +85,15 @@ class PrCvetController extends Controller
      */
     public function show(PrCvet $prCvet)
     {
-        $images = $prCvet->getMedia('images');
+        $sameColor = PrCvet::where('color_id', $prCvet->color_id)
+            ->whereNot('id', $prCvet->id)
+            ->get()->forPage(1, 12);
 
-        return view('pr_cvet.show', compact('prCvet', 'images'));
+        $sameCollection = PrCvet::where('pr_collection_id', $prCvet->pr_collection_id)
+            ->whereNot('id', $prCvet->id)
+            ->get()->diff($sameColor)->forPage(1, 12);
+
+        return view('pr_cvet.show', compact('prCvet', 'sameColor', 'sameCollection'));
     }
 
     /**
@@ -95,7 +105,8 @@ class PrCvetController extends Controller
     public function edit(PrCvet $prCvet)
     {
         $prCollections = PrCollection::all();
-        return view('pr_cvet.edit', compact('prCvet', 'prCollections'));
+        $colors = Color::all();
+        return view('pr_cvet.edit', compact('prCvet', 'prCollections', 'colors'));
     }
 
     /**
@@ -113,20 +124,21 @@ class PrCvetController extends Controller
 
         $name_in_folder = $request->name_in_folder;
         $description = $request->description;
-
-        $prCollection = PrCollection::find($request->pr_collection_id);
-        if ($prCollection->name && $prCollection->nickname) {
+        $pr_collection_id = $request->pr_collection_id;
+        $prCollection = PrCollection::find($pr_collection_id);
+        if ($prCollection->name || $prCollection->nickname) {
             $collectionName = $prCollection->nickname ?? $prCollection->name;
         } else {
             $collectionName = 'no collection';
         }
         $nameInCollection = $request->name_in_folder;
-        $title = "$collectionName $nameInCollection";
+        $title = "$nameInCollection $collectionName";
 
         $this->deleteImages($prCvet, $request);
         $this->addImages($prCvet, $request);
+        $color_id = $request->color_id;
 
-        $prCvet->fill(compact('name_in_folder', 'description', 'title'));
+        $prCvet->fill(compact('name_in_folder', 'description', 'title', 'color_id', 'pr_collection_id'));
         $prCvet->save();
 
         return redirect()->route('pr_cvets.index');
@@ -174,7 +186,7 @@ class PrCvetController extends Controller
         $imagesForRemove = $request->images_for_remove;
 
         if ($imagesForRemove) {
-            $mediaItems = $prCvet->getMedia('images');
+            $mediaItems = $prCvet->images;
             foreach ($imagesForRemove as $name) {
                 $mediaItems->firstWhere('name', $name)->delete();
             }

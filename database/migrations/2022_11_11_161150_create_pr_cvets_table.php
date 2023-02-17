@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name_in_folder');
             $table->string('title');
             $table->foreignId('pr_collection_id')->constrained();
-            $table->foreignId('color')->nullable();
+            $table->foreignId('color_id')->nullable();
             $table->text('description')->nullable();
 
             $table->enum('published', ['true', 'false'])->default('false');

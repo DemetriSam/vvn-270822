@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('pr_collection_property_value', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pr_collection_id')->constrained();
-            $table->foreignId('property_value_id')->constrained();
+            $table->foreignId('pr_collection_id');
+            $table->foreignId('property_value_id');
             $table->timestamps();
         });
     }

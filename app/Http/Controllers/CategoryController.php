@@ -48,6 +48,7 @@ class CategoryController extends Controller
         \App\Models\Category::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
+            'slug' => $request->slug,
         ]);
 
         return redirect()->route('categories.index');
@@ -76,11 +77,13 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $request->validate([
             'name' => ['required', 'string'],
+            'slug' => ['required', 'string'],
         ]);
 
         $name = $request->name;
         $category_id = $request->category_id;
-        $category->fill(compact('name', 'category_id'));
+        $slug = $request->slug;
+        $category->fill(compact('name', 'category_id', 'slug'));
         $category->save();
 
         return redirect()->route('categories.index');

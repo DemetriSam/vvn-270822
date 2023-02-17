@@ -15,6 +15,8 @@ class ColorController extends Controller
      */
     public function index()
     {
+        $colors = Color::all();
+        return view('color.index', ['colors' => $colors]);
     }
 
     /**
@@ -34,6 +36,10 @@ class ColorController extends Controller
      */
     public function store(StoreColorRequest $request)
     {
+        $input = $request->input();
+        Color::create($input);
+
+        return redirect()->route('colors.index');
     }
 
     /**
@@ -65,6 +71,11 @@ class ColorController extends Controller
      */
     public function update(UpdateColorRequest $request, Color $color)
     {
+        $input = $request->input();
+        $color->fill($input);
+        $color->save();
+
+        return redirect()->route('colors.index');
     }
 
     /**

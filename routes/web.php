@@ -45,6 +45,11 @@ Route::group([
     Route::get('/property_values/{id}/delete', [Controllers\PropertyController::class, 'delete'])
         ->name('property_values.delete');
 
+    //Оттенки коврового покрытия
+    Route::resource('colors', Controllers\ColorController::class);
+    Route::get('/colors/{id}/delete', [Controllers\ColorController::class, 'delete'])
+        ->name('colors.delete');
+
     //Коллекции
     Route::resource('pr_collections', Controllers\PrCollectionController::class);
     Route::get('/pr_collections/{id}/delete', [Controllers\PrCollectionController::class, 'delete'])
@@ -80,11 +85,6 @@ Route::group([
 
 require __DIR__ . '/auth.php';
 
-
-//Страницы каталога
-Route::get('/carpets', [Controllers\Controller::class, 'carpets'])->name('carpets');
-Route::get('/cinovki', [Controllers\Controller::class, 'cinovki'])->name('cinovki');
-
 //Главная
 Route::get('/', [Controllers\Controller::class, 'index'])->name('index');
 
@@ -92,3 +92,19 @@ Route::get('/', [Controllers\Controller::class, 'index'])->name('index');
 Route::get('/favorites', [Controllers\Controller::class, 'favorites'])->name('favorites');
 
 Route::get('/test', fn () => 'test');
+
+
+//Страница отфильтрованных по цвету
+Route::get('/{category:slug}/colors/{color:slug}', [Controllers\Controller::class, 'color'])
+    ->name('catalog.color');
+
+//Страница продукта
+Route::get('/carpets/{pr_cvet}', [Controllers\PrCvetController::class, 'show'])
+    ->name('carpets.product');
+
+Route::get('/cinovki/{pr_cvet}', [Controllers\PrCvetController::class, 'show'])
+    ->name('cinovki.product');
+
+//Страницы каталога
+Route::get('/{category:slug}', [Controllers\Controller::class, 'catalog'])
+    ->name('catalog');

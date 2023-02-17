@@ -39,9 +39,6 @@
             </div>
         </div>
     </section>
-    <div class="front-page-title">У нас всё в наличии</div>
-    <div class="rec-block__decorline">
-        <img class="front-page-decor-line" src="img/icons/DecorLine.svg" alt="">
-    </div>
-    <div>Здесь какой-то еще контент</div>
+    <x-public.nodes :title="$carpets['title']" :products="$carpets['products']" :route="$carpets['route']"/>
+    <x-public.nodes :title="$cinovki['title']" :products="$cinovki['products']" :route="$cinovki['route']"/>
 </x-layout>

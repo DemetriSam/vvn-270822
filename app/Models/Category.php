@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PrCollection;
+use App\Models\Color;
 
 class Category extends Model
 {
@@ -13,6 +14,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'category_id',
+        'slug',
     ];
 
     /**
@@ -42,5 +44,15 @@ class Category extends Model
     public function properties()
     {
         return $this->belongsToMany(Property::class);
+    }
+
+    public function products()
+    {
+        return $this->hasManyThrough(PrCvet::class, PrCollection::class);
+    }
+
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class);
     }
 }

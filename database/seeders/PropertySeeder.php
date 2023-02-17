@@ -29,10 +29,12 @@ class PropertySeeder extends Seeder
 
         Category::firstOrCreate([
             'name' => 'Ковровые покрытия',
+            'slug' => 'carpets',
         ])->properties()->attach([$width->id, $composition->id]);
 
         Category::firstOrCreate([
             'name' => 'Циновки',
+            'slug' => 'cinovki',
         ])->properties()->attach([$width->id, $composition->id]);
 
         $values = [

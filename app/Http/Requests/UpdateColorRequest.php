@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateColorRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateColorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->hasRole('admin');
     }
 
     /**
@@ -23,7 +24,6 @@ class UpdateColorRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-        ];
+        return [];
     }
 }

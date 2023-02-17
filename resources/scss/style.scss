@@ -54,6 +54,16 @@ a {
 	-webkit-tap-highlight-color: transparent;
 }
 
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+img,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
 //</ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
 
 
@@ -715,7 +725,7 @@ a {
 		background: #FFFFFF;
 		box-shadow: 0px -4px 12px rgba(113, 130, 140, 0.1);
 		border-radius: 8px 8px 0px 0px;
-		max-width: 574px;
+		max-width: 670px;
 		margin: 0 auto;
 
 		@media (min-width: $md4+px) {}
@@ -803,6 +813,11 @@ a {
 .recomendations {
 	margin-top: -50px;
 
+	&__paginator {
+		padding-top: 35px;
+		display: flex;
+		justify-content: center;
+	}
 }
 
 .rec-block {
@@ -847,6 +862,77 @@ a {
 			margin-top: 50px;
 		}
 	}
+
+	&__seemore {
+		display: flex;
+		justify-content: center;
+		padding-top: 31px;
+
+		@media(min-width: $md3+px) {
+			padding-top: 51px;
+		}
+
+		a {
+			color: #D9AE81;
+			font-size: 14px;
+
+			@media(min-width: $md3+px) {
+				font-size: 18px;
+			}
+		}
+	}
+}
+
+.pagination {
+	display: flex;
+	width: 290px;
+	justify-content: space-between;
+	align-items: center;
+	color: #6B5B51;
+
+	font-size: 14px;
+
+	&__arrow {
+		display: flex;
+		width: 36px;
+		height: 36px;
+		background: #F3CCA3;
+		border-radius: 4px;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+
+		span {
+			font-size: 30px;
+			font-family: 'Courier New', Courier, monospace;
+			position: relative;
+			// color: #D9AE81;
+		}
+
+		a {
+			color: #6B5B51;
+		}
+
+		&_right {
+			span {
+				right: 3px;
+			}
+		}
+
+		&_left {
+			span {
+				left: 3px;
+			}
+		}
+
+		.pagination__arrow_left,
+		.pagination__arrow_right {
+			a {
+				color: #6B5B51;
+			}
+		}
+	}
+
 }
 
 .nodes {
@@ -893,13 +979,11 @@ a {
 		border-radius: 4px;
 		padding: 0 15px 0 15px;
 		//height: 370px;
-
-
-
+		max-width: 100%;
 
 
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 40px;
 		grid-template-rows: fit-content(534px) 1fr 1fr 40px;
 
 		@media (min-width: $md4+px) {

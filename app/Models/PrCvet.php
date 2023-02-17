@@ -21,7 +21,7 @@ class PrCvet extends Model implements HasMedia
         'images',
         'published',
         'pr_collection_id',
-        'color',
+        'color_id',
         'current_price',
     ];
 
@@ -34,19 +34,25 @@ class PrCvet extends Model implements HasMedia
 
         $this
             ->addMediaConversion('product_narrow')
-            ->width(902)
             ->withResponsiveImages()
             ->nonQueued();
 
+        $widthOfSlot = 670;
+        $heightOfSlot = 565;
+        $maxPxDensity = 3;
         $this
             ->addMediaConversion('product_wide')
-            ->width(902)
-            ->fit(Manipulations::FIT_CROP, 902, 1204)
+            ->width($widthOfSlot * $maxPxDensity)
+            ->fit(Manipulations::FIT_CROP, $widthOfSlot * $maxPxDensity, $heightOfSlot * $maxPxDensity)
             ->withResponsiveImages()
             ->nonQueued();
 
+        $widthOfSlot = 534;
+        $heightOfSlot = 534;
         $this
             ->addMediaConversion('rec')
+            ->width($widthOfSlot * $maxPxDensity)
+            ->fit(Manipulations::FIT_CROP, $widthOfSlot * $maxPxDensity, $heightOfSlot * $maxPxDensity)
             ->withResponsiveImages()
             ->nonQueued();
     }
@@ -63,6 +69,23 @@ class PrCvet extends Model implements HasMedia
 
             return $this->prCollection->default_price;
         }
+
+        if ($property === 'images') {
+            return $this->getMedia('images');
+        }
+
+        if ($property === 'composition') {
+            return $this->prCollection->composition;
+        }
+
+        if ($property === 'width') {
+            return $this->prCollection->width;
+        }
+
+        if ($property === 'height') {
+            return $this->prCollection->height;
+        }
+
         return parent::__get($property);
     }
 
@@ -99,15 +122,18 @@ class PrCvet extends Model implements HasMedia
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function categories()
-    {
-        return $this->hasMany(Category::class);
-    }
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function prRolls()
     {
         return $this->hasMany(PrRoll::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
+    }
+
+    public function category()
+    {
+        return $this->prCollection->category();
     }
 }

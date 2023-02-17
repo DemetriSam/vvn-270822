@@ -20,7 +20,7 @@
 					</div>
 				</div>
 				<div class="call_designer_div heart_div">
-					<a href="#" class="call_designer button_light hide-mxw-md3">Избранное </a>
+					<a href="{{ route('favorites') }}" class="call_designer button_light hide-mxw-md3">Избранное </a>
 					<div class="red_heart_notification"><span>0</span></div>
 				</div>
 
@@ -49,14 +49,14 @@
 					<ul block="block-bootstrap-barrio-main-navigation row" class="clearfix nav navbar-nav menu__list">
 
 						<li class="nav-item menu__item _icon-Rectangle">
-							<a href="{{ route('carpets') }}" title="carpets"
+							<a href="{{ route('catalog', ['category' => 'carpets']) }}" title="carpets"
 								class="nav-link nav-link--ru-carpets" data-drupal-link-system-path="carpets">
 								Ковровые покрытия
 							</a>
 						</li>
 
 						<li class="nav-item menu__item">
-							<a href="{{ route('cinovki') }}"
+							<a href="{{ route('catalog', ['category' => 'cinovki']) }}"
 								class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
 								Циновки из сизаля
 							</a>

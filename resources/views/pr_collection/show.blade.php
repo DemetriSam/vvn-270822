@@ -93,10 +93,10 @@
             <h3 class="font-semibold text-xl text-gray-800 leading-tight mb-4">Товары коллекции</h3>
 
             @foreach ($prCvets as $prCvet )
-                <h2>{{ $prCvet->title }}</h2>
-                <a href="{{ route('pr_cvets.edit', ['pr_cvet' => $prCvet]) }}">
+                <a href="{{ route('pr_cvets.show', ['pr_cvet' => $prCvet]) }}">{{ $prCvet->title }}</a>
+                <p><a href="{{ route('pr_cvets.edit', ['pr_cvet' => $prCvet]) }}">
                     <small>(редактировать)</small>
-                </a>
+                </a></p>
                 @php
                     $image = $prCvet->getFirstMedia('images');
                 @endphp

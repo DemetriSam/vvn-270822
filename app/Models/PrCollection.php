@@ -44,4 +44,22 @@ class PrCollection extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function __get($property)
+    {
+        switch ($property) {
+            case 'composition':
+            case 'width':
+            case 'height':
+                $target = Property::firstWhere('machine_name', $property);
+
+                if (!$target) {
+                    return;
+                }
+                return optional($this->properties->firstWhere('property_id', $target->id))
+                    ->value;
+            default:
+                return parent::__get($property);
+        }
+    }
 }

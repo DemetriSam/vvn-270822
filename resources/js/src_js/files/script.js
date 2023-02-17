@@ -1098,7 +1098,7 @@ function wasItAdded(productId) {
 function flyImage(product) {
 	const cart = document.querySelector('.red_heart_notification span');
 	const cloneCart = document.querySelector('.header-clone .red_heart_notification span');
-	const productImage = product.querySelector('.swiper-slide .the-node-image');
+	const productImage = product.querySelector('.swiper-slide img');
 	const productImageFly = productImage.cloneNode(true);
 	const pif_width = productImage.offsetWidth;
 	const pif_height = productImage.offsetHeight;

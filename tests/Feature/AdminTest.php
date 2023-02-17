@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\PrCollection;
 use App\Models\PrCvet;
+use App\Models\Color;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\File;
@@ -72,8 +73,9 @@ class AdminTest extends TestCase
         $this->get(route('categories.edit', ['category' => $category->id]))
             ->assertStatus(200);
 
+        $category->name = 'Updated Value';
         $updatedData = ['name' => 'Updated Value'];
-        $this->patch(route('categories.update', ['category' => $category->id]), $updatedData)
+        $this->patch(route('categories.update', ['category' => $category->id]), $category->only('name', 'slug'))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
         $this->assertDatabaseHas('categories', $updatedData);
@@ -122,6 +124,29 @@ class AdminTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect();
         $this->assertDatabaseHas('pr_cvets', $updatedData);
+    }
+
+    public function test_color_can_be_stored_and_updated()
+    {
+        $this->actingAs($this->user);
+        $newColor = Color::factory()->make()
+            ->toArray();
+        $this->post(route('colors.store'), $newColor)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertDatabaseHas('colors', $newColor);
+
+        $color = Color::first();
+        $this->get(route('colors.edit', ['color' => $color->id]))
+            ->assertStatus(200);
+
+        $updatedData = $color
+            ->only('name', 'slug', 'color_hash');
+        $updatedData['name'] = 'Updated Value';
+        $this->patch(route('colors.update', ['color' => $color->id]), $updatedData)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertDatabaseHas('colors', $updatedData);
     }
 
     public function test_pictures_can_be_uploaded()

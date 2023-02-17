@@ -37,6 +37,11 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('colors.index')" :active="request()->routeIs('colors.index')">
+                        Оттенки
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('pr_rolls.index')" :active="request()->routeIs('pr_rolls.index')">
                         Рулоны
                     </x-nav-link>

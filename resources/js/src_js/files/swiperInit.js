@@ -63,9 +63,9 @@ function initSwipers() {
 
         autoHeight: true,
 
-        thumbs: {
-            swiper: thumbs
-        }
+        // thumbs: {
+        //     swiper: thumbs
+        // }
 
     });
 
@@ -94,7 +94,7 @@ if (document.readyState === 'loading') {  // Loading hasn't finished yet
     document.addEventListener('DOMContentLoaded', initSwipers);
 } else {  // `DOMContentLoaded` has already fired
     initNoThumbs();
-    initThumbs();
+    // initThumbs();
     initSwipers();
 }
 

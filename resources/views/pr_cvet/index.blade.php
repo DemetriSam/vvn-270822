@@ -40,4 +40,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $pr_cvets->links() }}
 </x-app-layout>
