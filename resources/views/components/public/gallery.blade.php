@@ -41,10 +41,10 @@
                     <div class="narrow">
                         {{ $image('product_narrow')}}
                     </div>
-                    <div class="wide"> 
+                    <div class="wide">
                         {{ $image('product_wide')}}
                     </div>
-                    <div class="gallery__sharing sharing">
+                    <!-- <div class="gallery__sharing sharing">
                         <div class="sharing__wrapper">
                             <div class="sharing__icons">
                                 <div class="sharing__icon _icon-wa"></div>
@@ -67,7 +67,7 @@
                                 <div class="sharing__pic sharing__pic_copylink"><img src="/img/icons/link.svg" alt=""></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 @endforeach
             </div>
