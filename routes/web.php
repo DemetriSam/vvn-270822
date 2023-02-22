@@ -108,3 +108,7 @@ Route::get('/cinovki/{pr_cvet}', [Controllers\PrCvetController::class, 'show'])
 //Страницы каталога
 Route::get('/{category:slug}', [Controllers\Controller::class, 'catalog'])
     ->name('catalog');
+
+//Форма вызова дизайнера
+Route::patch('/request/mesurement', [Controllers\MeteringFormController::class, 'sendRequest'])
+    ->name('request.mesurement');
