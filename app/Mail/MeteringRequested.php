@@ -32,7 +32,9 @@ class MeteringRequested extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.mesurement')
+        return $this->from('vvn@kover-zefir.ru')
+            ->subject('VVN: Новый запрос на замер')
+            ->view('emails.mesurement')
             ->with([
                 'name' => $this->name,
                 'phone' => $this->phone,

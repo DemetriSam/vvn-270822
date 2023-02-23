@@ -105,10 +105,13 @@ Route::get('/carpets/{pr_cvet}', [Controllers\PrCvetController::class, 'show'])
 Route::get('/cinovki/{pr_cvet}', [Controllers\PrCvetController::class, 'show'])
     ->name('cinovki.product');
 
+//Открыть чат в воцапе
+Route::get('/whatsapp', fn () => redirect()->to('https://wa.me/79035649165')->send())->name('whatsapp');
+
 //Страницы каталога
 Route::get('/{category:slug}', [Controllers\Controller::class, 'catalog'])
     ->name('catalog');
 
 //Форма вызова дизайнера
-Route::patch('/request/mesurement', [Controllers\MeteringFormController::class, 'sendRequest'])
+Route::put('/request/mesurement', [Controllers\MeteringFormController::class, 'sendRequest'])
     ->name('request.mesurement');

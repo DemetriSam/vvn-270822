@@ -112,4 +112,13 @@ class Controller extends BaseController
         $products = $category->products()->where('color_id', $color->id)->paginate(12);
         return view('color', compact('color', 'products'));
     }
+
+    public function whatsapp()
+    {
+        return view('index');
+    }
+    public function hello()
+    {
+        return view('index');
+    }
 }

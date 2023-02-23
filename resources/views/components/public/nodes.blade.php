@@ -1,7 +1,13 @@
 @if (!empty($products))
     <div class="rec-block">
         <div class="rec-block__title">
-            <div class="rec-block__label">{{ $title }}</div>
+            <div class="rec-block__label">
+            @if (Route::currentRouteName() === 'catalog' || Route::currentRouteName() === 'catalog.color')
+                <h1>{{ $title }}</h1>
+            @else
+                {{ $title }}
+            @endif
+            </div>
             <div class="rec-block__decorline"><img src="../../../img/icons/DecorLine.svg" alt=""></div>
         </div>
         <div class="rec-block__nodes nodes">

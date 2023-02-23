@@ -13,11 +13,17 @@ class MeteringFormController extends Controller
     public function sendRequest(Request $request)
     {
         $data = $request->input();
-        //здесь валидация
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'personal_data_confirmed' => 'required',
+        ]);
         $validated = collect($data)->only('name', 'phone', 'address')->toArray();
         DB::table('mesurements')->insert($validated);
         Mail::to(User::where('email', 'samartsew@gmail.com')->get())
             ->send(new MeteringRequested($validated));
+        $request->session()->flash('message', 'Запрос на вызов дизайнера отправлен. Скоро с вами свяжутся!');
         return redirect()->route('index');
     }
 }
