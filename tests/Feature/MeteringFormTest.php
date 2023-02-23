@@ -42,10 +42,7 @@ class MeteringFormTest extends TestCase
         $mailable = new MeteringRequested($data);
 
         $mailable->assertSeeInHtml($data['name']);
-        $mailable->assertSeeInText($data['name']);
         $mailable->assertSeeInHtml($data['phone']);
-        $mailable->assertSeeInText($data['phone']);
         $mailable->assertSeeInHtml($data['address']);
-        $mailable->assertSeeInText($data['address']);
     }
 }

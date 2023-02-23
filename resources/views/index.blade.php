@@ -15,30 +15,31 @@
             <div class="main-banner__button call_designer_div">
                 <a href="#" class="call_designer button">Вызвать дизайнера на замер</a>
             </div>
-            <div class="main-banner__form design-form">
-                <a href="##" class="popup__close"><img src="img/Close.svg" alt=""></a>
-                <div class="design-form__title">Заполните форму для вызова дизайнера</div>
-                <div class="design-form__i-wrapper">
-                    <span class="design-form__i-label">Ваше имя</span>
-                    <input class="design-form__input" type="text"></input>
-                </div>
-                <div class="design-form__i-wrapper">
-                    <span class="design-form__i-label">Ваш телефон</span>
-                    <input class="design-form__input" type="tel"></input>
-                </div>
-                <div class="design-form__i-wrapper design-form__i-wrapper_address">
-                    <span class="design-form__i-label">Адрес куда ехать</span>
-                    <input class="design-form__input design-form__input_address" type="text"></input>
-                </div>
-                <div class="design-form__agree">
+            <div class="main-banner__form">
+                <form class="design-form" action="{{ route('request.mesurement') }}">
+                    <div class="design-form__title">Заполните форму для вызова дизайнера</div>
+                    <div class="design-form__i-wrapper">
+                        <label for="name" class="design-form__i-label">Ваше имя</label>
+                        <input class="design-form__input" type="text" name="name"></input>
+                    </div>
+                    <div class="design-form__i-wrapper">
+                        <label for="phone" class="design-form__i-label">Ваш телефон</label>
+                        <input class="design-form__input" type="tel" name="phone"></input>
+                    </div>
+                    <div class="design-form__i-wrapper design-form__i-wrapper_address">
+                        <label for="address" class="design-form__i-label">Адрес куда ехать</label>
+                        <input class="design-form__input design-form__input_address" type="text" name="address"></input>
+                    </div>
+                    <div class="design-form__agree">
 
-                    <p><input type="checkbox"></input> Даю свое согласие на обработку <a src="#">персональных
-                            данных</a></p>
-                </div>
-                <div class="design-form__button button">Отправить форму</div>
+                        <p><input type="checkbox" name=""></input> Даю свое согласие на обработку <a src="#">персональных
+                                данных</a></p>
+                    </div>
+                    <div class="design-form__button"> <input class="button" type="submit" value="Отправить форму"> </div>
+                </form>
             </div>
         </div>
     </section>
-    <x-public.nodes :title="$carpets['title']" :products="$carpets['products']" :route="$carpets['route']"/>
-    <x-public.nodes :title="$cinovki['title']" :products="$cinovki['products']" :route="$cinovki['route']"/>
+    <x-public.nodes :title="$carpets['title']" :products="$carpets['products']" :route="$carpets['route']" />
+    <x-public.nodes :title="$cinovki['title']" :products="$cinovki['products']" :route="$cinovki['route']" />
 </x-layout>

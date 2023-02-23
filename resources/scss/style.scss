@@ -1079,7 +1079,7 @@ video {
 
 .main-banner {
 	height: calc(100vw*526/320);
-	@include adaptiv-value("margin-bottom", 50, 15, 1);
+	@include adaptiv-value("margin-bottom", 20, 15, 1);
 
 	@media (min-width: $md4+px) {
 		height: calc(100vw*526/320);
@@ -1212,6 +1212,7 @@ video {
 	border-radius: 8px;
 	padding: 10px;
 
+	height: 100%;
 
 	display: none;
 	grid-template-columns: 1fr 1fr;
@@ -1305,7 +1306,12 @@ video {
 	}
 
 	&__button {
-		justify-content: center;
+
+		.button {
+			width: 100%;
+			text-align: center;
+			padding-left: 26%;
+		}
 
 		line-height: unset;
 
@@ -1325,7 +1331,6 @@ video {
 			line-height: 48px;
 			height: 48px;
 		}
-
 	}
 }
 
