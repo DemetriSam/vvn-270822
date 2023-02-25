@@ -85,6 +85,10 @@ class PrCvetController extends Controller
      */
     public function show(PrCvet $prCvet)
     {
+        if (!$prCvet->getPublicStatus()) {
+            return redirect()->route('catalog', ['category' => $prCvet->category->slug]);
+        }
+
         $sameColor = PrCvet::where('color_id', $prCvet->color_id)
             ->whereNot('id', $prCvet->id)
             ->get()->forPage(1, 12);
@@ -191,5 +195,10 @@ class PrCvetController extends Controller
                 $mediaItems->firstWhere('name', $name)->delete();
             }
         }
+    }
+
+    public function publish(PrCvet $prCvet)
+    {
+        $prCvet->publish();
     }
 }

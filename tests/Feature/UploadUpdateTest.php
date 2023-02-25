@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\TestExport;
+use App\Models\PrCvet;
 use Illuminate\Http\File;
 use App\Services\Stockupdate\Slugger;
 
@@ -43,6 +44,30 @@ class UploadUpdateTest extends TestCase
         $this->slugger->setUniqueSlugs($current, 'vendor_code', 'slug')->each(fn ($row) => $row->save());
     }
 
+    public function test_public_status_depends_on_quantity()
+    {
+        $rolls = PrRoll::factory()->for($this->supplier)->count(3)->create(['vendor_code' => 'test quantity']);
+        $cvet = PrCvet::factory()->create();
+        $rolls->each(function ($roll) use ($cvet) {
+            $roll->prCvet()->associate($cvet);
+            $roll->save();
+        });
+
+        $cvet->publish();
+        $this->assertTrue($cvet->getPublicStatus());
+
+        $cvet->retract();
+        $this->assertFalse($cvet->getPublicStatus());
+
+        $cvet->publish();
+
+        $rolls->each(function ($roll) use ($cvet) {
+            $roll->quantity_m2 = 0;
+            $roll->save();
+        });
+
+        $this->assertFalse($cvet->getPublicStatus());
+    }
 
     public function testUploadPageCanRender()
     {

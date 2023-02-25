@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\UsersController;
+use App\Models\PrCvet;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,8 +60,12 @@ Route::group([
 
     //Цвета
     Route::resource('pr_cvets', Controllers\PrCvetController::class);
-    Route::get('/pr_cvets/{id}/delete', [Controllers\PrCvetController::class, 'delete'])
+    Route::get('/pr_cvets/{pr_cvet}/delete', [Controllers\PrCvetController::class, 'delete'])
         ->name('pr_cvets.delete');
+    Route::get('/pr_cvets/{pr_cvet}/publish', [Controllers\PrCvetController::class, 'publish'])
+        ->name('pr_cvets.publish');
+    Route::get('/pr_cvets/{pr_cvet}/retract', [Controllers\PrCvetController::class, 'retract'])
+        ->name('pr_cvets.retract');
     //Рулоны
     Route::resource('pr_rolls', Controllers\PrRollController::class);
     Route::get('/pr_rolls/{id}/delete', [Controllers\PrRollController::class, 'delete'])

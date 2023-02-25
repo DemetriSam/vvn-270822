@@ -2,7 +2,7 @@
     <div class="rec-block">
         <div class="rec-block__title">
             <div class="rec-block__label">
-            @if (Route::currentRouteName() === 'catalog' || Route::currentRouteName() === 'catalog.color')
+            @if (Route::currentRouteName() === 'catalog.color')
                 <h1>{{ $title }}</h1>
             @else
                 {{ $title }}
@@ -12,7 +12,7 @@
         </div>
         <div class="rec-block__nodes nodes">
             @foreach ($products as $product)
-                <x-public.node :product="$product" />
+                <x-public.node :product="$product" />                    
             @endforeach
         </div>
         

@@ -27,7 +27,8 @@ class Controller extends BaseController
         $page = 1;
         $productsOnPage = 4;
 
-        $products = $category->products;
+        $products = $category->products->filter(fn ($product) => $product->getPublicStatus());
+
         $grouped = $products
             ->groupBy('color_id')
             ->map(function ($group, $id) use ($page, $productsOnPage) {
@@ -59,15 +60,16 @@ class Controller extends BaseController
         $page = 1;
 
         $carpetsCat = Category::firstWhere('slug', 'carpets');
+        $products = $carpetsCat->products->filter(fn ($product) => $product->getPublicStatus());
 
         $carpets = [
             'title' => $carpetsCat->name,
-            'products' => $carpetsCat->products->forPage($page, $productsOnPage),
-            'route' => ['catalog', ['category' => 'carpets']],
-            'linktext' => 'Смотреть все ковровые покрытия',
+            'products' => $products->forPage($page, $productsOnPage),
+            'route' => [],
+            'linktext' => '',
         ];
 
-        if ($carpetsCat->products->count() > $productsOnPage) {
+        if ($products->count() > $productsOnPage) {
             $carpets = array_merge($carpets, [
                 'route' => ['catalog', ['category' => 'carpets']],
                 'linktext' => 'Смотреть все ковровые покрытия',
@@ -79,9 +81,11 @@ class Controller extends BaseController
         $cinovki = [
             'title' => $cinovkiCat->name,
             'products' => $cinovkiCat->products->forPage($page, $productsOnPage),
+            'route' => [],
+            'linktext' => '',
         ];
 
-        if ($carpetsCat->products->count() > $productsOnPage) {
+        if ($products->count() > $productsOnPage) {
             $cinovki = array_merge($cinovki, [
                 'route' => ['catalog', ['category' => 'cinovki']],
                 'linktext' => 'Смотреть все циновки',
@@ -109,7 +113,11 @@ class Controller extends BaseController
 
     public function color(Category $category, Color $color)
     {
-        $products = $category->products()->where('color_id', $color->id)->paginate(12);
+        $products = $category->products()
+            ->where('color_id', $color->id)
+            ->where('published', 'true')
+            ->paginate(12);
+
         return view('color', compact('color', 'products'));
     }
 

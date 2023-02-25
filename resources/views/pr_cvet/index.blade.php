@@ -35,6 +35,11 @@
                 <td>{{ $cvet->sort }}</td>
                 <td>
                     <a href="{{ route('pr_cvets.edit', ['pr_cvet' => $cvet->id]) }}">Редактировать</a>
+                    @if ($cvet->isPublished())
+                        <a href="">Снять с публикации</a>
+                    @else
+                        <a href="{{ route('pr_cvets.publish', ['pr_cvet' => $cvet->id]) }}">Опубликовать</a>
+                    @endif
                 </td>
             </tr>
             @endforeach

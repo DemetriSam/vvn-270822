@@ -28,7 +28,7 @@ class MeteringFormTest extends TestCase
         Mail::fake();
 
         $data = $this->data;
-        $this->patch(route('request.mesurement'), $data->toArray())
+        $this->put(route('request.mesurement'), $data->toArray())
             ->assertSessionHasNoErrors()
             ->assertRedirect();
 

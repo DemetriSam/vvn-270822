@@ -1,4 +1,5 @@
 <x-layout>
+    <h1 style="text-align: center">{{ $category->name }}</h1>
     <section class="recomendations">
         @foreach ($grouped as $group)
             <x-public.nodes 
