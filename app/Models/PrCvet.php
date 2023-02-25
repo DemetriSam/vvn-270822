@@ -14,6 +14,8 @@ class PrCvet extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
+    const MIN_QUANTITY_M2 = 8;
+
     protected $fillable = [
         'title',
         'name_in_folder',
@@ -128,8 +130,12 @@ class PrCvet extends Model implements HasMedia
         $this->save();
     }
 
-    public function getPublicStatus()
+    public function updatePublicStatusByQuantity()
     {
-        return $this->quantity > 0 && $this->isPublished();
+        if ($this->quantity < self::MIN_QUANTITY_M2) {
+            $this->retract();
+        } else {
+            $this->publish();
+        }
     }
 }

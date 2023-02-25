@@ -4,7 +4,7 @@ namespace App\Services\Stockupdate;
 
 class DizanariumRules
 {
-    public $delTopLines = 1;
+    public $delTopLines = 2;
 
     public function getMap()
     {

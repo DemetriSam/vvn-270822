@@ -19,7 +19,7 @@ class PrCvetController extends Controller
      */
     public function index()
     {
-        $pr_cvets = PrCvet::paginate(20);
+        $pr_cvets = PrCvet::orderBy('id')->paginate(20);
         return view('pr_cvet.index', compact('pr_cvets'));
     }
 
@@ -85,7 +85,7 @@ class PrCvetController extends Controller
      */
     public function show(PrCvet $prCvet)
     {
-        if (!$prCvet->getPublicStatus()) {
+        if (!$prCvet->isPublished()) {
             return redirect()->route('catalog', ['category' => $prCvet->category->slug]);
         }
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PrRollsImport;
 use App\Services\Stockupdate\InnerRepresentation;
+use Illuminate\Support\Facades\DB;
 
 class PrRollController extends Controller
 {
@@ -80,12 +81,16 @@ class PrRollController extends Controller
                         break;
                     case 'changed':
                         $updated = PrRoll::where('slug', $value['slug'])->first();
-                        $updated->quantity_m2 = $value->quantity_m2;
+                        $updated->quantity_m2 = $value->quantity_m2 ?? 0;
                         $updated->save();
+                        $cvet = $updated->prCvet;
+                        $cvet?->updatePublicStatusByQuantity();
                         break;
                     case 'deleted':
                         $deleted = PrRoll::where('slug', $value['slug'])->first();
+                        $cvet = $deleted->prCvet;
                         $deleted->delete();
+                        $cvet?->updatePublicStatusByQuantity();
                         break;
                 }
             });

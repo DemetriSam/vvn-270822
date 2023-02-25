@@ -27,7 +27,7 @@ class Controller extends BaseController
         $page = 1;
         $productsOnPage = 4;
 
-        $products = $category->products->filter(fn ($product) => $product->getPublicStatus());
+        $products = $category->products->filter(fn ($product) => $product->isPublished());
 
         $grouped = $products
             ->groupBy('color_id')
@@ -60,7 +60,7 @@ class Controller extends BaseController
         $page = 1;
 
         $carpetsCat = Category::firstWhere('slug', 'carpets');
-        $products = $carpetsCat->products->filter(fn ($product) => $product->getPublicStatus());
+        $products = $carpetsCat->products->filter(fn ($product) => $product->isPublished());
 
         $carpets = [
             'title' => $carpetsCat->name,
@@ -115,7 +115,7 @@ class Controller extends BaseController
     {
         $products = $category->products()
             ->where('color_id', $color->id)
-            ->where('published', 'true')
+            ->where('pr_cvets.published', 'true')
             ->paginate(12);
 
         return view('color', compact('color', 'products'));

@@ -15,6 +15,7 @@ use App\Exports\TestExport;
 use App\Models\PrCvet;
 use Illuminate\Http\File;
 use App\Services\Stockupdate\Slugger;
+use Illuminate\Support\Facades\DB;
 
 class UploadUpdateTest extends TestCase
 {
@@ -40,33 +41,16 @@ class UploadUpdateTest extends TestCase
         PrRoll::factory()->for($this->supplier)->count(3)->create(['vendor_code' => 'old']);
         PrRoll::factory()->for($this->supplier)->count(2)->create(['vendor_code' => 'changed']);
         PrRoll::factory()->for($this->supplier)->count(1)->create(['vendor_code' => 'same', 'quantity_m2' => 23.22]);
+        $runOut = PrRoll::factory()->for($this->supplier)->count(3)->create(['vendor_code' => 'will_run_out_of_stock', 'quantity_m2' => 50]);
+        $comeIn = PrRoll::factory()->for($this->supplier)->count(3)->create(['vendor_code' => 'will_come_in', 'quantity_m2' => 0]);
         $current = PrRoll::where('supplier_id', $this->supplier->id)->get();
         $this->slugger->setUniqueSlugs($current, 'vendor_code', 'slug')->each(fn ($row) => $row->save());
-    }
 
-    public function test_public_status_depends_on_quantity()
-    {
-        $rolls = PrRoll::factory()->for($this->supplier)->count(3)->create(['vendor_code' => 'test quantity']);
-        $cvet = PrCvet::factory()->create();
-        $rolls->each(function ($roll) use ($cvet) {
-            $roll->prCvet()->associate($cvet);
-            $roll->save();
-        });
+        $this->cvetRunOut = PrCvet::factory()->create(['published' => 'true']);
+        $runOut->each(fn ($roll) => $roll->prCvet()->associate($this->cvetRunOut));
 
-        $cvet->publish();
-        $this->assertTrue($cvet->getPublicStatus());
-
-        $cvet->retract();
-        $this->assertFalse($cvet->getPublicStatus());
-
-        $cvet->publish();
-
-        $rolls->each(function ($roll) use ($cvet) {
-            $roll->quantity_m2 = 0;
-            $roll->save();
-        });
-
-        $this->assertFalse($cvet->getPublicStatus());
+        $this->cvetComeIn = PrCvet::factory()->create(['published' => 'false']);
+        $comeIn->each(fn ($roll) => $roll->prCvet()->associate($this->cvetComeIn));
     }
 
     public function testUploadPageCanRender()
@@ -119,6 +103,14 @@ class UploadUpdateTest extends TestCase
         }
 
         $this->assertDataBaseMissing('pr_rolls', ['vendor_code' => 'old']);
+
+        $status = DB::table('pr_cvets')->where('id', $this->cvetRunOut->id)->first()->published;
+        $quantity = $this->cvetRunOut->quantity;
+        $this->cvetRunOut->refresh();
+        $this->assertFalse($this->cvetRunOut->isPublished());
+
+        $this->cvetComeIn->refresh();
+        $this->assertTrue($this->cvetComeIn->isPublished());
     }
 
     public function provideFixtures()
@@ -151,6 +143,22 @@ class UploadUpdateTest extends TestCase
             [
                 'vendor_code' => 'changed',
                 'quantity_m2' => 300,
+            ],
+            [
+                'vendor_code' => 'will_run_out_of_stock',
+                'quantity_m2' => 1,
+            ],
+            [
+                'vendor_code' => 'will_run_out_of_stock',
+                'quantity_m2' => 2,
+            ],
+            [
+                'vendor_code' => 'will_run_out_of_stock',
+                'quantity_m2' => 0,
+            ],
+            [
+                'vendor_code' => 'will_come_in',
+                'quantity_m2' => 100,
             ],
         ];
         return [
