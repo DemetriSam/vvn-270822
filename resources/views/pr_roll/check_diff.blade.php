@@ -9,7 +9,8 @@
             <td>Slug</td>
             <td>Status</td>
             <td>Vendor Code</td>
-            <td>Quantity(m2)</td>
+            <td>Quantity(m2) - Новое значение</td>
+            <td>Quantity(m2) - Старое значение</td>
         </thead>
         @foreach ($diff as $node)
         @if($node['type'] !== 'unchanged')
@@ -18,6 +19,7 @@
             <td>{{ $node['type'] }}</td>
             <td>{{ $node['value']->vendor_code }}</td>
             <td>{{ $node['value']->quantity_m2 }}</td>
+            <td>{{ $current?->firstWhere('slug', $node['slug'])?->quantity_m2 }}</td>
         </tr>
         @endif
         @endforeach

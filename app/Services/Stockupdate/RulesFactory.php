@@ -12,6 +12,9 @@ class RulesFactory
             case 'test':
                 return new TestRules();
 
+            case 'fenix':
+                return new FenixRules();
+
             default:
                 # code...
                 break;

@@ -22,7 +22,7 @@ class PrRollController extends Controller
 
     public function renderCheckPage(InnerRepresentation $innrep)
     {
-        return view('pr_roll.check_diff', ['diff' => $innrep->getDiff()]);
+        return view('pr_roll.check_diff', ['diff' => $innrep->getDiff(), 'current' => PrRoll::all()]);
     }
     public function checkAgain(Request $request, InnerRepresentation $innrep)
     {
@@ -52,7 +52,7 @@ class PrRollController extends Controller
         $innrep->setDataForUpdate($update, $supplier_id);
         $innrep->createInnerRepresentation();
 
-        return view('pr_roll.check_diff', ['diff' => $innrep->getDiff()]);
+        return view('pr_roll.check_diff', ['diff' => $innrep->getDiff(), 'current' => PrRoll::all()]);
     }
 
     public function renderEditForm(InnerRepresentation $innrep)

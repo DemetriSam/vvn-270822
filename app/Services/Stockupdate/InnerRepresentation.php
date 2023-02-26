@@ -14,7 +14,7 @@ class InnerRepresentation
     }
     public function getDiff()
     {
-        return optional(session('diff'))->reject(fn($node) => empty($node));
+        return optional(session('diff'))->reject(fn ($node) => empty($node));
     }
 
     public function pullDiff()
@@ -26,7 +26,7 @@ class InnerRepresentation
     {
         $this->update = $this->slugger
             ->setUniqueSlugs(collect($data), 'vendor_code', 'slug')
-            ->map(fn($row) => PrRoll::make($row));
+            ->map(fn ($row) => PrRoll::make($row));
 
         $this->supplier_id = $supplier_id;
         $this->current = PrRoll::where('supplier_id', $supplier_id)->get();
@@ -54,8 +54,8 @@ class InnerRepresentation
             $value1 = $first->firstWhere('slug', $slug);
             $value2 = $second->firstWhere('slug', $slug);
 
-            $q1 = $value1 ? $value1->quantity_m2 : null;
-            $q2 = $value2 ? $value2->quantity_m2 : null;
+            $q1 = $value1 ? floatval($value1->quantity_m2) : null;
+            $q2 = $value2 ? floatval($value2->quantity_m2) : null;
 
             if (!$first->pluck('slug')->contains($slug)) {
                 return [
@@ -73,8 +73,7 @@ class InnerRepresentation
                 ];
             }
 
-            //unstrict comparsion for proper result for kind of 60 ? 60.00
-            if ($q1 === $q2) {
+            if ((string) $q1 === (string) $q2) {
                 if ($q2 === null) {
                     return [];
                 }
