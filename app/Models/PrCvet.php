@@ -14,7 +14,7 @@ class PrCvet extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-    const MIN_QUANTITY_M2 = 8;
+    protected const MIN_QUANTITY_M2 = 8;
 
     protected $fillable = [
         'title',
