@@ -60,16 +60,16 @@ class Controller extends BaseController
         $page = 1;
 
         $carpetsCat = Category::firstWhere('slug', 'carpets');
-        $products = $carpetsCat->products->filter(fn ($product) => $product->isPublished());
+        $products = $carpetsCat?->products->filter(fn ($product) => $product->isPublished());
 
         $carpets = [
-            'title' => $carpetsCat->name,
-            'products' => $products->forPage($page, $productsOnPage),
+            'title' => $carpetsCat?->name,
+            'products' => $products?->forPage($page, $productsOnPage),
             'route' => [],
             'linktext' => '',
         ];
 
-        if ($products->count() > $productsOnPage) {
+        if ($products?->count() > $productsOnPage) {
             $carpets = array_merge($carpets, [
                 'route' => ['catalog', ['category' => 'carpets']],
                 'linktext' => 'Смотреть все ковровые покрытия',
@@ -79,13 +79,13 @@ class Controller extends BaseController
         $cinovkiCat = Category::firstWhere('slug', 'cinovki');
 
         $cinovki = [
-            'title' => $cinovkiCat->name,
-            'products' => $cinovkiCat->products->forPage($page, $productsOnPage),
+            'title' => $cinovkiCat?->name,
+            'products' => $cinovkiCat?->products->forPage($page, $productsOnPage),
             'route' => [],
             'linktext' => '',
         ];
 
-        if ($products->count() > $productsOnPage) {
+        if ($products?->count() > $productsOnPage) {
             $cinovki = array_merge($cinovki, [
                 'route' => ['catalog', ['category' => 'cinovki']],
                 'linktext' => 'Смотреть все циновки',
