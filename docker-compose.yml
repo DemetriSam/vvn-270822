@@ -2,82 +2,18 @@ version: '3'
 
 services:
 
-  # PHP -----------------------------------------------
-  php:
-    build:
-      context: images/php
-      dockerfile: Dockerfile
-      args:
-        - UID=${UID}
-    container_name: ${BB_PHP_WORKDIR}
-    environment:
-      PHP_IDE_CONFIG: "serverName=Docker"
-    restart: always
-    working_dir: /var/www/${BB_PHP_WORKDIR}
-    volumes:
-      - .:/var/www/${BB_PHP_WORKDIR}
-    depends_on:
-      - database
-    logging:
-      driver: json-file
-      options:
-        max-size: "200m"
-        max-file: "3"
-
-#  frontend:
-#      build:
-#          context: images/frontend
-#          dockerfile: Dockerfile
-#          args:
-#              - UID=${UID}
-#      container_name: ${BB_FRONT_WORKDIR}
-#      restart: always
-#      working_dir: /var/www/${BB_FRONT_WORKDIR}
-#      volumes:
-#          - .:/var/www/${BB_FRONT_WORKDIR}
-
-  # Nginx -----------------------------------------------
-  nginx:
-    build:
-      context: images/nginx
-      dockerfile: Dockerfile
-      args:
-        - DOMAIN=${DOMAIN}
-        - ENV=${APP_ENV}
-        - BACK_DIR=${BB_PHP_WORKDIR}
-    container_name: ${BB_NGINX_WORKDIR}
+  application-nginx:
+    image: cr.yandex/crp3vb48visoe0anu49g/nginx:dev
     restart: always
     ports:
-      - "${PORT_HTTP}:80"
-      - "${PORT_HTTPS}:443"
-    working_dir: /var/www/${BB_NGINX_WORKDIR}
-    volumes:
-      - .:/var/www/${BB_NGINX_WORKDIR}
-      - .:/var/www/${BB_PHP_WORKDIR}
-    depends_on:
-      - php
-    logging:
-      driver: json-file
-      options:
-        max-size: "200m"
-        max-file: "3"
+      - "127.0.0.1:3080:80"
+    links:
+      - "application-fpm:php-fpm"
 
-  # Redis -------------------------------------------------
-  redis:
-    image: redis:6-alpine
-    container_name: ${BB_REDIS_WORKDIR}
+  application-fpm:
+    image: cr.yandex/crp3vb48visoe0anu49g/php8.1-fpm:dev
+    env_file: .env
     restart: always
-    volumes:
-      - ./images/redis/redis.conf:/redis.conf
-    depends_on:
-      - php
-      - database
-    command: [ "redis-server", "/redis.conf" ]
-    logging:
-      driver: json-file
-      options:
-        max-size: "200m"
-        max-file: "3"
 
   # Database -------------------------------------------------
   database:
@@ -98,20 +34,3 @@ services:
       options:
         max-size: "200m"
         max-file: "3"
-
-  meilisearch:
-      image: getmeili/meilisearch:v0.23.1
-      restart: always
-      volumes:
-          - ./data.ms:/data.ms
-      environment:
-          - MEILI_NO_ANALYTICS=true
-          - MEILI_NO_SENTRY=true
-#          - MEILI_MASTER_KEY=${MEILISEARCH_KEY}
-      ports:
-          - "7700:7700"
-      logging:
-        driver: json-file
-        options:
-          max-size: "200m"
-          max-file: "3"

@@ -83,14 +83,14 @@ install:
 	docker compose exec php composer install
 
 key:
-	docker compose exec php php artisan key:gen --ansi
-	docker compose exec php php artisan jwt:secret --force
+	docker compose exec application-fpm php artisan key:gen --ansi
+	docker compose exec application-fpm php artisan jwt:secret --force
 
 database-prepare:
-	docker compose exec php php artisan migrate:fresh --seed
+	docker compose exec application-fpm php artisan migrate:fresh --seed
 
 storage-link:
-	docker compose exec php php artisan storage:link
+	docker compose exec application-fpm php artisan storage:link
 
 heroku-build:
 	composer install
@@ -109,3 +109,12 @@ ls-start:
 	php artisan serve
 
 start: db-start ls-start
+
+compile-assets:
+	npm run build
+build-php:
+	docker build -t cr.yandex/crp3vb48visoe0anu49g/php8.1-fpm:latest -f ./images/php/Dockerfile . && docker push cr.yandex/crp3vb48visoe0anu49g/php8.1-fpm:latest
+build-nginx:
+	docker build -t cr.yandex/crp3vb48visoe0anu49g/nginx:latest -f ./images/nginx/Dockerfile . && docker push cr.yandex/crp3vb48visoe0anu49g/nginx:latest
+
+build-containers: compile-assets build-nginx build-php

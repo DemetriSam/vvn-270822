@@ -1,0 +1,6 @@
+postgres-data/
+data.ms/
+/vendor
+/etc
+/.vscode
+.env
