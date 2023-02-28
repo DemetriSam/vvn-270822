@@ -9,7 +9,7 @@ class DizanariumRules
     public function getMap()
     {
         return [
-            'vendor_code' => 0,
+            'vendor_code' => 1,
             'quantity_m2' => 3,
         ];
     }

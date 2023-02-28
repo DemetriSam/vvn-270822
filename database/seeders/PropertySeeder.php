@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\PrCollection;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Property;
@@ -36,6 +37,12 @@ class PropertySeeder extends Seeder
             'name' => 'Циновки',
             'slug' => 'cinovki',
         ])->properties()->attach([$width->id, $composition->id]);
+
+        PrCollection::firstOrCreate([
+            'name' => 'default',
+            'default_price' => 0.5,
+            'category_id' => 1,
+        ]);
 
         $values = [
             'width' => [

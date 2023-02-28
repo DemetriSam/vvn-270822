@@ -4,11 +4,6 @@ namespace App\Imports;
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use App\Models\PrRoll;
-use App\Models\PrCvet;
-use App\Models\PrCollection;
-use App\Models\Category;
-use App\Models\Supplier;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use App\Services\Stockupdate\RulesFactory;
 

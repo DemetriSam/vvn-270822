@@ -9,6 +9,9 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PrRollsImport;
+use App\Models\Color;
+use App\Models\PrCollection;
+use App\Models\PrCvet;
 use App\Services\Stockupdate\InnerRepresentation;
 use Illuminate\Support\Facades\DB;
 
@@ -77,12 +80,22 @@ class PrRollController extends Controller
                 switch ($type) {
                     case 'added':
                         $value->supplier_id = $supplier_id;
-                        PrRoll::create($value->toArray());
+                        $roll = PrRoll::create($value->toArray());
+
+                        $cvet = PrCvet::firstOrCreate([
+                            'name_in_folder' => $roll->vendor_code,
+                            'title' => $roll->vendor_code,
+                            'pr_collection_id' => PrCollection::firstWhere('name', 'default')->id,
+                            'color_id' => Color::first()->id,
+                        ]);
+
+                        $cvet?->updatePublicStatusByQuantity();
                         break;
                     case 'changed':
                         $updated = PrRoll::where('slug', $value['slug'])->first();
                         $updated->quantity_m2 = $value->quantity_m2 ?? 0;
                         $updated->save();
+
                         $cvet = $updated->prCvet;
                         $cvet?->updatePublicStatusByQuantity();
                         break;
