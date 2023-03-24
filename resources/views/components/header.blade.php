@@ -61,24 +61,6 @@
 								Циновки из сизаля
 							</a>
 						</li>
-						<li class="nav-item menu__item">
-							<a href="http://vse-v-nalichii.samartu2.beget.tech/ru"
-								class="nav-link`menu__link nav-link--ru" data-drupal-link-system-path="&lt;front&gt;">
-								Замер
-							</a>
-						</li>
-						<li class="nav-item menu__item">
-							<a href="http://vse-v-nalichii.samartu2.beget.tech/ru"
-								class="nav-link`menu__link nav-link--ru" data-drupal-link-system-path="&lt;front&gt;">
-								Настил
-							</a>
-						</li>
-						<li class="nav-item menu__item">
-							<a href="http://vse-v-nalichii.samartu2.beget.tech/ru"
-								class="nav-link`menu__link nav-link--ru" data-drupal-link-system-path="&lt;front&gt;">
-								Ковер по индивидуальным размерам
-							</a>
-						</li>
 					</ul>
 					<div class="contacts_in_burger">
 						<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>
