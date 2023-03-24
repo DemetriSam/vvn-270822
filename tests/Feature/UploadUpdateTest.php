@@ -12,6 +12,8 @@ use Spatie\Permission\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\TestExport;
+use App\Models\Category;
+use App\Models\PrCollection;
 use App\Models\PrCvet;
 use Illuminate\Http\File;
 use App\Services\Stockupdate\Slugger;
@@ -52,6 +54,79 @@ class UploadUpdateTest extends TestCase
 
         $this->cvetComeIn = PrCvet::factory()->create(['published' => 'false']);
         $comeIn->each(fn ($roll) => $roll->prCvet()->associate($this->cvetComeIn));
+
+        PrCollection::firstOrCreate([
+            'name' => 'default',
+            'default_price' => 0.5,
+            'category_id' => 1,
+        ]);
+
+        $colors = [
+            [
+                'name' => 'Белый',
+                'slug' => 'white',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Бежевый',
+                'slug' => 'beige',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Зеленый',
+                'slug' => 'green',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Коричневый',
+                'slug' => 'brown',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Красный',
+                'slug' => 'red',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Оранжевый',
+                'slug' => 'orange',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Серый',
+                'slug' => 'grey',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Синий',
+                'slug' => 'blue',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Сиреневый',
+                'slug' => 'lilac',
+                'color_hash' => 'put_hash_here',
+            ],
+            [
+                'name' => 'Черный',
+                'slug' => 'black',
+                'color_hash' => 'put_hash_here',
+            ],
+        ];
+
+        $colorsIds = collect($colors)->map(
+            fn ($color) => \App\Models\Color::firstOrCreate($color)->id
+        );
+
+        Category::firstOrCreate([
+            'name' => 'Ковровые покрытия',
+            'slug' => 'carpets',
+        ])->colors()->attach($colorsIds);
+
+        Category::firstOrCreate([
+            'name' => 'Циновки',
+            'slug' => 'cinovki',
+        ])->colors()->attach($colorsIds);
     }
 
     public function testUploadPageCanRender()
