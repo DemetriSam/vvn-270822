@@ -77,10 +77,11 @@ class Controller extends BaseController
         }
 
         $cinovkiCat = Category::firstWhere('slug', 'cinovki');
+        $products = $cinovkiCat?->products->filter(fn ($product) => $product->isPublished())->sort();
 
         $cinovki = [
             'title' => $cinovkiCat?->name,
-            'products' => $cinovkiCat?->products->forPage($page, $productsOnPage),
+            'products' => $products->forPage($page, $productsOnPage),
             'route' => [],
             'linktext' => '',
         ];
