@@ -42,4 +42,6 @@
             @endforeach
         </tbody>
     </table>
+    {{ $prRolls->links() }}
+
 </x-app-layout>

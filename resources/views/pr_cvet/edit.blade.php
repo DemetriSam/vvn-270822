@@ -1,8 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            Редактирование
         </h2>
+        <a href="{{ route('pr_cvets.delete', ['pr_cvet' => $prCvet]) }}">Удалить</a>
+
     </x-slot>
     <x-form-card>
         <form method="POST" action="{{ route('pr_cvets.update', ['pr_cvet' => $prCvet]) }} " enctype="multipart/form-data">
@@ -76,6 +78,7 @@
             </div>
         </form>
     </x-form-card>
+
     <style>
         .wide {
             display: none;

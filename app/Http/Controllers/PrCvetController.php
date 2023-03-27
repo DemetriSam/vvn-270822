@@ -45,7 +45,8 @@ class PrCvetController extends Controller
     {
 
         $request->validate([
-            'name_in_folder' => ['required', 'string'],
+            'name_in_folder' => ['required', 'string', 'unique:pr_cvets'],
+            'pr_collection_id' => ['required'],
         ]);
         $prCollection = PrCollection::find($request->pr_collection_id);
         if ($prCollection->name || $prCollection->nickname) {
@@ -156,8 +157,8 @@ class PrCvetController extends Controller
      */
     public function delete($id)
     {
-        $pr_cvet = PrCvet::find($id);
-        return view('pr_cvet.delete', compact('pr_cvet'));
+        $prCvet = PrCvet::find($id);
+        return view('pr_cvet.delete', compact('prCvet'));
     }
 
     /**
@@ -169,7 +170,7 @@ class PrCvetController extends Controller
     public function destroy($id)
     {
         PrCvet::destroy($id);
-        return redirect()->route('pr_cvets.index');
+        return redirect()->route('pr_cvets.index')->with('success', 'the product was deleted');
     }
 
     public function addImages(PrCvet $prCvet, Request $request)
@@ -200,5 +201,11 @@ class PrCvetController extends Controller
     public function publish(PrCvet $prCvet)
     {
         $prCvet->publish();
+        return redirect()->route('pr_cvets.index');
+    }
+    public function retract(PrCvet $prCvet)
+    {
+        $prCvet->retract();
+        return redirect()->route('pr_cvets.index');
     }
 }

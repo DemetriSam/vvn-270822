@@ -139,7 +139,7 @@ class PrRollController extends Controller
      */
     public function index()
     {
-        $prRolls = PrRoll::all();
+        $prRolls = PrRoll::orderBy('id')->paginate(30);
         return view('pr_roll.index', ['prRolls' => $prRolls]);
     }
 

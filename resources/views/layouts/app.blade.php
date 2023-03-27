@@ -22,13 +22,13 @@
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <div class="flex w-full gap-1 justify-between">
                         {{ $header }}
-                        @if(session()->has('success'))
-                        {{ session()->get('success') }}
-                        @endif
                     </div>
                 </div>
             </header>
-            @if(session()->has('errors') and app()->environment() === 'development')
+            @if(session()->has('success'))
+                {{ session()->get('success') }}
+            @endif
+            @if(session()->has('errors'))
                 {{ session()->get('errors') }}
             @endif
             <!-- Page Content -->

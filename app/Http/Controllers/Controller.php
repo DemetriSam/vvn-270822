@@ -27,7 +27,7 @@ class Controller extends BaseController
         $page = 1;
         $productsOnPage = 4;
 
-        $products = $category->products->filter(fn ($product) => $product->isPublished());
+        $products = $category->products->filter(fn ($product) => $product->isPublished())->sort();
 
         $grouped = $products
             ->groupBy('color_id')
@@ -60,7 +60,7 @@ class Controller extends BaseController
         $page = 1;
 
         $carpetsCat = Category::firstWhere('slug', 'carpets');
-        $products = $carpetsCat?->products->filter(fn ($product) => $product->isPublished());
+        $products = $carpetsCat?->products->filter(fn ($product) => $product->isPublished())->sort();
 
         $carpets = [
             'title' => $carpetsCat?->name,
