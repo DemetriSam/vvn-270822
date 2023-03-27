@@ -1,8 +1,5 @@
 <x-app-layout>
     <x-slot name="header">Проверка загруженных остатков</x-slot>
-    @if(session()->has('success'))
-    {{ session()->get('success') }}
-    @endif
     @if ($diff)
     <table>
         <thead>

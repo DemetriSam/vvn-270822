@@ -197,6 +197,9 @@ class PrRollController extends Controller
         $input = $request->input();
         $prRoll->fill($input);
         $prRoll->save();
+
+        return redirect()->route('pr_rolls.index')
+            ->with('success', 'Roll successufully changed');
     }
 
     /**
