@@ -80,16 +80,7 @@ class PrRollController extends Controller
                 switch ($type) {
                     case 'added':
                         $value->supplier_id = $supplier_id;
-                        $roll = PrRoll::create($value->toArray());
-
-                        $cvet = PrCvet::firstOrCreate([
-                            'name_in_folder' => $roll->vendor_code,
-                            'title' => $roll->vendor_code,
-                            'pr_collection_id' => PrCollection::firstWhere('name', 'default')->id,
-                            'color_id' => Color::first()->id,
-                        ]);
-
-                        $cvet?->updatePublicStatusByQuantity();
+                        PrRoll::create($value->toArray());
                         break;
                     case 'changed':
                         $updated = PrRoll::where('slug', $value['slug'])->first();
