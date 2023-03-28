@@ -35,7 +35,7 @@
                 @endif
             @endforeach
         </table>
-        <input type=" text" class="hidden" name="supplier_id" value="{{ session('supplier_id') }}">
+        <input type="hidden" name="supplier_id" value="{{ session('supplier_id') }}">
         <x-button>Сохранить</x-button>
     </form>
     @endif

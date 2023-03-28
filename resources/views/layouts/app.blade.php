@@ -30,6 +30,9 @@
             @endif
             @if(session()->has('errors'))
                 {{ session()->get('errors') }}
+                @if($errors->any())
+                    {!! implode('', $errors->all('<div>:message</div>')) !!}
+                @endif
             @endif
             <!-- Page Content -->
             <main>
