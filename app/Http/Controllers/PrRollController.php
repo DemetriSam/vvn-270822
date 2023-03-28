@@ -29,6 +29,10 @@ class PrRollController extends Controller
     }
     public function checkAgain(Request $request, InnerRepresentation $innrep)
     {
+        $request->validate([
+            'supplier_id' => 'required',
+        ]);
+
         $slugs = $request->input('slug');
         $vendor_codes = $request->input('vendor_code');
         $quantities_m2 = $request->input('quantity_m2');
