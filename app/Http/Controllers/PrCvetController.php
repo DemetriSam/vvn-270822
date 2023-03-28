@@ -92,10 +92,12 @@ class PrCvetController extends Controller
 
         $sameColor = PrCvet::where('color_id', $prCvet->color_id)
             ->whereNot('id', $prCvet->id)
+            ->where('pr_cvets.published', 'true')
             ->get()->forPage(1, 12);
 
         $sameCollection = PrCvet::where('pr_collection_id', $prCvet->pr_collection_id)
             ->whereNot('id', $prCvet->id)
+            ->where('pr_cvets.published', 'true')
             ->get()->diff($sameColor)->forPage(1, 12);
 
         return view('pr_cvet.show', compact('prCvet', 'sameColor', 'sameCollection'));
