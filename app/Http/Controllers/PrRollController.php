@@ -29,11 +29,6 @@ class PrRollController extends Controller
     }
     public function checkAgain(Request $request, InnerRepresentation $innrep)
     {
-        $request->validate([
-            'vendor_code.*' => 'required',
-            'quantity_m2.*' => 'required',
-            'supplier_id' => 'required',
-        ]);
         $slugs = $request->input('slug');
         $vendor_codes = $request->input('vendor_code');
         $quantities_m2 = $request->input('quantity_m2');
@@ -99,7 +94,7 @@ class PrRollController extends Controller
                 }
             });
 
-        return redirect()->route('upload.check')
+        return redirect()->route('pr_rolls.index')
             ->with('success', 'Database is updated successfully');
     }
 

@@ -19,7 +19,17 @@ class Slugger
             $slug = Str::slug($row[$baseField]);
             $i = 1;
             while ($result->pluck($slugField)->contains($slug)) {
-                $slug = implode('-', [$slug, $i]);
+                $array = explode('-', $slug);
+                $lenght = count($array);
+                $last = $array[$lenght - 1];
+
+                if ($lenght > 1 && preg_match('/\d+/', $last)) {
+                    $array[$lenght - 1] = $i;
+                    $slug = implode('-', $array);
+                } else {
+                    $slug = implode('-', [$slug, $i]);
+                }
+
                 $i++;
             }
             $row[$slugField] = $slug;

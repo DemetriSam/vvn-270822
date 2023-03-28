@@ -11,6 +11,7 @@ class InnerRepresentation
     public function __construct(Slugger $slugger)
     {
         $this->slugger = $slugger;
+        $this->isWithDelete = true;
     }
     public function getDiff()
     {
@@ -32,25 +33,30 @@ class InnerRepresentation
         $this->current = PrRoll::where('supplier_id', $supplier_id)->get();
     }
 
+    public function setDeleteOption(bool $is)
+    {
+        $this->isWithDelete = $is;
+    }
+
     public function createInnerRepresentation()
     {
         $first = $this->current;
         $second = $this->update;
         $supplier_id = $this->supplier_id;
 
-        session(['diff' => $this->diff($first, $second)]);
+        session(['diff' => $this->diff($first, $second, $this->isWithDelete)]);
         session(['update' => $second]);
         session(['supplier_id' => $supplier_id]);
     }
 
-    public function diff(Collection $first, Collection $second)
+    public function diff(Collection $first, Collection $second, $withDelete = true)
     {
         $f = $first->pluck('slug');
         $s = $second->pluck('slug');
 
         $slugs = $f->merge($s)->unique();
 
-        return $slugs->map(function ($slug) use ($first, $second) {
+        return $slugs->map(function ($slug) use ($first, $second, $withDelete) {
             $value1 = $first->firstWhere('slug', $slug);
             $value2 = $second->firstWhere('slug', $slug);
 
@@ -65,7 +71,7 @@ class InnerRepresentation
                 ];
             }
 
-            if (!$second->pluck('slug')->contains($slug)) {
+            if (!$second->pluck('slug')->contains($slug) && $withDelete) {
                 return [
                     'slug' => $slug,
                     'type' => 'deleted',
