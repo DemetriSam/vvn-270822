@@ -17,7 +17,7 @@
             </div>
             <div class="main-banner__form">
                 @if(Session::has('message'))
-                    <p class="">{{ Session::get('message') }}</p>
+                <p class="">{{ Session::get('message') }}</p>
                 @endif
                 <form class="design-form" action="{{ route('request.mesurement') }}" method="POST">
                     @csrf
@@ -40,7 +40,7 @@
 
                         <p><input type="checkbox" name="personal_data_confirmed"></input> Даю свое согласие на обработку <a src="#">персональных
                                 данных</a>
-                            </p><span style="color: red">{{$errors->first('personal_data_confirmed')}}</span>
+                        </p><span style="color: red">{{$errors->first('personal_data_confirmed')}}</span>
                     </div>
                     <div class="design-form__button"> <input class="button" type="submit" value="Отправить форму"> </div>
                 </form>
