@@ -109,10 +109,12 @@ class PrCvetController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function edit(PrCvet $prCvet)
+    public function edit(PrCvet $prCvet, Request $request)
     {
         $prCollections = PrCollection::all();
         $colors = Color::all();
+        $referer = $request->headers->get('referer');
+        session()->put('referer', $referer);
         return view('pr_cvet.edit', compact('prCvet', 'prCollections', 'colors'));
     }
 
@@ -148,7 +150,8 @@ class PrCvetController extends Controller
         $prCvet->fill(compact('name_in_folder', 'description', 'title', 'color_id', 'pr_collection_id'));
         $prCvet->save();
 
-        return redirect()->route('pr_cvets.index');
+        $referer = session('referer');
+        return redirect($referer)->with('success', 'The product was changed, it is ok!');
     }
 
     /**
