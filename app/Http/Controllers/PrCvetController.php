@@ -151,7 +151,9 @@ class PrCvetController extends Controller
         $prCvet->save();
 
         $referer = session('referer');
-        return redirect($referer)->with('success', 'The product was changed, it is ok!');
+        return $referer ?
+            redirect($referer)->with('success', 'The product was changed, it is ok!') :
+            redirect()->route('pr_cvets.index');
     }
 
     /**
