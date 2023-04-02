@@ -203,11 +203,11 @@ class PrCvetController extends Controller
     public function publish(PrCvet $prCvet)
     {
         $prCvet->publish();
-        return redirect()->route('pr_cvets.index');
+        return back();
     }
     public function retract(PrCvet $prCvet)
     {
         $prCvet->retract();
-        return redirect()->route('pr_cvets.index');
+        return back();
     }
 }
