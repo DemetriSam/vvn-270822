@@ -3,7 +3,42 @@
         <h1>Цвета</h1>
         <a href="{{ route('pr_cvets.create') }}">Создать новый цвет</a>
     </x-slot>
-
+    <div class="py-4">
+        @php
+        $prCollectionId = request()->input('filter.pr_collection_id');
+        $colorId = request()->input('filter.color_id');
+        $publicStatus = request()->input('filter.publicStatus');
+        $hasImages = request()->input('filter.has_images');
+        @endphp
+        {{$prCollectionId}}
+        <form action="{{ route('pr_cvets.index')}}">
+            <x-select name="filter[pr_collection_id]">
+                <option value="">Коллекция</option>
+                @foreach($prCollections as $collection)
+                <option value="{{ $collection->id }}" {{ $prCollectionId == $collection->id ? 'selected' : '' }}>{{ $collection->name }}</option>
+                @endforeach
+            </x-select>
+            <x-select name="filter[color_id]">
+                <option value="">Цвет</option>
+                @foreach($colors as $color)
+                <option value="{{ $color->id }}" {{ $colorId == $color->id ? 'selected' : '' }}>{{ $color->name }}</option>
+                @endforeach
+            </x-select>
+            <x-select name="filter[publicStatus]">
+                <option value="">Статус публикации</option>
+                <option value="true" {{ $publicStatus == 'true' ? 'selected' : '' }}>true</option>
+                <option value="false" {{ $publicStatus == 'false' ? 'selected' : '' }}>false</option>
+            </x-select>
+            <x-select name="filter[has_images]">
+                <option value="">Наличие картинки</option>
+                <option value="true" {{ $hasImages == 'true' ? 'selected' : '' }}>true</option>
+                <option value="false" {{ $hasImages == 'false' ? 'selected' : '' }}>false</option>
+            </x-select>
+            <x-button class="ml-3">
+                <p>Фильтровать</p>
+            </x-button>
+        </form>
+    </div>
     <table class="w-full">
         <thead class="border-b-2 border-solid border-black text-left">
             <tr>
@@ -19,7 +54,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($pr_cvets as $cvet)
+            @foreach ($prCvets as $cvet)
             <tr class="border-b border-dashed text-left">
                 <td>{{ $cvet->id }}</td>
                 <td>{{ $cvet->prCollection?->name }}</td>
@@ -36,14 +71,14 @@
                 <td>
                     <a href="{{ route('pr_cvets.edit', ['pr_cvet' => $cvet->id]) }}">Редактировать</a>
                     @if ($cvet->isPublished())
-                        <a href="{{ route('pr_cvets.retract', ['pr_cvet' => $cvet->id]) }}">Снять с публикации</a>
+                    <a href="{{ route('pr_cvets.retract', ['pr_cvet' => $cvet->id]) }}">Снять с публикации</a>
                     @else
-                        <a href="{{ route('pr_cvets.publish', ['pr_cvet' => $cvet->id]) }}">Опубликовать</a>
+                    <a href="{{ route('pr_cvets.publish', ['pr_cvet' => $cvet->id]) }}">Опубликовать</a>
                     @endif
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    {{ $pr_cvets->links() }}
+    {{ $prCvets->links() }}
 </x-app-layout>

@@ -19,8 +19,36 @@ class PrCvetController extends Controller
      */
     public function index()
     {
-        $pr_cvets = PrCvet::orderBy('id')->paginate(20);
-        return view('pr_cvet.index', compact('pr_cvets'));
+        $filter = request('filter');
+        $query = PrCvet::orderBy('id');
+
+        if ($filter) {
+            $query = isset($filter['publicStatus']) && $filter['publicStatus'] ?
+                $query->where('published', $filter['publicStatus']) :
+                $query;
+
+            $query = isset($filter['color_id']) && $filter['color_id'] ?
+                $query->where('color_id', $filter['color_id']) :
+                $query;
+
+            $query = isset($filter['pr_collection_id']) && $filter['pr_collection_id'] ?
+                $query->where('pr_collection_id', $filter['pr_collection_id']) :
+                $query;
+
+            if (isset($filter['has_images']) && $filter['has_images']) {
+                if ($filter['has_images'] === 'true') {
+                    $query = $query->has('media');
+                }
+                if ($filter['has_images'] === 'false') {
+                    $query = $query->whereDoesntHave('media');
+                }
+            }
+        }
+
+        $prCvets = $query->paginate(20)->withQueryString();
+        $prCollections = PrCollection::all();
+        $colors = Color::all();
+        return view('pr_cvet.index', compact('prCvets', 'prCollections', 'colors'));
     }
 
     /**
