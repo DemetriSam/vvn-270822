@@ -10,7 +10,6 @@
         $publicStatus = request()->input('filter.publicStatus');
         $hasImages = request()->input('filter.has_images');
         @endphp
-        {{$prCollectionId}}
         <form action="{{ route('pr_cvets.index')}}">
             <x-select name="filter[pr_collection_id]">
                 <option value="">Коллекция</option>
