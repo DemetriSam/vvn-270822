@@ -34,7 +34,7 @@ class Controller extends BaseController
             ->map(function ($group, $id) use ($page, $productsOnPage) {
                 $result = [
                     'sort' => $id,
-                    'color' => Color::find($id),
+                    'color' => $id ? Color::find($id) : null,
                     'products' => $group->forPage($page, $productsOnPage),
                     'thereAreMore' => $group->count() > $productsOnPage,
                     'moreOnes' => $group->count() - $productsOnPage,
