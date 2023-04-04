@@ -26,6 +26,7 @@ class ColorController extends Controller
      */
     public function create()
     {
+        return view('color.create');
     }
 
     /**
@@ -39,7 +40,7 @@ class ColorController extends Controller
         $input = $request->input();
         Color::create($input);
 
-        return redirect()->route('colors.index');
+        return redirect()->route('colors.index')->with('success', 'New color was created');
     }
 
     /**
