@@ -9,7 +9,7 @@
 
 					<div id="header_address" class="_icon-pin">г. Москва, Большая Черемушкинская, 34, офис 309.3</div>
 				</div>
-				<div class="header__search">
+				<!-- <div class="header__search">
 					<div class="search-form">
 						<button type="button" class="search-form__icon _icon-Search"></button>
 						<form action="#" class="search-form__item">
@@ -17,7 +17,7 @@
 							<input id="search_input" autocomplete="off" type="text" name="form[]" data-value="" class="search-form__input">
 						</form>
 					</div>
-				</div>
+				</div> -->
 				<div class="call_designer_div heart_div">
 					<a href="{{ route('favorites') }}" class="call_designer button_light hide-mxw-md3">Избранное </a>
 					<div class="red_heart_notification"><span>0</span></div>
