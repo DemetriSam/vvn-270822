@@ -8,6 +8,7 @@ use App\Models\PrCollection;
 use App\Models\PrCvet;
 use App\Models\PrImage;
 use App\Models\PropertyValue;
+use App\Models\Rate;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -21,7 +22,8 @@ class PrCollectionController extends Controller
     public function index()
     {
         $collections = PrCollection::all();
-        return view('pr_collection.index', compact('collections'));
+        $rate = Rate::firstWhere('currency', 'eur')->rate;
+        return view('pr_collection.index', compact('collections', 'rate'));
     }
 
     /**
