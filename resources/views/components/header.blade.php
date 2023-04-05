@@ -20,7 +20,8 @@
 				</div> -->
 				<div class="call_designer_div heart_div">
 					<a href="{{ route('favorites') }}" class="call_designer button_light hide-mxw-md3">Избранное </a>
-					<div class="red_heart_notification"><span>0</span></div>
+
+					<div class="red_heart_notification"><a href="{{ route('favorites') }}"><span>0</span></a></div>
 				</div>
 
 				<div id="designer_button_header" class="call_designer_div">
