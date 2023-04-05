@@ -105,10 +105,13 @@ db-import-from-backup:
 db-start:
 	sudo service postgresql start
 
-ls-start:
-	php artisan serve
+fpm-start:
+	sudo service php8.1-fpm start
 
-start: db-start ls-start
+nginx-start:
+	sudo service nginx start
+
+start: db-start fpm-start nginx-start
 
 compile-assets:
 	npm run build
