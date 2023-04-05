@@ -17,7 +17,7 @@
                 <div class="specs__subitem specs__subitem_name">Ширина рулона:</div>
                 <div class="specs__subitem specs__subitem_wtf">?</div>
                 <div class="specs__subitem specs__subitem_filler"></div>
-                <div class="specs__subitem specs__subitem_value">{{ $prCvet->width }} м</div>
+                <div class="specs__subitem specs__subitem_value">{{ $prCvet->width }}</div>
             </div>
             <div class="specs__item product-card__item product-card__item_spec height">
                 <div class="specs__subitem specs__subitem_name">Высота ворса:</div>
