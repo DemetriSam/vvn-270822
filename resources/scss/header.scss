@@ -428,7 +428,10 @@ div.menu {
 
 		}
 
+		a,
 		a:visited {
+			color: black;
+
 			@media (max-width: $md3+px) {
 				color: white !important;
 			}

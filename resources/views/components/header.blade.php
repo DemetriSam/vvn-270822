@@ -7,7 +7,7 @@
 					<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>
 					<div class="_icon-mail">info@dizanarium.ru</div>
 
-					<div id="header_address" class="_icon-pin">г. Москва, Большая Черемушкинская, 34, офис 309.3</div>
+					<div id="header_address" class="_icon-pin">г. Москва, Нахимовский проспект, 24, ЦДиИ Экспострой, 3 павильон, 174 место</div>
 				</div>
 				<!-- <div class="header__search">
 					<div class="search-form">
@@ -63,7 +63,7 @@
 						<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>
 						<div class="_icon-mail">info@dizanarium.ru</div>
 
-						<div id="header_address" class="_icon-pin">г. Москва, Большая Черемушкинская, 34, офис 309.3
+						<div id="header_address" class="_icon-pin">г. Москва, Нахимовский проспект, 24, ЦДиИ Экспострой, 3 павильон, 174 место
 						</div>
 					</div>
 				</nav>
@@ -95,14 +95,20 @@
 			</ol>
 		</nav> -->
 	</div>
-	@else
-	<style>
-		.wrapper {
-			margin-top: -50px;
-		}
-	</style>
-	@endif
 	<div id="designer_button_mobile" class="call_designer_div _container designer_button_mobile">
 		<a href="#" class="call_designer button">Вызвать дизайнера на замер</a>
 	</div>
+	@else
+	<style>
+		.wrapper {
+			margin-top: -30px;
+		}
+
+		@media(min-width: 981px) {
+			.wrapper {
+				margin-top: -50px;
+			}
+		}
+	</style>
+	@endif
 </header>

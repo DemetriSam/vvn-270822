@@ -7,6 +7,10 @@
     "file": "assets/red_heart.cfe71996.svg",
     "src": "resources/img/icons/red_heart.svg"
   },
+  "resources/img/icons/check.svg": {
+    "file": "assets/check.b6226fee.svg",
+    "src": "resources/img/icons/check.svg"
+  },
   "resources/img/icons/Rectangle.svg": {
     "file": "assets/Rectangle.ccecc808.svg",
     "src": "resources/img/icons/Rectangle.svg"
@@ -18,10 +22,6 @@
   "resources/img/gallery/union.svg": {
     "file": "assets/union.9a4f6775.svg",
     "src": "resources/img/gallery/union.svg"
-  },
-  "resources/img/icons/check.svg": {
-    "file": "assets/check.b6226fee.svg",
-    "src": "resources/img/icons/check.svg"
   },
   "resources/fonts/icons.woff": {
     "file": "assets/icons.e025f8f1.woff",
@@ -38,12 +38,12 @@
     "isEntry": true
   },
   "resources/css/app.scss": {
-    "file": "assets/app.1b61db56.css",
+    "file": "assets/app.bab8af9c.css",
     "src": "resources/css/app.scss",
     "isEntry": true
   },
   "resources/scss/style.scss": {
-    "file": "assets/style.d05ec810.css",
+    "file": "assets/style.b0ec6e1c.css",
     "src": "resources/scss/style.scss",
     "isEntry": true
   }
