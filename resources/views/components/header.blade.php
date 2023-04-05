@@ -14,8 +14,7 @@
 						<button type="button" class="search-form__icon _icon-Search"></button>
 						<form action="#" class="search-form__item">
 							<button type="submit" class="search-form__btn _icon-Search"></button>
-							<input id="search_input" autocomplete="off" type="text" name="form[]" data-value=""
-								class="search-form__input">
+							<input id="search_input" autocomplete="off" type="text" name="form[]" data-value="" class="search-form__input">
 						</form>
 					</div>
 				</div>
@@ -42,22 +41,19 @@
 				</a>
 			</div>
 			<div class="menu">
-				<nav role="navigation" aria-labelledby="block-mytheme-main-menu" id="block-mytheme-main-menu"
-					class="block block-menu navigation menu--main menu__body">
+				<nav role="navigation" aria-labelledby="block-mytheme-main-menu" id="block-mytheme-main-menu" class="block block-menu navigation menu--main menu__body">
 
 					<h2 class="sr-only" id="block-bootstrap-barrio-main-navigation-menu">Main navigation</h2>
 					<ul block="block-bootstrap-barrio-main-navigation row" class="clearfix nav navbar-nav menu__list">
 
 						<li class="nav-item menu__item _icon-Rectangle">
-							<a href="{{ route('catalog', ['category' => 'carpets']) }}" title="carpets"
-								class="nav-link nav-link--ru-carpets" data-drupal-link-system-path="carpets">
+							<a href="{{ route('catalog', ['category' => 'carpets']) }}" title="carpets" class="nav-link nav-link--ru-carpets" data-drupal-link-system-path="carpets">
 								Ковровые покрытия
 							</a>
 						</li>
 
 						<li class="nav-item menu__item">
-							<a href="{{ route('catalog', ['category' => 'cinovki']) }}"
-								class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
+							<a href="{{ route('catalog', ['category' => 'cinovki']) }}" class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
 								Циновки из сизаля
 							</a>
 						</li>
@@ -83,28 +79,27 @@
 		</div>
 	</nav>
 	@if(Route::currentRouteName() !== 'index')
-		<div id="block-mytheme-breadcrumbs" class="contextual-region breadcrumb _container">
-			<nav role="navigation" aria-labelledby="system-breadcrumb" class="breadcrumb__body">
-				<!--<h2 id="system-breadcrumb" class="visually-hidden">Строка навигации</h2>-->
-				<ol class="breadcrumb__list">
-					<li class="breadcrumb__item">
-						<a href="/ru">Главная</a>
-					</li>
-					<li class="breadcrumb__item">
-						<a href="/ru">Ковровые покрытия</a>
-					</li>
-					<li class="breadcrumb__item">
-						<a href="/ru">Shycloud 13</a>
-					</li>
-				</ol>
-			</nav>
-		</div>
+	<div id="block-mytheme-breadcrumbs" class="contextual-region breadcrumb _container">
+		<!-- <nav role="navigation" aria-labelledby="system-breadcrumb" class="breadcrumb__body">
+			<ol class="breadcrumb__list">
+				<li class="breadcrumb__item">
+					<a href="/ru">Главная</a>
+				</li>
+				<li class="breadcrumb__item">
+					<a href="/ru">Ковровые покрытия</a>
+				</li>
+				<li class="breadcrumb__item">
+					<a href="/ru">Shycloud 13</a>
+				</li>
+			</ol>
+		</nav> -->
+	</div>
 	@else
-		<style>
-			.wrapper {
-				margin-top: -50px;
-			}
-		</style>
+	<style>
+		.wrapper {
+			margin-top: -50px;
+		}
+	</style>
 	@endif
 	<div id="designer_button_mobile" class="call_designer_div _container designer_button_mobile">
 		<a href="#" class="call_designer button">Вызвать дизайнера на замер</a>
