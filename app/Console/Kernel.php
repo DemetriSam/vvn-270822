@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
             $schedule->command('backup:monitor')->daily()->at('10:00');
 
             $schedule->command('check-ssl')->daily()->at('12:00');
+            $schedule->command('get_euro_rub_rate')->twiceDaily(9, 15);
         }
     }
 

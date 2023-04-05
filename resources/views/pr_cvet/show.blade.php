@@ -4,7 +4,7 @@
             <div class="product-card__item product-card__item_h1 h1 nodes__label">
                 <h1>{{ $prCvet->title }}</h1>
             </div>
-            <x-public.gallery :images="$prCvet->images"/>
+            <x-public.gallery :images="$prCvet->images" />
 
 
             <div class="specs__item product-card__item product-card__item_spec composition">
@@ -26,10 +26,10 @@
                 <div class="specs__subitem specs__subitem_value">{{ $prCvet->height }} мм</div>
             </div>
             <div class="specs__item product-card__item product-card__item_spec price nodes__price">
-                <div class="specs__subitem specs__subitem_name">Цена квадратного метра:</div>
+                <div class="specs__subitem specs__subitem_name">Цена:</div>
                 <div class="specs__subitem specs__subitem_wtf">?</div>
                 <div class="specs__subitem specs__subitem_filler"></div>
-                <div class="specs__subitem specs__subitem_value">€{{ $prCvet->price }}</div>
+                <div class="specs__subitem specs__subitem_value">{{ $prCvet->price }}</div>
             </div>
 
             <div class="product-card__item product-card__item_pc-buttons pc-buttons">

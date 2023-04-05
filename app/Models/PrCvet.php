@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -64,11 +65,12 @@ class PrCvet extends Model implements HasMedia
             return $this->prRolls()->pluck('quantity_m2')->sum();
         }
         if ($property === 'price') {
-            if ($this->current_price) {
-                return $this->current_price;
-            }
+            $price = $this->current_price ? $this->current_price :
+                $this->prCollection->default_price;
 
-            return $this->prCollection->default_price;
+            $currency = $this->prCollection->currency_of_price;
+            $rate = Rate::firstWhere('currency', $currency)->rate;
+            return round($price * $rate, 0) . ',00 руб./кв.метр';
         }
 
         if ($property === 'images') {
