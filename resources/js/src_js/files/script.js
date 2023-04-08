@@ -142,14 +142,14 @@ let unlock = true;
 
 //=================
 //ActionsOnHash
-if (location.hash) {
-	const hsh = location.hash.replace('#', '');
-	if (document.querySelector('.popup_' + hsh)) {
-		popup_open(hsh);
-	} else if (document.querySelector('div.' + hsh)) {
-		_goto(document.querySelector('.' + hsh), 500, '');
-	}
-}
+// if (location.hash) {
+// 	const hsh = location.hash.replace('#', '');
+// 	if (document.querySelector('.popup_' + hsh)) {
+// 		popup_open(hsh);
+// 	} else if (document.querySelector('div.' + hsh)) {
+// 		_goto(document.querySelector('.' + hsh), 500, '');
+// 	}
+// }
 //=================
 //Menu
 let iconMenu = document.querySelector(".icon-menu");
@@ -1362,7 +1362,13 @@ window.onload = function () {
 			const productId = targetElement.closest('.the-product').dataset.nid;
 			addToCart(productId);
 		}
+
+		if (targetElement.getAttribute("href") === '#designer-form-region') {
+			let form = document.getElementById("design-form");
+			let input = form.querySelector('input[type="text"]');
+			setTimeout(function () {
+				input.focus();
+			}, 100);
+		}
 	}
 }
-
-

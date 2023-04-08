@@ -96,7 +96,7 @@
 		</nav> -->
 	</div>
 	<div id="designer_button_mobile" class="call_designer_div _container designer_button_mobile">
-		<a href="#" class="call_designer button">Вызвать дизайнера на замер</a>
+		<a href="#designer-form-region" class="call_designer button">Вызвать дизайнера на замер</a>
 	</div>
 	@else
 	<style>
