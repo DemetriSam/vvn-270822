@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
-use App\Http\Controllers\UsersController;
-use App\Models\PrCvet;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,7 +78,7 @@ Route::group([
     Route::get('/upload/excel/', [Controllers\PrRollController::class, 'renderUploadForm'])
         ->name('upload.form');
     Route::get('/upload/excel/check', [Controllers\PrRollController::class, 'renderCheckPage'])
-        ->name('upload.check');
+        ->name('upload.check.get');
     Route::post('/upload/excel/check', [Controllers\PrRollController::class, 'checkAgain'])
         ->name('upload.check');
     Route::get('/upload/excel/edit', [Controllers\PrRollController::class, 'renderEditForm'])

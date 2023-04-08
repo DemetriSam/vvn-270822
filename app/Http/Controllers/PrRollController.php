@@ -127,7 +127,7 @@ class PrRollController extends Controller
         $innrep->setDataForUpdate($import->get(), $supplier_id);
         $innrep->createInnerRepresentation();
 
-        return redirect()->route('upload.check')
+        return redirect()->route('upload.check.get')
             ->with('success', 'Excel file uploaded successfully');
     }
 

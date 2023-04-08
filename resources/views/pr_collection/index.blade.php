@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h1>Коллекции</h1>
-        <p>Текущий курс евро: {{ $rate->rate }} Обновлен: {{$rate->updated_at}}</p>
+        <p>Текущий курс евро: {{ $rate?->rate }} Обновлен: {{$rate?->updated_at}}</p>
         <a href="{{ route('pr_collections.create') }}">Создать новую коллекцию</a>
     </x-slot>
 
