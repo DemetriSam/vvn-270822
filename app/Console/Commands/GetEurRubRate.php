@@ -35,6 +35,9 @@ class GetEurRubRate extends Command
             ->request('GET', 'https://api.coingate.com/v2/rates/merchant/EUR/RUB')
             ->getBody()->getContents();
 
+        $rate *= 1.025;
+        $rate = round($rate, 2);
+
         $record = Rate::firstWhere('currency', 'eur');
         if ($record) {
             $record->rate = $rate;
