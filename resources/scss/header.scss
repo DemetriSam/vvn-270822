@@ -430,7 +430,7 @@ div.menu {
 
 		a,
 		a:visited {
-			color: black;
+			color: inherit;
 
 			@media (max-width: $md3+px) {
 				color: white !important;
