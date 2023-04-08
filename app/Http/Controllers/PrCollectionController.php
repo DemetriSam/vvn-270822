@@ -22,7 +22,7 @@ class PrCollectionController extends Controller
     public function index()
     {
         $collections = PrCollection::all();
-        $rate = Rate::firstWhere('currency', 'eur')->rate;
+        $rate = Rate::firstWhere('currency', 'eur');
         return view('pr_collection.index', compact('collections', 'rate'));
     }
 
