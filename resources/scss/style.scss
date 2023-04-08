@@ -1393,6 +1393,7 @@ video {
 .popup:target {
 	opacity: 1;
 	visibility: visible;
+	z-index: 1000000000000000000;
 }
 
 .popup {

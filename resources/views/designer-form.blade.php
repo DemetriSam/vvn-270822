@@ -1,4 +1,4 @@
-<form class="design-form" action="{{ route('request.mesurement') }}" method="POST" id="design-form">
+<form class="design-form" action="{{ route('request.mesurement') }}" method="POST">
     @csrf
     <input name="_method" type="hidden" value="PUT">
     <div class="design-form__title">Заполните форму для вызова дизайнера</div>

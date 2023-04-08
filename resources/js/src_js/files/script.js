@@ -1364,7 +1364,7 @@ window.onload = function () {
 		}
 
 		if (targetElement.getAttribute("href") === '#designer-form-region') {
-			let form = document.getElementById("design-form");
+			let form = document.querySelector(".popup .design-form");
 			let input = form.querySelector('input[type="text"]');
 			setTimeout(function () {
 				input.focus();
