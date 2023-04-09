@@ -1,4 +1,5 @@
-<div class="nodes__item nodes__cell the-product" data-nid="{{ $product?->id }}">
+@if($product)
+<div class="nodes__item nodes__cell the-product" data-nid="{{ $product->id }}">
     <div class="product-card__item product-card__item_gallery gallery nodes__img">
 
         <div class="swiper-grid">
@@ -34,6 +35,9 @@
     <div class="nodes__heart"><img class="add-to-cart" src="../../img/icons/Like.svg" alt="">
     </div>
 </div>
+@else
+<div>Ошибка, продукт не загружается</div>
+@endif
 
 {{-- <script>
     let titleLink = document.getElementById("title-link-{{$product->id}}");
