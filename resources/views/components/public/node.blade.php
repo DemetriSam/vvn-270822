@@ -1,4 +1,4 @@
-<div class="nodes__item nodes__cell the-product" data-nid="{{ $product->id }}">
+<div class="nodes__item nodes__cell the-product" data-nid="{{ $product?->id }}">
     <div class="product-card__item product-card__item_gallery gallery nodes__img">
 
         <div class="swiper-grid">
