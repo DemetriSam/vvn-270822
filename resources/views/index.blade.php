@@ -13,7 +13,7 @@
                 <p class="main-banner__subtitle">от лучших производителей Европы и США</p>
             </div>
             <div class="main-banner__button call_designer_div">
-                <a href="#" class="call_designer button">Вызвать дизайнера на замер</a>
+                <a href="#designer-form-region" class="call_designer button">Вызвать дизайнера на замер</a>
             </div>
             <div class="main-banner__form">
                 @if(Session::has('message'))
