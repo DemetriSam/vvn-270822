@@ -13,26 +13,13 @@
                 </a>
             </x-slot>
             <input name="_method" type="hidden" value="PATCH">
-            <!-- Title -->
-            <div>
-                <x-label for="name" value="Название категории" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name') ?? $category->name" required autofocus />
-            </div>
-
-            <!-- Description -->
-            <div>
-                <x-label for="category_id" value="Родительская категория" />
-
-                <x-input id="category_id" class="block mt-1 w-full" type="text" name="category_id" :value="old('category_id') ?? $category->category_id" autofocus />
-            </div>
-
+            @include('category.fields')
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ml-3">
                     <p>Submit</p>
                 </x-button>
             </div>
         </form>
-        <a  href="{{ route('categories.delete', ['id' => $category->id]) }}" class="red">Удалить</a>
+        <a href="{{ route('categories.delete', ['id' => $category->id]) }}" class="red">Удалить</a>
     </x-auth-card>
 </x-app-layout>
