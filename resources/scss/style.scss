@@ -230,8 +230,11 @@ video {
 	.product-card__items &__item_h1 {
 		text-align: center;
 		margin-bottom: 25px;
-
 		order: 1;
+
+		h1 {
+			font-size: calc(12px + 24 * ((100vw - 320px) / 1600));
+		}
 
 		@media (min-width: $md3+px) {
 			text-align: start;
