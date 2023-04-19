@@ -103,10 +103,10 @@ class Controller extends BaseController
      */
     public function favorites()
     {
-        $cookie = $_COOKIE['favorites_cookie'];
-        if (!$cookie) {
+        if (!isset($_COOKIE['favorites_cookie']) or !$_COOKIE['favorites_cookie']) {
             return view('favorites', ['products' => collect([])]);
         }
+        $cookie = $_COOKIE['favorites_cookie'];
         $favorites_ids = explode(',', $cookie);
         $products = collect($favorites_ids)->map(fn ($id) => PrCvet::find($id));
         return view('favorites', ['products' => $products]);
