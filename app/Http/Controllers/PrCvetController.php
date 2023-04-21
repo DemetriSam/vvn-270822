@@ -20,11 +20,11 @@ class PrCvetController extends Controller
     public function index()
     {
         $filter = request('filter');
-        $query = PrCvet::orderBy('id');
+        $query = PrCvet::orderBy('pr_cvets.id');
 
         if ($filter) {
             $query = isset($filter['publicStatus']) && $filter['publicStatus'] ?
-                $query->where('published', $filter['publicStatus']) :
+                $query->where('pr_cvets.published', $filter['publicStatus']) :
                 $query;
 
             $query = isset($filter['color_id']) && $filter['color_id'] ?
@@ -34,6 +34,13 @@ class PrCvetController extends Controller
             $query = isset($filter['pr_collection_id']) && $filter['pr_collection_id'] ?
                 $query->where('pr_collection_id', $filter['pr_collection_id']) :
                 $query;
+
+            if (isset($filter['category']) && $filter['category']) {
+                $categoryId = Category::firstWhere('slug', $filter['category'])->id;
+                $query = $query
+                    ->join('pr_collections', 'pr_cvets.pr_collection_id', '=', 'pr_collections.id')
+                    ->where('category_id', '=', $categoryId);
+            }
 
             if (isset($filter['has_images']) && $filter['has_images']) {
                 if ($filter['has_images'] === 'true') {
