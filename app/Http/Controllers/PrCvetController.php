@@ -43,12 +43,11 @@ class PrCvetController extends Controller
             }
 
             if (isset($filter['has_images'])) {
-
-
                 if ($filter['has_images'] === 'true') {
                     $query->join('media', function ($join) {
                         $join->on('pr_cvets.id', '=', 'media.model_id')
-                            ->where('model_type', PrCvet::class);
+                            ->where('model_type', PrCvet::class)
+                            ->whereNotNull('media.name');
                     });
                 } elseif ($filter['has_images'] === 'false') {
                     $query->leftJoin('media', function ($join) {
