@@ -59,7 +59,12 @@ class Controller extends BaseController
         $productsOnPage = 12;
         $page = 1;
 
-        $carpetsCat = Category::firstWhere('slug', 'carpets');
+        try {
+            $carpetsCat = Category::firstWhere('slug', 'carpets');
+        } catch (\Throwable $th) {
+            return view('index', ['carpets' => false, 'cinovki' => false]);
+        }
+
         $products = $carpetsCat?->products->filter(fn ($product) => $product->isPublished())->sort();
 
         $carpets = [
@@ -76,7 +81,12 @@ class Controller extends BaseController
             ]);
         }
 
-        $cinovkiCat = Category::firstWhere('slug', 'cinovki');
+        try {
+            $cinovkiCat = Category::firstWhere('slug', 'cinovki');
+        } catch (\Throwable $th) {
+            return view('index', ['carpets' => false, 'cinovki' => false]);
+        }
+
         $products = $cinovkiCat?->products->filter(fn ($product) => $product->isPublished())->sort();
 
         $cinovki = [

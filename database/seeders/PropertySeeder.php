@@ -8,6 +8,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Property;
 use App\Models\PropertyValue;
+use App\Models\Rate;
 
 class PropertySeeder extends Seeder
 {
@@ -63,5 +64,10 @@ class PropertySeeder extends Seeder
         foreach ($values['composition'] as $value) {
             $composition->values()->firstOrCreate($value);
         }
+
+        Rate::create([
+            'currency' => 'eur',
+            'rate' => '90',
+        ]);
     }
 }

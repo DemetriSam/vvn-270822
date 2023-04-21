@@ -24,6 +24,10 @@
             </div>
         </div>
     </section>
+    @if($carpets)
     <x-public.nodes :title="$carpets['title']" :products="$carpets['products']" :route="$carpets['route']" />
+    @endif
+    @if($cinovki)
     <x-public.nodes :title="$cinovki['title']" :products="$cinovki['products']" :route="$cinovki['route']" />
+    @endif
 </x-layout>
