@@ -12,6 +12,11 @@
         $category = request()->input('filter.category');
         @endphp
         <form action="{{ route('pr_cvets.index')}}">
+            <x-select name="filter[category]">
+                <option value="">Категория</option>
+                <option value="carpets" {{ $category == 'carpets' ? 'selected' : '' }}>Ковровые покрытия</option>
+                <option value="cinovki" {{ $category == 'cinovki' ? 'selected' : '' }}>Циновки</option>
+            </x-select>
             <x-select name="filter[pr_collection_id]">
                 <option value="">Коллекция</option>
                 @foreach($prCollections as $collection)
@@ -33,11 +38,6 @@
                 <option value="">Наличие картинки</option>
                 <option value="true" {{ $hasImages == 'true' ? 'selected' : '' }}>true</option>
                 <option value="false" {{ $hasImages == 'false' ? 'selected' : '' }}>false</option>
-            </x-select>
-            <x-select name="filter[category]">
-                <option value="">Категория</option>
-                <option value="carpets" {{ $category == 'carpets' ? 'selected' : '' }}>Ковровые покрытия</option>
-                <option value="cinovki" {{ $category == 'cinovki' ? 'selected' : '' }}>Циновки</option>
             </x-select>
             <x-button class="ml-3">
                 <p>Фильтровать</p>

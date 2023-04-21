@@ -42,7 +42,7 @@ class PrCvetController extends Controller
                     ->where('category_id', '=', $categoryId);
             }
 
-            if (isset($filter['has_images']) && $filter['has_images']) {
+            if (isset($filter['has_images'])) {
                 if ($filter['has_images'] === 'true') {
                     $query = $query->has('media');
                 }
