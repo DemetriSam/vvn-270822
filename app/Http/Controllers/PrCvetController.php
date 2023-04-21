@@ -39,7 +39,7 @@ class PrCvetController extends Controller
                 $categoryId = Category::firstWhere('slug', $filter['category'])->id;
                 $query = $query
                     ->join('pr_collections', 'pr_cvets.pr_collection_id', '=', 'pr_collections.id')
-                    ->where('category_id', '=', $categoryId);
+                    ->where('category_id', '=', $categoryId)->select('pr_cvets.*');
             }
 
             if (isset($filter['has_images'])) {
