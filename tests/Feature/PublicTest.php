@@ -58,8 +58,14 @@ class PublicTest extends TestCase
     public function test_all_dynamic_routes_return_200()
     {
         Category::all()->each(function ($category) {
-            $response = $this->get(route('catalog', ['category' => $category]));
-            $response->assertStatus(200);
+            $url = route('catalog', ['category' => $category]);
+            $response = $this->get($url);
+            try {
+                $response->assertStatus(200);
+            } catch (\PHPUnit\Framework\AssertionFailedError $e) {
+                echo "Assertion failed for URL: {$url}" . PHP_EOL;
+                throw $e;
+            }
         });
 
         Color::all()->each(function ($color) {
@@ -80,14 +86,21 @@ class PublicTest extends TestCase
 
         PrCvet::all()->each(function ($prCvet) {
             if ($prCvet->category === 'carpets') {
-                $response = $this->get(route('carpets.product', ['pr_cvet' => $prCvet]));
+                $url = route('carpets.product', ['pr_cvet' => $prCvet]);
+                $response = $this->get($url);
             } elseif ($prCvet->category === 'cinovki') {
-                $response = $this->get(route('cinovki.product', ['pr_cvet' => $prCvet]));
+                $url = route('cinovki.product', ['pr_cvet' => $prCvet]);
+                $response = $this->get($url);
             } else {
                 return;
             }
 
-            $response->assertStatus(200);
+            try {
+                $response->assertStatus(200);
+            } catch (\PHPUnit\Framework\AssertionFailedError $e) {
+                echo "Assertion failed for URL: {$url}" . PHP_EOL;
+                throw $e;
+            }
         });
     }
 }

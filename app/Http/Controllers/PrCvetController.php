@@ -117,6 +117,8 @@ class PrCvetController extends Controller
         if (!$prCvet->isPublished()) {
             return redirect()->route('catalog', ['category' => $prCvet->category->slug]);
         }
+        $prefix = $prCvet->category->name_single ?? $prCvet->category->name;
+        $title =  $prefix . ' ' . $prCvet->title;
 
         $sameColor = PrCvet::where('color_id', $prCvet->color_id)
             ->whereNot('id', $prCvet->id)
@@ -128,7 +130,7 @@ class PrCvetController extends Controller
             ->where('pr_cvets.published', 'true')
             ->get()->diff($sameColor)->forPage(1, 12);
 
-        return view('pr_cvet.show', compact('prCvet', 'sameColor', 'sameCollection'));
+        return view('pr_cvet.show', compact('prCvet', 'title', 'sameColor', 'sameCollection'));
     }
 
     /**

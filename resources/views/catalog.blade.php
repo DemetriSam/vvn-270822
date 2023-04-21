@@ -1,4 +1,7 @@
 <x-layout>
+    <x-slot:title>
+        {{ $category->name }}
+    </x-slot:title>
     <h1 style="text-align: center">{{ $category->name }}</h1>
     <section class="recomendations">
         @foreach ($grouped as $group)

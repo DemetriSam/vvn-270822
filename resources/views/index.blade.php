@@ -1,4 +1,7 @@
 <x-layout>
+    <x-slot:title>
+        {{ $title }}
+    </x-slot:title>
     <section class="screen1">
         <div class="main-banner">
             <picture>

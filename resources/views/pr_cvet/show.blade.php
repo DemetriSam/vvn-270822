@@ -1,8 +1,11 @@
 <x-layout>
+    <x-slot:title>
+        {{ $title }}
+    </x-slot:title>
     <section class="product-card">
         <div class="product-card__items the-product" data-nid="{{ $prCvet->id }}">
             <div class="product-card__item product-card__item_h1 h1 nodes__label">
-                <h1>{{ $prCvet->category->name_single ?? $prCvet->category->name }} {{ $prCvet->title }}</h1>
+                <h1>{{ $title }}</h1>
             </div>
             <x-public.gallery :images="$prCvet->images" />
 

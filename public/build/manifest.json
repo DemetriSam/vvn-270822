@@ -3,10 +3,6 @@
     "file": "assets/icons.86c0e4ef.woff2",
     "src": "resources/fonts/icons.woff2"
   },
-  "resources/img/icons/loading.gif": {
-    "file": "assets/loading.9f0ae08f.gif",
-    "src": "resources/img/icons/loading.gif"
-  },
   "resources/img/icons/check.svg": {
     "file": "assets/check.b6226fee.svg",
     "src": "resources/img/icons/check.svg"
@@ -22,6 +18,10 @@
   "resources/img/icons/Rectangle.svg": {
     "file": "assets/Rectangle.ccecc808.svg",
     "src": "resources/img/icons/Rectangle.svg"
+  },
+  "resources/img/icons/loading.gif": {
+    "file": "assets/loading.9f0ae08f.gif",
+    "src": "resources/img/icons/loading.gif"
   },
   "resources/fonts/icons.woff": {
     "file": "assets/icons.e025f8f1.woff",
