@@ -2,12 +2,6 @@ setup-ci: env-prepare install-ci key-ci database-prepare-ci install-front-ci
 
 setup: env-prepare build install key database-prepare storage-link
 
-test:
-	docker compose exec php php artisan test --testsuite=Feature
-
-unit-test:
-	docker compose exec php php artisan test --testsuite=Unit
-
 install-front-ci:
 	npm install
 	npm run build
@@ -40,68 +34,24 @@ analyse-ci:
 config-clear-ci:
 	php artisan config:clear
 
-test-coverage:
-	docker compose exec php composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
-
 lint:
 	composer exec --verbose phpcs -- --standard=PSR12 app
 
 lint-fix:
 	composer exec --verbose phpcbf -- --standard=PSR12 app
 
-phpstan:
-	docker compose exec php composer exec phpstan analyse
-
-analyse:
-	docker compose exec php composer exec phpstan analyse -v
-
 config-clear:
-	docker compose exec php php artisan config:clear
+	php artisan config:clear
 
-ide-helper:
-	php artisan ide-helper:eloquent
-	php artisan ide-helper:gen
-	php artisan ide-helper:meta
-	php artisan ide-helper:mod -n
-
-update:
-	git pull
-	docker compose exec php composer install
-	docker compose exec php php artisan migrate --force
-	docker compose exec php php artisan optimize
-
-seeder:
-	docker compose exec php php artisan db:seed
+optimize:
+	composer install --optimize-autoloader --no-dev
+	php artisan config:cache
+	php artisan route:cache
+	php artisan view:cache
 
 env-prepare:
 	cp -n .env.example .env || true
-
-build:
-	docker compose up -d --build
-
-install:
-	docker compose exec php composer install
-
-key:
-	docker compose exec application-fpm php artisan key:gen --ansi
-	docker compose exec application-fpm php artisan jwt:secret --force
-
-database-prepare:
-	docker compose exec application-fpm php artisan migrate:fresh --seed
-
-storage-link:
-	docker compose exec application-fpm php artisan storage:link
-
-heroku-build:
-	composer install
-	php artisan migrate --force
-	php artisan db:seed --force
-	php artisan optimize
-	php artisan parse-vk-users
-
-db-import-from-backup:
-	docker compose exec -T database psql -d tapigo-database -U postgres  < data
-
+	
 db-start:
 	sudo service postgresql start
 
