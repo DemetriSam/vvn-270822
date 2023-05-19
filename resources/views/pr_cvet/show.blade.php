@@ -17,7 +17,13 @@
                 <div class="specs__subitem specs__subitem_name">Состав:</div>
                 <div class="specs__subitem specs__subitem_wtf">?</div>
                 <div class="specs__subitem specs__subitem_filler"></div>
-                <div class="specs__subitem specs__subitem_value">{{ $prCvet->composition }}</div>
+                <div class="specs__subitem specs__subitem_value">
+                    @if($prCvet->composition === 'Нейлон')
+                    <a href="{{ route('kovrolin-poliamid')}}">{{ $prCvet->composition }}</a>
+                    @else
+                    {{ $prCvet->composition }}
+                    @endif
+                </div>
             </div>
             <div class="specs__item product-card__item product-card__item_spec width">
                 <div class="specs__subitem specs__subitem_name">Ширина рулона:</div>
