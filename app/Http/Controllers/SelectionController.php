@@ -14,8 +14,8 @@ class SelectionController extends Controller
             ->join('pr_collections', 'pr_collections.id', '=', 'pr_cvets.pr_collection_id')
             ->join('pr_collection_property_value', 'pr_collections.id', '=', 'pr_collection_property_value.pr_collection_id')
             ->join('property_values', 'property_values.id', '=', 'pr_collection_property_value.property_value_id')
-            ->where('property_id', '2')
             ->where('value', '=', 'Нейлон')
+            ->where('pr_cvets.published', '=', 'true')
             ->paginate(12);
 
         $title = 'Ковролин из 100% полиамида';
