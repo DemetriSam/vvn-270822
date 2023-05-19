@@ -12,4 +12,5 @@
             {{ $products->links('vendor.pagination.default') }}
         </div>
     </section>
+    <article><p>{{ $description }}</p></article>
 </x-layout>
