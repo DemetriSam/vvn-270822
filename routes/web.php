@@ -114,6 +114,10 @@ Route::get('/cinovki/{pr_cvet}', [Controllers\PrCvetController::class, 'show'])
 //Открыть чат в воцапе
 Route::get('/whatsapp', fn () => redirect()->to('https://wa.me/79035649165')->send())->name('whatsapp');
 
+//Страницы выборок
+Route::get('/kovrolin-poliamid', [Controllers\SelectionController::class, 'kovrolinPoliamid'])
+    ->name('/kovrolin-poliamid');
+
 //Страницы каталога
 Route::get('/{category:slug}', [Controllers\Controller::class, 'catalog'])
     ->name('catalog');

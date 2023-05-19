@@ -13,6 +13,11 @@ $category = new App\Models\Category;
 
     <x-input id="name_single" class="block mt-1 w-full" type="text" name="name_single" :value="old('name_single') ?? $category->name_single" required autofocus />
 </div>
+<div>
+    <x-label for="description" value="Описание" />
+
+    <x-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description') ?? $category->description" required autofocus />
+</div>
 
 <div>
     <x-label for="slug" value="Slug" />

@@ -2,6 +2,9 @@
     <x-slot:title>
         {{ $title }}
     </x-slot:title>
+    <x-slot:description>
+        {{ $prCvet->description }}
+    </x-slot:description>
     <section class="product-card">
         <div class="product-card__items the-product" data-nid="{{ $prCvet->id }}">
             <div class="product-card__item product-card__item_h1 h1 nodes__label">

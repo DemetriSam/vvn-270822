@@ -122,7 +122,8 @@ class Controller extends BaseController
         $cookie = $_COOKIE['favorites_cookie'];
         $favorites_ids = explode(',', $cookie);
         $products = collect($favorites_ids)->map(fn ($id) => PrCvet::find($id));
-        return view('favorites', compact('title', 'products'));
+        $description = 'Ваши избранные ковровые покрытия и циновки';
+        return view('favorites', compact('title', 'products', 'description'));
     }
 
     public function color(Category $category, Color $color)
@@ -132,8 +133,9 @@ class Controller extends BaseController
             ->where('pr_cvets.published', 'true')
             ->paginate(12);
 
+        $description = '';
         $title = $category->name . '. Цвет: ' . $color->name;
-        return view('color', compact('title', 'color', 'products'));
+        return view('color', compact('title', 'color', 'products', 'description'));
     }
 
     public function whatsapp()

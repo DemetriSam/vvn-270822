@@ -48,6 +48,7 @@ class CategoryController extends Controller
         \App\Models\Category::create([
             'name' => $request->name,
             'name_single' => $request->name_single,
+            'description' => $request->description,
             'category_id' => $request->category_id,
             'slug' => $request->slug,
         ]);
@@ -83,9 +84,10 @@ class CategoryController extends Controller
 
         $name = $request->name;
         $name_single = $request->name_single;
+        $description = $request->description;
         $category_id = $request->category_id;
         $slug = $request->slug;
-        $category->fill(compact('name', 'name_single', 'category_id', 'slug'));
+        $category->fill(compact('name', 'name_single', 'description', 'category_id', 'slug'));
         $category->save();
 
         return redirect()->route('categories.index');

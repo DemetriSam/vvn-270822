@@ -2,6 +2,9 @@
     <x-slot:title>
         {{ $title }}
     </x-slot:title>
+    <x-slot:description>
+        Ковровые покрытия и циновки в наличии на складе в Москве. Вы можете купить ковролин или циновку из сизаля с доставкой в течение нескольких дней.
+    </x-slot:description>
     <section class="screen1">
         <div class="main-banner">
             <picture>
