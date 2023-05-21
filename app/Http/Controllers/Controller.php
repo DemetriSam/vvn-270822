@@ -132,9 +132,7 @@ class Controller extends BaseController
             ->where('pr_cvets.published', 'true')
             ->paginate(12);
 
-        $description = '';
-        $title = $category->name . '. Цвет: ' . $color->name;
-        return view('color', compact('title', 'color', 'products', 'description'));
+        return view('color', compact('color', 'products'));
     }
 
     public function whatsapp()

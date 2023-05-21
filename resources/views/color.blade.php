@@ -1,12 +1,12 @@
 <x-layout>
     <x-slot:title>
-        {{ $title }}
+        {{ __('public.colors.' . $color->slug . '.title') }}
     </x-slot:title>
     <x-slot:description>
-        {{ $description }}
+        {{ __('public.colors.' . $color->slug . '.description') }}
     </x-slot:description>
     <section class="recomendations">
-        <x-public.nodes :title="$title" :products="$products" />
+        <x-public.nodes :title="__('public.colors.' . $color->slug . '.title')" :products="$products" />
         <div class="recomendations__paginator">
             {{ $products->links('vendor.pagination.default') }}
         </div>
