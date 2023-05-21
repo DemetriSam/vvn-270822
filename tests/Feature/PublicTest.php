@@ -34,21 +34,21 @@ class PublicTest extends TestCase
      *
      * @return void
      */
-    // public function test_all_static_routes_return_200()
-    // {
-    //     collect([
-    //         route('index'),
-    //         route('favorites'),
-    //     ])->each(function ($url) {
-    //         $response = $this->get($url);
-    //         try {
-    //             $response->assertStatus(200);
-    //         } catch (\PHPUnit\Framework\AssertionFailedError $e) {
-    //             echo "Assertion failed for URL: {$url}" . PHP_EOL;
-    //             throw $e;
-    //         }
-    //     });
-    // }
+    public function test_all_static_routes_return_200()
+    {
+        collect([
+            route('index'),
+            route('favorites'),
+        ])->each(function ($url) {
+            $response = $this->get($url);
+            try {
+                $response->assertStatus(200);
+            } catch (\PHPUnit\Framework\AssertionFailedError $e) {
+                echo "Assertion failed for URL: {$url}" . PHP_EOL;
+                throw $e;
+            }
+        });
+    }
 
     /**
      * test_all_dynamic_routes_return_200

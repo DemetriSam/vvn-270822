@@ -3,7 +3,7 @@
         {{ $title }}
     </x-slot:title>
     <x-slot:description>
-        {{ $description }}
+        Ваши избранные ковровые покрытия и циновки
     </x-slot:description>
     <x-public.nodes title="Избранное" :products="$products" />
 </x-layout>
