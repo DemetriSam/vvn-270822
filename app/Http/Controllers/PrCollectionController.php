@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Color;
 use Illuminate\Http\Request;
 use App\Models\PrCollection;
 use App\Models\PrCvet;
@@ -82,7 +83,8 @@ class PrCollectionController extends Controller
     {
         $prCollection = PrCollection::find($id);
         $prCvets = PrCvet::where('pr_collection_id', $id)->get();
-        return view('pr_collection.show', compact('prCollection', 'prCvets'));
+        $colors = Color::all();
+        return view('pr_collection.show', compact('prCollection', 'prCvets', 'colors'));
     }
 
     /**
