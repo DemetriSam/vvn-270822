@@ -117,6 +117,8 @@ Route::get('/whatsapp', fn () => redirect()->to('https://wa.me/79035649165')->se
 //Страницы выборок
 Route::get('/kovrolin-poliamid', [Controllers\SelectionController::class, 'kovrolinPoliamid'])
     ->name('kovrolin-poliamid');
+Route::get('/kovrolin-poliester', [Controllers\SelectionController::class, 'kovrolinPoliester'])
+    ->name('kovrolin-poliester');
 
 //Страницы каталога
 Route::get('/{category:slug}', [Controllers\Controller::class, 'catalog'])
