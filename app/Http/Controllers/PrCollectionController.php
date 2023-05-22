@@ -126,12 +126,10 @@ class PrCollectionController extends Controller
         ));
 
         if (isset($request->properties)) {
-            foreach ($request->properties as $property_id => $value) {
-                $oldValue = PropertyValue::firstWhere('property_id', $property_id);
-                if ($oldValue) {
-                    $prCollection->properties()->detach($oldValue->id);
-                }
-                $prCollection->properties()->attach($value);
+            foreach ($request->properties as $property_id => $property_value_id) {
+                $oldValues = $prCollection->properties->where('property_id', $property_id);
+                $oldValues->each(fn($old) => $prCollection->properties()->detach($old->id));
+                $prCollection->properties()->attach($property_value_id);
             }
         }
 
