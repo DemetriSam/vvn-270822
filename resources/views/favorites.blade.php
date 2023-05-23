@@ -3,7 +3,7 @@
         {{ $title }}
     </x-slot:title>
     <x-slot:description>
-        {{ $description }}
+        {{ $description ?? 'Избранный товары' }}
     </x-slot:description>
     <x-public.nodes title="Избранное" :products="$products" />
 </x-layout>
