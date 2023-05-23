@@ -88,6 +88,25 @@ class PrCvet extends Model implements HasMedia
             return $this->prCollection->height;
         }
 
+        if ($property === 'descShort') {
+            $desc = $this->description;
+            $words = explode(' ', $desc);
+            $wholeLen = 0;
+            $maxLen = 152;
+            $descShort = [];
+            for($i = 0; $i < count($words); $i++) {
+                $currentWord = $words[$i];
+                $wholeLen += strlen($currentWord);
+                if($wholeLen <= $maxLen) {
+                    $descShort[] = $currentWord;
+                } else {
+                    break;
+                }
+            }
+
+            return count($descShort) === count($words) ? implode(' ', $descShort) : implode(' ', $descShort) . '...';
+        }
+
         return parent::__get($property);
     }
 

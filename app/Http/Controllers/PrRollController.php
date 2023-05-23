@@ -177,10 +177,12 @@ class PrRollController extends Controller
      * @param  \App\Models\PrRoll  $prRoll
      * @return \Illuminate\Http\Response
      */
-    public function edit(PrRoll $prRoll)
+    public function edit(PrRoll $prRoll, Request $request)
     {
         $prCvets = \App\Models\PrCvet::all();
         $suppliers = \App\Models\Supplier::all();
+        $referer = $request->headers->get('referer');
+        session()->put('referer', $referer);
         return view('pr_roll.edit', compact('prRoll', 'prCvets', 'suppliers'));
     }
 
@@ -196,9 +198,11 @@ class PrRollController extends Controller
         $input = $request->input();
         $prRoll->fill($input);
         $prRoll->save();
-
-        return redirect()->route('pr_rolls.index')
-            ->with('success', 'Roll successufully changed');
+        
+        $referer = session('referer');
+        return $referer ?
+            redirect($referer)->with('success', 'Roll successufully changed') :
+            redirect()->route('pr_rolls.index');
     }
 
     /**

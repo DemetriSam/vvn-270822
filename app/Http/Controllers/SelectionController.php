@@ -21,7 +21,24 @@ class SelectionController extends Controller
             ->paginate(12);
 
         $title = 'Ковролин из 100% полиамида';
-        $description = 'Ковролин из материала известного как нейлон, полиамид или иначе олефин. Считается лучшим материалом из искусственных для изготовления ковровых покрытий';
+        $description = 'Ковролин из полиамида, известного также как нейлон или олефин. Считается лучшим материалом из искусственных для изготовления ковровых покрытий';
+
+        return view('selection', compact('products', 'title', 'description'));
+    }
+    public function kovrolinPoliester()
+    {
+        $products = PrCvet::orderBy('pr_cvets.id')
+            ->join('pr_collections', 'pr_collections.id', '=', 'pr_cvets.pr_collection_id')
+            ->join('pr_collection_property_value', 'pr_collections.id', '=', 'pr_collection_property_value.pr_collection_id')
+            ->join('property_values', 'property_values.id', '=', 'pr_collection_property_value.property_value_id')
+            ->where('value', '=', 'Полиэстер')
+            ->where('pr_cvets.published', '=', 'true')
+            ->select('pr_cvets.*')
+            ->distinct()
+            ->paginate(12);
+
+        $title = 'Ковролин из 100% полиэстера';
+        $description = 'Ковролин из полиэстера. Купить со склада в Москве.';
 
         return view('selection', compact('products', 'title', 'description'));
     }

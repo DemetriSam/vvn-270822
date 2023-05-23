@@ -55,6 +55,7 @@ class PropertySeeder extends Seeder
                 ['value' => 'Нейлон'],
                 ['value' => 'Сизаль'],
                 ['value' => 'Полипропилен'],
+                ['value' => 'Полиэстер'],
             ],
         ];
 

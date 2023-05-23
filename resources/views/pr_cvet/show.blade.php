@@ -3,7 +3,7 @@
         {{ $title }}
     </x-slot:title>
     <x-slot:description>
-        {{ $prCvet->description }}
+        {{ $prCvet->descShort }}
     </x-slot:description>
     <section class="product-card">
         <div class="product-card__items the-product" data-nid="{{ $prCvet->id }}">
@@ -20,6 +20,8 @@
                 <div class="specs__subitem specs__subitem_value">
                     @if($prCvet->composition === 'Нейлон')
                     <a href="{{ route('kovrolin-poliamid')}}">{{ $prCvet->composition }}</a>
+                    @elseif($prCvet->composition === 'Полиэстер')
+                    <a href="{{ route('kovrolin-poliester')}}">{{ $prCvet->composition }}</a>
                     @else
                     {{ $prCvet->composition }}
                     @endif
