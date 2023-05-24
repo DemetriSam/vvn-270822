@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'sitename' => 'Всё-в-наличии.ру',
+    'testTitle' => 'какой-то тайтл из lang',
     'colors' => [
         'carpets' => [
             'white' => [

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\PrCvet;
 use App\Models\PrCollection;
 use App\Models\Color;
+use App\Services\Tags\Description;
+use App\Services\Tags\Title;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -125,13 +127,14 @@ class PrCvetController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function show(PrCvet $prCvet)
+    public function show(PrCvet $prCvet, Title $titleProv, Description $descProv)
     {
         if (!$prCvet->isPublished()) {
             return redirect()->route('catalog', ['category' => $prCvet->category->slug]);
         }
-        $prefix = $prCvet->category->name_single ?? $prCvet->category->name;
-        $title =  $prefix . ' ' . $prCvet->title;
+
+        $title = $titleProv->getTag('product', ['product_id' => $prCvet->id]);
+        $description = $descProv->getTag('product', ['product_id' => $prCvet->id]);
 
         $sameColor = PrCvet::where('color_id', $prCvet->color_id)
             ->whereNot('id', $prCvet->id)
@@ -143,7 +146,7 @@ class PrCvetController extends Controller
             ->where('pr_cvets.published', 'true')
             ->get()->diff($sameColor)->forPage(1, 12);
 
-        return view('pr_cvet.show', compact('prCvet', 'title', 'sameColor', 'sameCollection'));
+        return view('pr_cvet.show', compact('prCvet', 'title', 'description', 'sameColor', 'sameCollection'));
     }
 
     /**

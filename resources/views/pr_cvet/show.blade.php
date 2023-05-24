@@ -3,7 +3,7 @@
         {{ $title }}
     </x-slot:title>
     <x-slot:description>
-        {{ $prCvet->descShort }}
+        {{ $description }}
     </x-slot:description>
     <section class="product-card">
         <div class="product-card__items the-product" data-nid="{{ $prCvet->id }}">

@@ -2,7 +2,7 @@
 
 namespace App\Services\Tags;
 
-class Title extends Tag
+class H1 extends Tag
 {
     public function getTag(String $case = '', Array $args = [])
     {
@@ -16,14 +16,7 @@ class Title extends Tag
             
             case 'category':
             case 'color':
-                $name = $provider->getString('name');
-                $postfix = $provider->getString('postfix');
-                $segments = [$name, $postfix];
-                if(isset($args['pageN']) && $args['pageN'] > 1) {
-                    $segments[] = 'стр. ' . $args['pageN'];
-                }
-
-                return implode(' — ', $segments);
+                return $provider->getString('name');
             
             default:
                 $line = $provider->getString('testTitle');

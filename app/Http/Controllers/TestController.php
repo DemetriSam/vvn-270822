@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Tags\Title;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    public function title()
+    public function title(Title $titleBuiler)
     {
-        return view('tests.title', ['title' => 'тайтл']);
+        return view('tests.title', ['title' => $titleBuiler->getTag()]);
     }
 }

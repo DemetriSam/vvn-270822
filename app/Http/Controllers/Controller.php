@@ -6,9 +6,13 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\PrCollection;
 use App\Models\PrCvet;
+use App\Services\Tags\Description;
+use App\Services\Tags\H1;
+use App\Services\Tags\Title;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
@@ -22,8 +26,12 @@ class Controller extends BaseController
      *
      * @return \Illuminate\View\View
      */
-    public function catalog(Category $category)
+    public function catalog(Request $request, Category $category, Title $titleProv, Description $descProv, H1 $h1Prov)
     {
+        $title = $titleProv->getTag('category', ['category_id' => $category->id, 'pageN' => $request->page]);
+        $description = $descProv->getTag('category', ['category_id' => $category->id]);
+        $h1 = $h1Prov->getTag('category', ['category_id' => $category->id]);
+
         $page = 1;
         $productsOnPage = 4;
 
@@ -46,7 +54,7 @@ class Controller extends BaseController
                 return $result;
             })->sortBy('sort');
 
-        return view('catalog', compact('category', 'grouped', 'productsOnPage'));
+        return view('catalog', compact('category', 'grouped', 'title', 'description', 'productsOnPage', 'h1'));
     }
 
     /**
@@ -125,14 +133,18 @@ class Controller extends BaseController
         return view('favorites', compact('title', 'products'));
     }
 
-    public function color(Category $category, Color $color)
+    public function color(Request $request, Category $category, Color $color, Title $titleProv, Description $descProv, H1 $h1Prov)
     {
+        $title = $titleProv->getTag('color', ['color_id' => $color->id, 'category_id' => $category->id, 'pageN' => $request->page]);
+        $description = $descProv->getTag('color', ['color_id' => $color->id, 'category_id' => $category->id]);
+        $h1 = $h1Prov->getTag('color', ['color_id' => $color->id, 'category_id' => $category->id]);
+
         $products = $category->products()
             ->where('color_id', $color->id)
             ->where('pr_cvets.published', 'true')
             ->paginate(12);
 
-        return view('color', compact('color', 'category', 'products'));
+        return view('color', compact('color', 'category', 'products', 'title', 'description', 'h1'));
     }
 
     public function whatsapp()
