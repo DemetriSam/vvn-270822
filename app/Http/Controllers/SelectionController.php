@@ -20,7 +20,7 @@ class SelectionController extends Controller
             ->distinct()
             ->paginate(12);
 
-        $title = 'Ковролин из 100% полиамида';
+        $title = 'Ковролин из 100% полиамида — Всё-в-наличии.ру';
         $description = 'Ковролин из полиамида, известного также как нейлон или олефин. Считается лучшим материалом из искусственных для изготовления ковровых покрытий';
 
         return view('selection', compact('products', 'title', 'description'));
@@ -37,7 +37,7 @@ class SelectionController extends Controller
             ->distinct()
             ->paginate(12);
 
-        $title = 'Ковролин из 100% полиэстера';
+        $title = 'Ковролин из 100% полиэстера — Всё-в-наличии.ру';
         $description = 'Ковролин из полиэстера. Купить со склада в Москве.';
 
         return view('selection', compact('products', 'title', 'description'));
