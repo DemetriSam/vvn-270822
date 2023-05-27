@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class SelectionController extends Controller
 {
-    public function kovrolinPoliamid(H1 $h1Prov, Title $titleProv, Description $descProv)
+    public function kovrolinPoliamid(Request $request, H1 $h1Prov, Title $titleProv, Description $descProv)
     {
         $products = PrCvet::orderBy('pr_cvets.id')
             ->join('pr_collections', 'pr_collections.id', '=', 'pr_cvets.pr_collection_id')
@@ -24,13 +24,13 @@ class SelectionController extends Controller
             ->paginate(12);
         
             $name = 'poliamid';
-            $title = $titleProv->getTag('selection', ['name' => $name]);
+            $title = $titleProv->getTag('selection', ['name' => $name, 'pageN' => $request->page]);
             $h1 = $h1Prov->getTag('selection', ['name' => $name]);
             $description = $descProv->getTag('selection', ['name' => $name]);
 
         return view('selection', compact('products', 'title', 'h1', 'description', 'name'));
     }
-    public function kovrolinPoliester(H1 $h1Prov, Title $titleProv, Description $descProv)
+    public function kovrolinPoliester(Request $request, H1 $h1Prov, Title $titleProv, Description $descProv)
     {
         $products = PrCvet::orderBy('pr_cvets.id')
             ->join('pr_collections', 'pr_collections.id', '=', 'pr_cvets.pr_collection_id')
@@ -43,7 +43,7 @@ class SelectionController extends Controller
             ->paginate(12);
 
         $name = 'poliester';
-        $title = $titleProv->getTag('selection', ['name' => $name]);
+        $title = $titleProv->getTag('selection', ['name' => $name, 'pageN' => $request->page]);
         $h1 = $h1Prov->getTag('selection', ['name' => $name]);
         $description = $descProv->getTag('selection', ['name' => $name]);
 
