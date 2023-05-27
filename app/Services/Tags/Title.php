@@ -20,7 +20,7 @@ class Title extends Tag
                 $name = $provider->getString('name');
                 $postfix = $provider->getString('postfix');
                 $segments = [$name, $postfix];
-                if(isset($args['pageN']) && $args['pageN'] > 1) {
+                if(isset($args['pageN'])) {
                     $segments[] = 'стр. ' . $args['pageN'];
                 }
 
