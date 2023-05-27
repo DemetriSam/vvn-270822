@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\PrCvet;
+use App\Services\Tags\Description;
+use App\Services\Tags\H1;
+use App\Services\Tags\Title;
 use Illuminate\Http\Request;
 
 class SelectionController extends Controller
 {
-    public function kovrolinPoliamid()
+    public function kovrolinPoliamid(H1 $h1Prov, Title $titleProv, Description $descProv)
     {
         $products = PrCvet::orderBy('pr_cvets.id')
             ->join('pr_collections', 'pr_collections.id', '=', 'pr_cvets.pr_collection_id')
@@ -19,13 +22,15 @@ class SelectionController extends Controller
             ->select('pr_cvets.*')
             ->distinct()
             ->paginate(12);
+        
+            $name = 'poliamid';
+            $title = $titleProv->getTag('selection', ['name' => $name]);
+            $h1 = $h1Prov->getTag('selection', ['name' => $name]);
+            $description = $descProv->getTag('selection', ['name' => $name]);
 
-        $title = 'Ковролин из 100% полиамида — Всё-в-наличии.ру';
-        $description = 'Ковролин из полиамида, известного также как нейлон или олефин. Считается лучшим материалом из искусственных для изготовления ковровых покрытий';
-
-        return view('selection', compact('products', 'title', 'description'));
+        return view('selection', compact('products', 'title', 'h1', 'description', 'name'));
     }
-    public function kovrolinPoliester()
+    public function kovrolinPoliester(H1 $h1Prov, Title $titleProv, Description $descProv)
     {
         $products = PrCvet::orderBy('pr_cvets.id')
             ->join('pr_collections', 'pr_collections.id', '=', 'pr_cvets.pr_collection_id')
@@ -37,9 +42,11 @@ class SelectionController extends Controller
             ->distinct()
             ->paginate(12);
 
-        $title = 'Ковролин из 100% полиэстера — Всё-в-наличии.ру';
-        $description = 'Ковролин из полиэстера. Купить со склада в Москве.';
+        $name = 'poliester';
+        $title = $titleProv->getTag('selection', ['name' => $name]);
+        $h1 = $h1Prov->getTag('selection', ['name' => $name]);
+        $description = $descProv->getTag('selection', ['name' => $name]);
 
-        return view('selection', compact('products', 'title', 'description'));
+        return view('selection', compact('products', 'title', 'h1', 'description', 'name'));
     }
 }

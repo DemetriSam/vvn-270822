@@ -13,6 +13,8 @@ class LinesProviderFactory implements ProviderFactory
                 return new LinesProviderForCategory($args['category_id']);
             case 'color':
                 return new LinesProviderForColor($args['category_id'], $args['color_id']);
+            case 'selection':
+                return new LinesProviderForSelection($args['name']);
             default:
                 return new LinesProviderFromLang();
         }

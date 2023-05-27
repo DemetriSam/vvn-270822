@@ -14,6 +14,7 @@ class H1 extends Tag
                 $productName = $provider->getString('product.title');
                 return $prefix . ' ' . $productName;
             
+            case 'selection':
             case 'category':
             case 'color':
                 return $provider->getString('name');

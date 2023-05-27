@@ -13,9 +13,10 @@ class Title extends Tag
                 $prefix = $provider->getString('category.name');
                 $productName = $provider->getString('product.title');
                 return $prefix . ' ' . $productName;
-            
+                
             case 'category':
             case 'color':
+            case 'selection':
                 $name = $provider->getString('name');
                 $postfix = $provider->getString('postfix');
                 $segments = [$name, $postfix];

@@ -5,7 +5,7 @@
     <x-slot:description>
         {{ $description }}
     </x-slot:description>
-    <h1 style="text-align: center">{{ $title }}</h1>
+    <h1 style="text-align: center">{{ $h1 }}</h1>
     <br>
     <section class="recomendations">
         <x-public.nodes :products="$products"/>
@@ -14,5 +14,5 @@
         </div>
     </section>
     <br>
-    <article><p>{{ $description }}</p></article>
+    <article><p>{{ __('public.selections.' . $name . '.description') }}</p></article>
 </x-layout>
