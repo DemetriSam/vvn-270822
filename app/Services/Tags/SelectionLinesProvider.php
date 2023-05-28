@@ -2,14 +2,12 @@
 
 namespace App\Services\Tags;
 
-use App\Models\Category;
-use App\Models\Color;
-
-class LinesProviderForSelection implements LinesProvider
+class SelectionLinesProvider implements LinesProvider
 {
-    public function __construct($selectionName)
+    public function __construct($args)
     {
-        $this->name = $selectionName;
+        $this->name = $args['name'];
+        $this->pageN = $args['pageN'];
     }
 
     public function getString(String $key)
@@ -28,6 +26,7 @@ class LinesProviderForSelection implements LinesProvider
                 'description',
             ])),
             'postfix' => __('public.sitename'),
+            'pageN' => $this->pageN,
         ];
 
         return $map[$key];

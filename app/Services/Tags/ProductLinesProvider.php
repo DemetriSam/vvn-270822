@@ -4,11 +4,11 @@ namespace App\Services\Tags;
 
 use App\Models\PrCvet;
 
-class LinesProviderForProduct implements LinesProvider
+class ProductLinesProvider implements LinesProvider
 {
-    public function __construct($id)
+    public function __construct($args)
     {
-        $this->product = PrCvet::find($id);
+        $this->product = PrCvet::find($args['product_id']);
     }
 
     public function getString(String $key)

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Tags;
+namespace App\Services\Tags\Traits;
 
-class Description extends Tag
+use App\Services\Tags\LinesProvider;
+
+trait Description
 {
-    public function getTag(String $case = '', array $args = [])
+    public function getDescription()
     {
-        $provider = $this->providerFactory->getProvider($case, $args);
-        
+        $provider = $this->getLineProvider();
         $desc = $provider->getString('description');
 
         $words = explode(' ', $desc);
@@ -26,4 +27,6 @@ class Description extends Tag
 
         return count($descShort) === count($words) ? implode(' ', $descShort) : implode(' ', $descShort) . '...';
     }
+
+    abstract protected function getLineProvider() : LinesProvider;
 }

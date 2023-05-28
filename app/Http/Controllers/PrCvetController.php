@@ -8,6 +8,7 @@ use App\Models\PrCvet;
 use App\Models\PrCollection;
 use App\Models\Color;
 use App\Services\Tags\Description;
+use App\Services\Tags\ProductSeoTags;
 use App\Services\Tags\Title;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -127,14 +128,15 @@ class PrCvetController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function show(PrCvet $prCvet, Title $titleProv, Description $descProv)
+    public function show(PrCvet $prCvet, ProductSeoTags $seoTags)
     {
         if (!$prCvet->isPublished()) {
             return redirect()->route('catalog', ['category' => $prCvet->category->slug]);
         }
-
-        $title = $titleProv->getTag('product', ['product_id' => $prCvet->id]);
-        $description = $descProv->getTag('product', ['product_id' => $prCvet->id]);
+        
+        $seoTags->initLineProvider(['product_id' => $prCvet->id]);
+        $title = $seoTags->getTitle();
+        $description = $seoTags->getDescription();
 
         $sameColor = PrCvet::where('color_id', $prCvet->color_id)
             ->whereNot('id', $prCvet->id)

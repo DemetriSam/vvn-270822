@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Color;
-use App\Models\PrCollection;
 use App\Models\PrCvet;
-use App\Services\Tags\Description;
-use App\Services\Tags\H1;
-use App\Services\Tags\Title;
+use App\Services\Tags\CategorySeoTags;
+use App\Services\Tags\ColorSeoTags;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,11 +24,16 @@ class Controller extends BaseController
      *
      * @return \Illuminate\View\View
      */
-    public function catalog(Request $request, Category $category, Title $titleProv, Description $descProv, H1 $h1Prov)
+    public function catalog(Request $request, Category $category, CategorySeoTags $seoTags)
     {
-        $title = $titleProv->getTag('category', ['category_id' => $category->id, 'pageN' => $request->page]);
-        $description = $descProv->getTag('category', ['category_id' => $category->id]);
-        $h1 = $h1Prov->getTag('category', ['category_id' => $category->id]);
+        $seoTags->initLineProvider([
+            'category_id' => $category->id,
+            'pageN' => $request->page,
+        ]);
+        
+        $h1 = $seoTags->getH1();
+        $title = $seoTags->getTitle();
+        $description = $seoTags->getDescription();
 
         $page = 1;
         $productsOnPage = 4;
@@ -133,11 +136,17 @@ class Controller extends BaseController
         return view('favorites', compact('title', 'products'));
     }
 
-    public function color(Request $request, Category $category, Color $color, Title $titleProv, Description $descProv, H1 $h1Prov)
+    public function color(Request $request, Category $category, Color $color, ColorSeoTags $seoTags)
     {
-        $title = $titleProv->getTag('color', ['color_id' => $color->id, 'category_id' => $category->id, 'pageN' => $request->page]);
-        $description = $descProv->getTag('color', ['color_id' => $color->id, 'category_id' => $category->id]);
-        $h1 = $h1Prov->getTag('color', ['color_id' => $color->id, 'category_id' => $category->id]);
+        $seoTags->initLineProvider([
+            'color_id' => $color->id,
+            'category_id' => $category->id,
+            'pageN' => $request->page
+        ]);
+        
+        $h1 = $seoTags->getH1();
+        $title = $seoTags->getTitle();
+        $description = $seoTags->getDescription();
 
         $products = $category->products()
             ->where('color_id', $color->id)

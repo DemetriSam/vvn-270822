@@ -5,12 +5,13 @@ namespace App\Services\Tags;
 use App\Models\Category;
 use App\Models\Color;
 
-class LinesProviderForColor implements LinesProvider
+class ColorLinesProvider implements LinesProvider
 {
-    public function __construct($categoryId, $colorId)
+    public function __construct($args)
     {
-        $this->category = Category::find($categoryId);
-        $this->color = Color::find($colorId);
+        $this->category = Category::find($args['category_id']);
+        $this->color = Color::find($args['color_id']);
+        $this->pageN = $args['pageN'];
     }
 
     public function getString(String $key)
@@ -31,8 +32,9 @@ class LinesProviderForColor implements LinesProvider
                 'description',
             ])),
             'postfix' => __('public.sitename'),
+            'pageN' => $this->pageN,
         ];
 
-        return __($map[$key]);
+        return $map[$key];
     }
 }

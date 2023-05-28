@@ -2,21 +2,23 @@
 
 namespace App\Services\Tags;
 
+use Exception;
+
 class LinesProviderFactory implements ProviderFactory
 {
     public function getProvider(String $case, Array $args) : LinesProvider
     {
         switch ($case) {
             case 'product':
-                return new LinesProviderForProduct($args['product_id']);
+                return new ProductLinesProvider($args);
             case 'category':
-                return new LinesProviderForCategory($args['category_id']);
+                return new CategoryLinesProvider($args);
             case 'color':
-                return new LinesProviderForColor($args['category_id'], $args['color_id']);
+                return new ColorLinesProvider($args);
             case 'selection':
-                return new LinesProviderForSelection($args['name']);
+                return new SelectionLinesProvider($args);
             default:
-                return new LinesProviderFromLang();
+                throw new Exception('Such Lines Provider does not exist');
         }
     }
 }

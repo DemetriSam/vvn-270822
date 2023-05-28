@@ -2,7 +2,6 @@
 
 return [
     'sitename' => 'Всё-в-наличии.ру',
-    'testTitle' => 'какой-то тайтл из lang',
     'selections' => [
         'poliamid' => [
             'title' => 'Ковролин из 100% полиамида',
