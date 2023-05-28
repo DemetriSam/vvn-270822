@@ -121,9 +121,11 @@ Route::get('/kovrolin-poliester', [Controllers\SelectionController::class, 'kovr
     ->name('kovrolin-poliester');
     
 //Страницы каталога
-Route::get('/{category:slTug}', [Controllers\Controller::class, 'catalog'])
+Route::get('/{category:slug}', [Controllers\Controller::class, 'catalog'])
     ->name('catalog');
 
 //Форма вызова дизайнера
 Route::put('/request/mesurement', [Controllers\MeteringFormController::class, 'sendRequest'])
     ->name('request.mesurement');
+
+    
