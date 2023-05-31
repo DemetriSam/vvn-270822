@@ -28,10 +28,10 @@
             </nav>
         </div>
         <div class="footer__item contacts_in_header">
-            <div id="header_phone_number" class="contacts__item _icon-phone">+7 (495) 729 96 33</div>
-            <div class="contacts__item _icon-mail">info@dizanarium.ru</div>
+            <div id="header_phone_number" class="contacts__item _icon-phone">{{ __('public.contacts.phone') }}</div>
+            <div class="contacts__item _icon-mail">{{ __('public.contacts.email') }}</div>
 
-            <div id="header_address" class="contacts__item _icon-pin">г. Москва, Нахимовский проспект, 24, ЦДиИ Экспострой, 3 павильон, 174 место
+            <div id="header_address" class="contacts__item _icon-pin">{{ __('public.contacts.address') }}
             </div>
         </div>
         <div class="footer__item copyright">
