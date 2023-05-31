@@ -8,9 +8,9 @@ use App\Services\Tags\Traits\ListingTitle;
 
 class CategorySeoTags extends PageSeoTags
 {
-        use ListingTitle;
-        use Description;
-        use H1;
+    use ListingTitle;
+    use Description;
+    use H1;
 
     const PAGE_TYPE = 'category';
 

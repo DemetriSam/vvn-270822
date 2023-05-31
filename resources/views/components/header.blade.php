@@ -4,10 +4,10 @@
 			<section class="row region region-top-header">
 
 				<div class="contacts_in_header">
-					<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>
-					<div class="_icon-mail">info@dizanarium.ru</div>
+					<div id="header_phone_number" class="_icon-phone">{{ __('public.contacts.phone') }}</div>
+					<div class="_icon-mail">{{ __('public.contacts.email') }}</div>
 
-					<div id="header_address" class="_icon-pin">г. Москва, Нахимовский проспект, 24, ЦДиИ Экспострой, 3 павильон, 174 место</div>
+					<div id="header_address" class="_icon-pin">{{ __('public.contacts.address') }}</div>
 				</div>
 				<!-- <div class="header__search">
 					<div class="search-form">
