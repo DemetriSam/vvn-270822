@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\PrCvet;
 use App\Models\PrCollection;
 use App\Models\Color;
-use App\Services\Tags\Description;
+use App\Services\Pages\FilterLayers;
 use App\Services\Tags\ProductSeoTags;
-use App\Services\Tags\Title;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use Illuminate\Routing\Controller;
 
 class PrCvetController extends Controller
 {
@@ -20,45 +18,15 @@ class PrCvetController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(FilterLayers $filters)
     {
         $filter = request('filter');
         $query = PrCvet::orderBy('pr_cvets.id');
 
         if ($filter) {
-            $query = isset($filter['publicStatus']) && $filter['publicStatus'] ?
-                $query->where('pr_cvets.published', $filter['publicStatus']) :
-                $query;
-
-            $query = isset($filter['color_id']) && $filter['color_id'] ?
-                $query->where('color_id', $filter['color_id']) :
-                $query;
-
-            $query = isset($filter['pr_collection_id']) && $filter['pr_collection_id'] ?
-                $query->where('pr_collection_id', $filter['pr_collection_id']) :
-                $query;
-
-            if (isset($filter['category']) && $filter['category']) {
-                $categoryId = Category::firstWhere('slug', $filter['category'])->id;
-                $query = $query
-                    ->join('pr_collections', 'pr_cvets.pr_collection_id', '=', 'pr_collections.id')
-                    ->where('category_id', '=', $categoryId)->select('pr_cvets.*');
-            }
-
-            if (isset($filter['has_images'])) {
-                if ($filter['has_images'] === 'true') {
-                    $query->join('media', function ($join) {
-                        $join->on('pr_cvets.id', '=', 'media.model_id')
-                            ->where('model_type', PrCvet::class)
-                            ->whereNotNull('media.name');
-                    })->select('pr_cvets.*');
-                } elseif ($filter['has_images'] === 'false') {
-                    $query->leftJoin('media', function ($join) {
-                        $join->on('pr_cvets.id', '=', 'media.model_id')
-                            ->where('model_type', PrCvet::class);
-                    })->whereNull('media.id')->select('pr_cvets.*');
-                }
-            }
+            $filters->setFilter($filter);
+            $filters->setBase($query);
+            $query = $filters->getQuery();
         }
 
         $prCvets = $query->paginate(20)->withQueryString();
@@ -133,7 +101,7 @@ class PrCvetController extends Controller
         if (!$prCvet->isPublished()) {
             return redirect()->route('catalog', ['category' => $prCvet->category->slug]);
         }
-        
+
         $seoTags->initLineProvider(['product_id' => $prCvet->id]);
         $title = $seoTags->getTitle();
         $description = $seoTags->getDescription();

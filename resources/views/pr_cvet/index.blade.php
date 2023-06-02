@@ -10,6 +10,7 @@
         $publicStatus = request()->input('filter.publicStatus');
         $hasImages = request()->input('filter.has_images');
         $category = request()->input('filter.category');
+        $composition = request()->input('filter.composition');
         @endphp
         <form action="{{ route('pr_cvets.index')}}">
             <x-select name="filter[category]">
@@ -38,6 +39,11 @@
                 <option value="">Наличие картинки</option>
                 <option value="true" {{ $hasImages == 'true' ? 'selected' : '' }}>true</option>
                 <option value="false" {{ $hasImages == 'false' ? 'selected' : '' }}>false</option>
+            </x-select>
+            <x-select name="filter[composition]">
+                <option value="">Материал</option>
+                <option value="Нейлон" {{ $composition == 'Нейлон' ? 'selected' : '' }}>Нейлон</option>
+                <option value="Полиэстер" {{ $composition == 'Полиэстер' ? 'selected' : '' }}>Полиэстер</option>
             </x-select>
             <x-button class="ml-3">
                 <p>Фильтровать</p>
