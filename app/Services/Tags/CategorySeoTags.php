@@ -12,10 +12,8 @@ class CategorySeoTags extends PageSeoTags
     use Description;
     use H1;
 
-    const PAGE_TYPE = 'category';
-
-    protected function getPageType()
+    protected function getLineProvider(): LinesProvider
     {
-        return self::PAGE_TYPE;
+        return new CategoryLinesProvider($this->args);
     }
 }

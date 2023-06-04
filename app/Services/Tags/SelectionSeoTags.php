@@ -12,10 +12,8 @@ class SelectionSeoTags extends PageSeoTags
     use Description;
     use H1;
 
-    const PAGE_TYPE = 'selection';
-
-    protected function getPageType()
+    protected function getLineProvider(): LinesProvider
     {
-        return self::PAGE_TYPE;
+        return new SelectionLinesProvider($this->args);
     }
 }

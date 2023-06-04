@@ -11,11 +11,9 @@ class ColorSeoTags extends PageSeoTags
     use ListingTitle;
     use Description;
     use H1;
-    
-    const PAGE_TYPE = 'color';
 
-    protected function getPageType()
+    protected function getLineProvider(): LinesProvider
     {
-        return self::PAGE_TYPE;
+        return new ColorLinesProvider($this->args);
     }
 }

@@ -61,8 +61,8 @@ class FilterLayers
         if (isset($filter['composition'])) {
             $composition = $filter['composition'];
             $query = $query
-                ->join('pr_collections AS compostion_pr_collections', 'compostion_pr_collections.id', '=', 'pr_cvets.pr_collection_id')
-                ->join('pr_collection_property_value', 'compostion_pr_collections.id', '=', 'pr_collection_property_value.pr_collection_id')
+                ->join('pr_collections AS composition_pr_collections', 'composition_pr_collections.id', '=', 'pr_cvets.pr_collection_id')
+                ->join('pr_collection_property_value', 'composition_pr_collections.id', '=', 'pr_collection_property_value.pr_collection_id')
                 ->join('property_values', 'property_values.id', '=', 'pr_collection_property_value.property_value_id')
                 ->where('value', '=', $composition)
                 ->select('pr_cvets.*');

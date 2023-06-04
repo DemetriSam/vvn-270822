@@ -8,14 +8,12 @@ use App\Services\Tags\Traits\ProductTitle;
 
 class ProductSeoTags extends PageSeoTags
 {
-        use ProductTitle;
-        use Description;
-        use ProductH1;
+    use ProductTitle;
+    use Description;
+    use ProductH1;
 
-    const PAGE_TYPE = 'product';
-
-    protected function getPageType()
+    protected function getLineProvider(): LinesProvider
     {
-        return self::PAGE_TYPE;
+        return new ProductLinesProvider($this->args);
     }
 }
