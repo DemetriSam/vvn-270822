@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use App\Models\Page;
+use App\Models\PrCollection;
+use App\Models\Property;
+use App\Models\PropertyValue;
 use App\Services\Pages\EloqPageReader;
 use App\Services\Pages\PageBuilder;
 use App\Services\Pages\PageBuilderFactory;
@@ -28,7 +32,15 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('page.create');
+        $prCollections = PrCollection::all();
+        $colors = Color::all();
+        $properties = Property::all();
+        $values = PropertyValue::all();
+        $propFilters = $properties->map(function ($property) use ($values) {
+            $options = $values->filter(fn ($value) => $value->property_id === $property->id);
+            return (object) ['property' => $property, 'options' => $options];
+        });
+        return view('page.create', compact('prCollections', 'colors', 'propFilters'));
     }
 
     /**
@@ -39,7 +51,19 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'title' => 'required',
+            'name' => 'required',
+        ]);
+        $input = $request->input();
+        $input['params'] = json_encode([
+            'listing' => 'pr_cvets',
+            'filter' => isset($input['filter']) ? $input['filter'] : [],
+        ]);
+        Page::create($input);
+        return redirect()->route('pages.index')->with('success', 'New page was created');
     }
 
     /**

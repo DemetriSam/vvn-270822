@@ -4,47 +4,8 @@
         <a href="{{ route('pr_cvets.create') }}">Создать новый цвет</a>
     </x-slot>
     <div class="py-4">
-        @php
-        $prCollectionId = request()->input('filter.pr_collection_id');
-        $colorId = request()->input('filter.color_id');
-        $publicStatus = request()->input('filter.publicStatus');
-        $hasImages = request()->input('filter.has_images');
-        $category = request()->input('filter.category');
-        $composition = request()->input('filter.composition');
-        @endphp
         <form action="{{ route('pr_cvets.index')}}">
-            <x-select name="filter[category]">
-                <option value="">Категория</option>
-                <option value="carpets" {{ $category == 'carpets' ? 'selected' : '' }}>Ковровые покрытия</option>
-                <option value="cinovki" {{ $category == 'cinovki' ? 'selected' : '' }}>Циновки</option>
-            </x-select>
-            <x-select name="filter[pr_collection_id]">
-                <option value="">Коллекция</option>
-                @foreach($prCollections as $collection)
-                <option value="{{ $collection->id }}" {{ $prCollectionId == $collection->id ? 'selected' : '' }}>{{ $collection->name }}</option>
-                @endforeach
-            </x-select>
-            <x-select name="filter[color_id]">
-                <option value="">Цвет</option>
-                @foreach($colors as $color)
-                <option value="{{ $color->id }}" {{ $colorId == $color->id ? 'selected' : '' }}>{{ $color->name }}</option>
-                @endforeach
-            </x-select>
-            <x-select name="filter[publicStatus]">
-                <option value="">Статус публикации</option>
-                <option value="true" {{ $publicStatus == 'true' ? 'selected' : '' }}>true</option>
-                <option value="false" {{ $publicStatus == 'false' ? 'selected' : '' }}>false</option>
-            </x-select>
-            <x-select name="filter[has_images]">
-                <option value="">Наличие картинки</option>
-                <option value="true" {{ $hasImages == 'true' ? 'selected' : '' }}>true</option>
-                <option value="false" {{ $hasImages == 'false' ? 'selected' : '' }}>false</option>
-            </x-select>
-            <x-select name="filter[composition]">
-                <option value="">Материал</option>
-                <option value="Нейлон" {{ $composition == 'Нейлон' ? 'selected' : '' }}>Нейлон</option>
-                <option value="Полиэстер" {{ $composition == 'Полиэстер' ? 'selected' : '' }}>Полиэстер</option>
-            </x-select>
+            @include('filters')
             <x-button class="ml-3">
                 <p>Фильтровать</p>
             </x-button>

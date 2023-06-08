@@ -33,6 +33,7 @@ class EloqPageReader implements PageReader
     public function getParams(): array
     {
         $params = $this->page->params;
-        return is_array($params) ? $params : json_decode($params, true);
+        $params = is_array($params) ? $params : json_decode($params, true);
+        return $params ?? [];
     }
 }

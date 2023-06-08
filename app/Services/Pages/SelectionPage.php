@@ -22,12 +22,20 @@ class SelectionPage extends PageBuilder
 
     private function createSelection()
     {
-        $filter = $this->reader->getParams()['filter'];
+        $params = $this->reader->getParams();
+        if (isset($params['filter'])) {
+            $filter = $params['filter'];
+        } else {
+            $filter = [
+                'publicStatus' => 'true',
+            ];
+        }
+
         $filterLayers = new FilterLayers;
         $filterLayers->setBase(PrCvet::orderBy('pr_cvets.id'));
         $filterLayers->setFilter($filter);
-
         $products = $filterLayers->getQuery()->paginate(12);
+
         $this->renderer->addData(['products' => $products]);
     }
 

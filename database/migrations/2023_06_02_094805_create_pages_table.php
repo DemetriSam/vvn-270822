@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('type');
             $table->jsonb('params')->nullable();
+            $table->longText('text-content')->nullable();
             $table->timestamps();
         });
     }

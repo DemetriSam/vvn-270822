@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\PrCvet;
 use App\Models\PrCollection;
 use App\Models\Color;
+use App\Models\Property;
+use App\Models\PropertyValue;
 use App\Services\Pages\FilterLayers;
 use App\Services\Tags\ProductSeoTags;
 use Illuminate\Routing\Controller;
@@ -32,7 +34,15 @@ class PrCvetController extends Controller
         $prCvets = $query->paginate(20)->withQueryString();
         $prCollections = PrCollection::all();
         $colors = Color::all();
-        return view('pr_cvet.index', compact('prCvets', 'prCollections', 'colors'));
+
+        $properties = Property::all();
+        $values = PropertyValue::all();
+        $propFilters = $properties->map(function ($property) use ($values) {
+            $options = $values->filter(fn ($value) => $value->property_id === $property->id);
+            return (object) ['property' => $property, 'options' => $options];
+        });
+
+        return view('pr_cvet.index', compact('prCvets', 'prCollections', 'colors', 'propFilters'));
     }
 
     /**

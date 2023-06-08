@@ -8,5 +8,5 @@ interface PageReader
     public function getSlug();
     public function getName();
     public function getFilters();
-    public function getParams();
+    public function getParams(): array;
 }
