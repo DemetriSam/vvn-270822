@@ -17,29 +17,7 @@ abstract class PageBuilder
         $this->renderer->viewName = $this->getViewName();
         $this->renderer->addData(['name' => $this->reader->getName()]);
 
-        $seoTags = $this->getPageSeoTags();
-        $args = array_merge($args, ['name' => $this->reader->getName()]);
-        $seoTags->initLineProvider($args);
-        $this->seoTags = $seoTags;
-    }
-
-    protected function createSelection()
-    {
-        $params = $this->reader->getParams();
-        if (isset($params['filter'])) {
-            $filter = $params['filter'];
-        } else {
-            $filter = [
-                'publicStatus' => 'true',
-            ];
-        }
-
-        $filterLayers = $this->getFilters();
-        $filterLayers->setBase($this->getListingItems());
-        $filterLayers->setFilter($filter);
-        $products = $filterLayers->getQuery()->paginate(12);
-
-        $this->renderer->addData(['products' => $products]);
+        $this->init($args);
     }
 
     protected function createSeoTags()
@@ -53,13 +31,12 @@ abstract class PageBuilder
 
     public function render()
     {
-        $this->createSelection();
-        $this->createSeoTags();
+        $this->build();
         return $this->renderer->render();
     }
 
     abstract public function getViewName();
-    abstract public function getListingItems();
-    abstract public function getFilters();
     abstract public function getPageSeoTags(): PageSeoTags;
+    abstract public function init(array $args);
+    abstract public function build();
 }

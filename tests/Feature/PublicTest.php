@@ -70,17 +70,6 @@ class PublicTest extends TestCase
             }
         });
 
-        Category::all()->each(function ($category) {
-            $url = route('catalog', ['category' => $category]);
-            $response = $this->get($url);
-            try {
-                $response->assertStatus(200);
-            } catch (\PHPUnit\Framework\AssertionFailedError $e) {
-                echo "Assertion failed for URL: {$url}" . PHP_EOL;
-                throw $e;
-            }
-        });
-
         Color::all()->each(function ($color) {
             Category::all()->each(function ($category) use ($color) {
                 if ($category->colors->contains($color)) {

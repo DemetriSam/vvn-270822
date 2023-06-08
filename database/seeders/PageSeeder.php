@@ -17,6 +17,30 @@ class PageSeeder extends Seeder
     {
         $pages = [
             [
+                'slug' => 'carpets',
+                'type' => 'category',
+                'name' => 'carpets',
+                'params' => json_encode([
+                    'listing' => 'category.products',
+                    'filter' => [
+                        'publicStatus' => 'true',
+                    ],
+                    'groupBy' => 'color_id',
+                ]),
+            ],
+            [
+                'slug' => 'cinovki',
+                'type' => 'category',
+                'name' => 'cinovki',
+                'params' => json_encode([
+                    'listing' => 'category.products',
+                    'filter' => [
+                        'publicStatus' => 'true',
+                    ],
+                    'groupBy' => 'color_id',
+                ]),
+            ],
+            [
                 'slug' => 'kovrolin-poliamid',
                 'type' => 'selection',
                 'name' => 'poliamid',
@@ -42,6 +66,6 @@ class PageSeeder extends Seeder
             ],
         ];
 
-        collect($pages)->each(fn ($page) => Page::firstOrCreate($page));
+        collect($pages)->each(fn ($page) => Page::firstWhere('slug', $page['slug']) ? null : Page::create($page));
     }
 }
