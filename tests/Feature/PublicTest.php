@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Page;
 use App\Models\PrCvet;
 use Database\Seeders\TestProductsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -57,6 +58,18 @@ class PublicTest extends TestCase
      */
     public function test_all_dynamic_routes_return_200()
     {
+
+        Page::all()->each(function ($page) {
+            $url = route('page', ['page' => $page]);
+            $response = $this->get($url);
+            try {
+                $response->assertStatus(200);
+            } catch (\PHPUnit\Framework\AssertionFailedError $e) {
+                echo "Assertion failed for URL: {$url}" . PHP_EOL;
+                throw $e;
+            }
+        });
+
         Category::all()->each(function ($category) {
             $url = route('catalog', ['category' => $category]);
             $response = $this->get($url);

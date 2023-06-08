@@ -8,42 +8,23 @@ use App\Services\Tags\SelectionSeoTags;
 
 class SelectionPage extends PageBuilder
 {
-    private function getName()
+    public function getViewName()
     {
-        return $this->reader->getName();
+        return 'selection';
     }
 
-    protected function init(): void
+    public function getFilters()
     {
-        $this->renderer->viewName = 'selection';
-        $this->renderer->addData(['name' => $this->getName()]);
-        $this->createSelection();
+        return new FilterLayers;
     }
 
-    private function createSelection()
+    public function getListingItems()
     {
-        $params = $this->reader->getParams();
-        if (isset($params['filter'])) {
-            $filter = $params['filter'];
-        } else {
-            $filter = [
-                'publicStatus' => 'true',
-            ];
-        }
-
-        $filterLayers = new FilterLayers;
-        $filterLayers->setBase(PrCvet::orderBy('pr_cvets.id'));
-        $filterLayers->setFilter($filter);
-        $products = $filterLayers->getQuery()->paginate(12);
-
-        $this->renderer->addData(['products' => $products]);
+        return PrCvet::orderBy('pr_cvets.id');
     }
 
     public function getPageSeoTags(): PageSeoTags
     {
-        $seoTags = new SelectionSeoTags();
-        $args = array_merge($this->args, ['name' => $this->getName()]);
-        $seoTags->initLineProvider($args);
-        return $seoTags;
+        return new SelectionSeoTags();
     }
 }

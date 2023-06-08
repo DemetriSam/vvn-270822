@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             SupplierSeeder::class,
             PropertySeeder::class,
             ColorSeeder::class,
+            PageSeeder::class,
         ]);
     }
 }
