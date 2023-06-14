@@ -17,6 +17,30 @@ class PageSeeder extends Seeder
     {
         $pages = [
             [
+                'slug' => 'carpets',
+                'name' => 'carpets',
+                'type' => 'category',
+                'params' => [
+                    'listing' => 'category.products',
+                    'filter' => [
+                        'publicStatus' => 'true',
+                        'groupBy' => 'color_id',
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'cinovki',
+                'name' => 'cinovki',
+                'type' => 'category',
+                'params' => [
+                    'listing' => 'category.products',
+                    'filter' => [
+                        'publicStatus' => 'true',
+                        'groupBy' => 'color_id',
+                    ],
+                ],
+            ],
+            [
                 'slug' => 'kovrolin-poliamid',
                 'type' => 'selection',
                 'name' => 'poliamid',
