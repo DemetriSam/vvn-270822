@@ -20,25 +20,25 @@ class PageSeeder extends Seeder
                 'slug' => 'carpets',
                 'name' => 'carpets',
                 'type' => 'category',
-                'params' => [
+                'params' => json_encode([
                     'listing' => 'category.products',
                     'filter' => [
                         'publicStatus' => 'true',
                         'groupBy' => 'color_id',
                     ],
-                ],
+                ]),
             ],
             [
                 'slug' => 'cinovki',
                 'name' => 'cinovki',
                 'type' => 'category',
-                'params' => [
+                'params' => json_encode([
                     'listing' => 'category.products',
                     'filter' => [
                         'publicStatus' => 'true',
                         'groupBy' => 'color_id',
                     ],
-                ],
+                ]),
             ],
             [
                 'slug' => 'kovrolin-poliamid',
