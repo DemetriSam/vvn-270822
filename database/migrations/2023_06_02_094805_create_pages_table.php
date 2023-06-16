@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('name')->unique();
+            $table->string('title');
+            $table->string('description')->nullable();
             $table->string('type');
             $table->jsonb('params')->nullable();
             $table->longText('text-content')->nullable();

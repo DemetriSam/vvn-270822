@@ -1,12 +1,32 @@
 @php
-$prCollectionId = request()->input('filter.pr_collection_id');
-$colorId = request()->input('filter.color_id');
-$publicStatus = request()->input('filter.publicStatus');
-$hasImages = request()->input('filter.has_images');
-$category = request()->input('filter.category');
-$composition = request()->input('filter.composition');
+    $prCollectionId = $prCollectionId ?? (
+        request()->input('filter.pr_collection_id') ?
+        request()->input('filter.pr_collection_id') : 
+        old('filter.pr_collection_id')
+    );
+    $color_id = $color_id ?? (
+        request()->input('filter.color_id') ?
+        request()->input('filter.color_id') :
+        old('filter.color_id')
+    );
+    $publicStatus = $publicStatus ?? (
+        request()->input('filter.publicStatus') ?
+        request()->input('filter.publicStatus') :
+        old('filter.publicStatus')
+    );
+    $has_images = $has_images ?? (
+        request()->input('filter.has_images') ?
+        request()->input('filter.has_images') : 
+        old('filter.has_images')
+    );
+    $category = $category ?? (
+        request()->input('filter.category') ?
+        request()->input('filter.category') :
+        old('filter.category')
+    );
+    $composition = $composition ?? (request()->input('filter.composition') ? request()->input('filter.composition') : old('filter.composition'));
+    $width = $width ?? (request()->input('filter.width') ? request()->input('filter.width') : old('filter.width'));
 @endphp
-
 <x-select name="filter[category]">
     <option value="">Категория</option>
     <option value="carpets" {{ $category == 'carpets' ? 'selected' : '' }}>Ковровые покрытия</option>
@@ -14,14 +34,15 @@ $composition = request()->input('filter.composition');
 </x-select>
 <x-select name="filter[pr_collection_id]">
     <option value="">Коллекция</option>
-    @foreach($prCollections as $collection)
-    <option value="{{ $collection->id }}" {{ $prCollectionId == $collection->id ? 'selected' : '' }}>{{ $collection->name }}</option>
+    @foreach ($prCollections as $collection)
+        <option value="{{ $collection->id }}" {{ $prCollectionId == $collection->id ? 'selected' : '' }}>
+            {{ $collection->name }}</option>
     @endforeach
 </x-select>
 <x-select name="filter[color_id]">
     <option value="">Цвет</option>
-    @foreach($colors as $color)
-    <option value="{{ $color->id }}" {{ $colorId == $color->id ? 'selected' : '' }}>{{ $color->name }}</option>
+    @foreach ($colors as $color)
+        <option value="{{ $color->id }}" {{ $color_id == $color->id ? 'selected' : '' }}>{{ $color->name }}</option>
     @endforeach
 </x-select>
 <x-select name="filter[publicStatus]">
@@ -31,15 +52,21 @@ $composition = request()->input('filter.composition');
 </x-select>
 <x-select name="filter[has_images]">
     <option value="">Наличие картинки</option>
-    <option value="true" {{ $hasImages == 'true' ? 'selected' : '' }}>true</option>
-    <option value="false" {{ $hasImages == 'false' ? 'selected' : '' }}>false</option>
+    <option value="true" {{ $has_images == 'true' ? 'selected' : '' }}>true</option>
+    <option value="false" {{ $has_images == 'false' ? 'selected' : '' }}>false</option>
 </x-select>
 
-@foreach($propFilters as $filter)
-<x-select name="filter[{{ $filter->property->machine_name }}]">
-    <option value="">{{ $filter->property->name }}</option>
-    @foreach($filter->options as $option)
-    <option :value="$option->value" {{ request()->input('filter.' . $filter->property->machine_name) == $option->value ? 'selected' : '' }}>{{$option->value}}</option>
-    @endforeach
-</x-select>
+@foreach ($propFilters as $filter)
+    <x-select name="filter[{{ $filter->property->machine_name }}]">
+        <option value="">{{ $filter->property->name }}</option>
+        @foreach ($filter->options as $option)
+            @php 
+                $key = $filter->property->machine_name;
+                $value = $option->value;
+            @endphp
+            <option :value="$value"
+                {{ isset($$key) && $$key == $value || request()->input('filter.' . $key) == $value || old('filter.' . $key) == $value ? 'selected' : '' }}>
+                {{ $value }}</option>
+        @endforeach
+    </x-select>
 @endforeach

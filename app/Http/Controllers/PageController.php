@@ -11,6 +11,7 @@ use App\Services\Pages\EloqPageReader;
 use App\Services\Pages\PageBuilder;
 use App\Services\Pages\PageBuilderFactory;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
@@ -52,8 +53,8 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'slug' => 'required',
+            'name' => 'required|unique:pages',
+            'slug' => 'required|unique:pages',
             'title' => 'required',
             'name' => 'required',
         ]);
@@ -88,7 +89,15 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        $prCollections = PrCollection::all();
+        $colors = Color::all();
+        $properties = Property::all();
+        $values = PropertyValue::all();
+        $propFilters = $properties->map(function ($property) use ($values) {
+            $options = $values->filter(fn ($value) => $value->property_id === $property->id);
+            return (object) ['property' => $property, 'options' => $options];
+        });
+        return view('page.edit', compact('page', 'prCollections', 'colors', 'propFilters'));
     }
 
     /**
@@ -100,7 +109,27 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        //
+        $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('pages')->ignore($page->id),
+            ],
+            'slug' => [
+                'required',
+                Rule::unique('pages')->ignore($page->id),
+            ],
+            'title' => 'required',
+            'name' => 'required',
+        ]);
+
+        $input = $request->input();
+        $input['params'] = json_encode([
+            'listing' => 'pr_cvets',
+            'filter' => isset($input['filter']) ? $input['filter'] : [],
+        ]);
+        $page->fill($input);
+        $page->save();
+        return back()->with('success', 'Page was updated');
     }
 
     /**

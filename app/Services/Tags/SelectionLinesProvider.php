@@ -2,12 +2,15 @@
 
 namespace App\Services\Tags;
 
+use App\Models\Page;
+
 class SelectionLinesProvider implements LinesProvider
 {
     public function __construct($args)
     {
         $this->name = $args['name'];
         $this->pageN = $args['pageN'];
+        $this->pageRecord = Page::firstWhere('name', $this->name);
     }
 
     public function getString(String $key)

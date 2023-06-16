@@ -9,7 +9,7 @@ class Page extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'type', 'params', 'text-content'];
+    protected $fillable = ['name', 'slug', 'type', 'params', 'text-content', 'description'];
 
     protected $casts = [
         'params' => 'array',

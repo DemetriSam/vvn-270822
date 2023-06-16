@@ -20,6 +20,7 @@ class PageSeeder extends Seeder
                 'slug' => 'carpets',
                 'name' => 'carpets',
                 'type' => 'category',
+                'title' => 'Ковровые покрытия',
                 'params' => json_encode([
                     'listing' => 'category.products',
                     'filter' => [
@@ -32,6 +33,7 @@ class PageSeeder extends Seeder
                 'slug' => 'cinovki',
                 'name' => 'cinovki',
                 'type' => 'category',
+                'title' => 'Циновки',
                 'params' => json_encode([
                     'listing' => 'category.products',
                     'filter' => [
@@ -44,6 +46,7 @@ class PageSeeder extends Seeder
                 'slug' => 'kovrolin-poliamid',
                 'type' => 'selection',
                 'name' => 'poliamid',
+                'title' => 'Ковролин из 100% полиамида',
                 'params' => json_encode([
                     'listing' => 'pr_cvets',
                     'filter' => [
@@ -56,6 +59,7 @@ class PageSeeder extends Seeder
                 'slug' => 'kovrolin-poliester',
                 'type' => 'selection',
                 'name' => 'poliester',
+                'title' => 'Ковролин из 100% полиэстера',
                 'params' => json_encode([
                     'listing' => 'pr_cvets',
                     'filter' => [

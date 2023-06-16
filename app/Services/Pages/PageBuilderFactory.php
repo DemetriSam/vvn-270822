@@ -22,9 +22,9 @@ class PageBuilderFactory
 
     public function getPageBuilder(Page $page)
     {
-        $type = $page->type;
         $reader = $this->reader;
         $reader->read($page);
+        $type = $reader->getType();
         switch ($type) {
             case 'product':
                 return new ProductPage($reader, $this->renderer, $this->args);

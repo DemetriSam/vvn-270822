@@ -12,4 +12,9 @@ class PropertyValue extends Model
     protected $fillable = [
         'value',
     ];
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }
