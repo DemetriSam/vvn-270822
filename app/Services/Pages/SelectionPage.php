@@ -34,7 +34,7 @@ class SelectionPage extends PageBuilder
         $filterLayers = new FilterLayers;
         $filterLayers->setBase(PrCvet::orderBy('pr_cvets.id'));
         $filterLayers->setFilter($filter);
-        $products = $filterLayers->getQuery()->paginate(12);
+        $products = $filterLayers->getQuery()->paginate(12, '*', 'pageN');
 
         $this->renderer->addData(['products' => $products]);
     }

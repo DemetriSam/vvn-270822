@@ -76,7 +76,7 @@ class PageController extends Controller
      */
     public function show(Request $request, Page $page, PageBuilderFactory $factory)
     {
-        $factory->addData(['pageN' => $request->page]);
+        $factory->addData(['pageN' => $request->pageN]);
         $pageBuilder = $factory->getPageBuilder($page);
         return $pageBuilder->render();
     }
