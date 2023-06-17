@@ -80,6 +80,6 @@
 </div>
 <div>
     <x-label for="text-content" value="Текст на странице" />
-    <input id="text-content" type="hidden" name="text-content" value={{ $text_content }}>
+    <input id="text-content" type="hidden" name="text-content" value="{{ $text_content }}">
     <trix-editor class="trix-content" input="text-content"></trix-editor>
 </div>
