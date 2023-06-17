@@ -40,12 +40,15 @@
         $text_content = '';
     }
 
-    $params = json_decode($page->params);
-    if (isset($params->filter)) {
-        foreach ($params->filter as $key => $value) {
-            $$key = $value;
+    if(isset($page)) {
+        $params = json_decode($page->params);
+        if (isset($params->filter)) {
+            foreach ($params->filter as $key => $value) {
+                $$key = $value;
+            }
         }
     }
+
 @endphp
 <div>
     <x-label for="title" value="Заголовок (используется при формировании title и h1)" />
