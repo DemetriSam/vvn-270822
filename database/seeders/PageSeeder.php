@@ -63,7 +63,7 @@ class PageSeeder extends Seeder
                 'params' => json_encode([
                     'listing' => 'pr_cvets',
                     'filter' => [
-                        'composition' => 'Нейлон',
+                        'composition' => 'Полиэстер',
                         'publicStatus' => 'true',
                     ],
                 ]),
