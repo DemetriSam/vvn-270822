@@ -40,12 +40,15 @@
         $text_content = '';
     }
 
-    $params = json_decode($page->params);
-    if (isset($params->filter)) {
-        foreach ($params->filter as $key => $value) {
-            $$key = $value;
+    if(isset($page)) {
+        $params = json_decode($page->params);
+        if (isset($params->filter)) {
+            foreach ($params->filter as $key => $value) {
+                $$key = $value;
+            }
         }
     }
+
 @endphp
 <div>
     <x-label for="title" value="Заголовок (используется при формировании title и h1)" />
@@ -80,6 +83,6 @@
 </div>
 <div>
     <x-label for="text-content" value="Текст на странице" />
-    <input id="text-content" type="hidden" name="text-content" value={{ $text_content }}>
+    <input id="text-content" type="hidden" name="text-content" value="{{ $text_content }}">
     <trix-editor class="trix-content" input="text-content"></trix-editor>
 </div>
