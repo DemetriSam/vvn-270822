@@ -46,7 +46,6 @@
             $$key = $value;
         }
     }
-    $prCollectionId = '5';
 @endphp
 <div>
     <x-label for="title" value="Заголовок (используется при формировании title и h1)" />
