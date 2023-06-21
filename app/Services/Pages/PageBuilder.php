@@ -3,6 +3,7 @@
 namespace App\Services\Pages;
 
 use App\Services\Tags\PageSeoTags;
+use App\Services\Tags\LinesProvider;
 
 abstract class PageBuilder
 {
@@ -24,10 +25,11 @@ abstract class PageBuilder
         $title = $seoTags->getTitle();
         $description = $seoTags->getDescription();
         $this->renderer->addData(compact('title', 'h1', 'description'));
-
+        $this->renderer->addData(['text_content' => $this->getLineProvider()->getString('text-content')]);
         return $this->renderer->render();
     }
 
+    abstract protected function getLineProvider() : LinesProvider;
     abstract public function getPageSeoTags(): PageSeoTags;
     abstract protected function init(): void;
 }

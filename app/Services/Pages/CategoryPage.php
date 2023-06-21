@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Services\Tags\PageSeoTags;
 use App\Services\Tags\CategorySeoTags;
+use App\Services\Tags\LinesProvider;
+use App\Services\Tags\CategoryLinesProvider;
 
 class CategoryPage extends PageBuilder
 {
@@ -13,6 +15,7 @@ class CategoryPage extends PageBuilder
     {
         $this->renderer->viewName = 'catalog';
         $this->category = Category::firstWhere(['slug' => $this->reader->getName()]);
+        $this->args = array_merge($this->args, ['category_id' => $this->category->id]);
         $this->createCategoryPage();
     }
 
@@ -47,8 +50,12 @@ class CategoryPage extends PageBuilder
     public function getPageSeoTags(): PageSeoTags
     {
         $seoTags = new CategorySeoTags();
-        $args = array_merge($this->args, ['category_id' => $this->category->id]);
-        $seoTags->initLineProvider($args);
+        $seoTags->initLineProvider($this->args);
         return $seoTags;
+    }
+
+    protected function getLineProvider() : LinesProvider
+    {
+        return new CategoryLinesProvider($this->args);
     }
 }

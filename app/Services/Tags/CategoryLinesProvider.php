@@ -17,6 +17,7 @@ class CategoryLinesProvider implements LinesProvider
         $map = [
             'name' => $this->category->name,
             'description' => $this->category->description,
+            'text-content' => $this->category->description,
             'postfix' => __('public.sitename'),
             'pageN' => $this->pageN,  
         ];

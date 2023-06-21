@@ -14,5 +14,5 @@
         </div>
     </section>
     <br>
-    <article><p>{{ __('public.selections.' . $name . '.description') }}</p></article>
+    <article>{!! $text_content !!}</article>
 </x-layout>

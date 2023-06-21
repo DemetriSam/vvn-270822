@@ -5,6 +5,9 @@ namespace App\Services\Pages;
 use App\Models\PrCvet;
 use App\Services\Tags\PageSeoTags;
 use App\Services\Tags\SelectionSeoTags;
+use App\Services\Tags\LinesProvider;
+use App\Services\Tags\SelectionLinesProvider;
+
 
 class SelectionPage extends PageBuilder
 {
@@ -17,7 +20,13 @@ class SelectionPage extends PageBuilder
     {
         $this->renderer->viewName = 'selection';
         $this->renderer->addData(['name' => $this->getName()]);
+        $this->args = array_merge($this->args, ['name' => $this->getName()]);
         $this->createSelection();
+    }
+
+    protected function getLineProvider() : LinesProvider
+    {
+        return new SelectionLinesProvider($this->args);
     }
 
     private function createSelection()
@@ -42,8 +51,7 @@ class SelectionPage extends PageBuilder
     public function getPageSeoTags(): PageSeoTags
     {
         $seoTags = new SelectionSeoTags();
-        $args = array_merge($this->args, ['name' => $this->getName()]);
-        $seoTags->initLineProvider($args);
+        $seoTags->initLineProvider($this->args);
         return $seoTags;
     }
 }

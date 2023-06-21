@@ -16,18 +16,9 @@ class SelectionLinesProvider implements LinesProvider
     public function getString(String $key)
     {
         $map = [
-            'name' => __(implode('.', [
-                'public',
-                'selections',
-                $this->name,
-                'h1'
-            ])),
-            'description' => __(implode('.', [
-                'public',
-                'selections',
-                $this->name,
-                'description',
-            ])),
+            'name' => $this->pageRecord->title,
+            'description' => $this->pageRecord->description,
+            'text-content' => $this->pageRecord->{'text-content'},
             'postfix' => __('public.sitename'),
             'pageN' => $this->pageN,
         ];
