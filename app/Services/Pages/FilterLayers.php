@@ -68,6 +68,16 @@ class FilterLayers
                 ->select('pr_cvets.*');
         }
 
+        if (isset($filter['width'])) {
+            $width = $filter['width'];
+            $query = $query
+                ->join('pr_collections AS width_pr_collections', 'width_pr_collections.id', '=', 'pr_cvets.pr_collection_id')
+                ->join('pr_collection_property_value', 'width_pr_collections.id', '=', 'pr_collection_property_value.pr_collection_id')
+                ->join('property_values', 'property_values.id', '=', 'pr_collection_property_value.property_value_id')
+                ->where('value', '=', $width)
+                ->select('pr_cvets.*');
+        }
+
         return $query;
     }
 }
