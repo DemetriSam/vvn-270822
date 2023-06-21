@@ -31,7 +31,17 @@
                 <div class="specs__subitem specs__subitem_name">Ширина рулона:</div>
                 <div class="specs__subitem specs__subitem_wtf">?</div>
                 <div class="specs__subitem specs__subitem_filler"></div>
-                <div class="specs__subitem specs__subitem_value">{{ $prCvet->width }}</div>
+                <div class="specs__subitem specs__subitem_value">
+                @if($prCvet->category->slug === 'carpets')
+                    @if($prCvet->width === '3,66 м')
+                        <a href="{{ route('page', ['page' => 'kovrolin-shirinoy-3-metra'])}}">{{ $prCvet->width }}</a>
+                    @elseif($prCvet->width === '4 м')
+                        <a href="{{ route('page', ['page' => 'kovrolin-shirinoy-4-metra'])}}">{{ $prCvet->width }}</a>
+                    @else
+                    {{ $prCvet->width }}
+                    @endif
+                @endif
+                </div>
             </div>
             <div class="specs__item product-card__item product-card__item_spec height">
                 <div class="specs__subitem specs__subitem_name">Высота ворса:</div>
