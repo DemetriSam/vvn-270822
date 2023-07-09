@@ -2,7 +2,24 @@
     <x-slot name="header">
         <h1>Рулоны</h1>
     </x-slot>
-
+    <div class="py-4">
+        <form action="{{ route('pr_rolls.index')}}">
+        @php 
+            if (old('like')) {
+                $like = old('like');
+            } elseif(!isset($like)) {
+                $like = '';
+            }
+        @endphp
+        <div>
+            <x-label for="like" value="Поиск по артикулу" />
+            <x-input id="like" class="block mt-1 w-full" type="text" name="like" :value="$like" required autofocus />
+        </div>
+            <x-button class="ml-3">
+                <p>Фильтровать</p>
+            </x-button>
+        </form>
+    </div>
     <table class="w-full">
         <thead class="border-b-2 border-solid border-black text-left">
             <tr>
