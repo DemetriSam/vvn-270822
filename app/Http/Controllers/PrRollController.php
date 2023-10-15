@@ -12,8 +12,10 @@ use App\Imports\PrRollsImport;
 use App\Models\Color;
 use App\Models\PrCollection;
 use App\Models\PrCvet;
+use App\Services\Pages\FilterLayers;
 use App\Services\Stockupdate\InnerRepresentation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controller;
 
 class PrRollController extends Controller
 {
@@ -136,9 +138,19 @@ class PrRollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FilterLayers $filters)
     {
-        $prRolls = PrRoll::orderBy('id')->paginate(30);
+        $filter = request('filter');
+        $query = PrRoll::orderBy('id');
+
+        if ($filter) {
+            $filter['search_in'] = 'vendor_code';
+            $filters->setFilter($filter);
+            $filters->setBase($query);
+            $query = $filters->getQuery();
+        }
+
+        $prRolls = $query->paginate(30)->withQueryString();
         return view('pr_roll.index', ['prRolls' => $prRolls]);
     }
 
@@ -198,7 +210,7 @@ class PrRollController extends Controller
         $input = $request->input();
         $prRoll->fill($input);
         $prRoll->save();
-        
+
         $referer = session('referer');
         return $referer ?
             redirect($referer)->with('success', 'Roll successufully changed') :

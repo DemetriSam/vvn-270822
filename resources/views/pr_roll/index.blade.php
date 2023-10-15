@@ -1,23 +1,34 @@
+@php
+    $has_cvet = $has_cvet ?? (
+        request()->input('filter.has_cvet') ?
+        request()->input('filter.has_cvet') : 
+        old('filter.has_cvet')
+    );
+    
+    $like = $like ?? (
+        request()->input('filter.like') ?
+        request()->input('filter.like') :
+        old('filter.like')
+    );
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <h1>Рулоны</h1>
     </x-slot>
     <div class="py-4">
         <form action="{{ route('pr_rolls.index')}}">
-        @php 
-            if (old('like')) {
-                $like = old('like');
-            } elseif(!isset($like)) {
-                $like = '';
-            }
-        @endphp
         <div>
-            <x-label for="like" value="Поиск по артикулу" />
-            <x-input id="like" class="block mt-1 w-full" type="text" name="like" :value="$like" required autofocus />
+            <x-label for="like" va lue="Поиск по артикулу" />
+            <x-input id="like" class="block mt-1 w-full" type="text" name="filter[like]" :value="$like" autofocus />
         </div>
-            <x-button class="ml-3">
-                <p>Фильтровать</p>
-            </x-button>
+        <x-select name="filter[has_cvet]">
+            <option value="">Привязан к цвету</option>
+            <option value="true" {{ $has_cvet == 'true' ? 'selected' : '' }}>true</option>
+            <option value="false" {{ $has_cvet == 'false' ? 'selected' : '' }}>false</option>
+        </x-select>
+        <x-button class="ml-3">
+            <p>Фильтровать</p>
+        </x-button>
         </form>
     </div>
     <table class="w-full">

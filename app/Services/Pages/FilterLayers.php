@@ -78,6 +78,22 @@ class FilterLayers
                 ->select('pr_cvets.*');
         }
 
+        if (isset($filter['like']) && isset($filter['search_in'])) {
+            $haystack = $filter['search_in'];
+            $needle = $filter['like'];
+            $query = $query
+                ->where($haystack, 'like', '%' . $needle . '%')
+                ->orWhere($haystack, 'like', '%' . strtoupper($needle) . '%');
+        }
+
+        $query = isset($filter['has_cvet']) && $filter['has_cvet'] === 'true' ?
+            $query->whereNotNull('pr_cvet_id') :
+            $query;
+
+        $query = isset($filter['has_cvet']) && $filter['has_cvet'] === 'false' ?
+            $query->whereNull('pr_cvet_id') :
+            $query;
+
         return $query;
     }
 }
