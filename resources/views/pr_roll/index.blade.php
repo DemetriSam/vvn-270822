@@ -10,6 +10,12 @@
         request()->input('filter.like') :
         old('filter.like')
     );
+    
+    $supplier_id = $supplier_id ?? (
+        request()->input('filter.supplier_id') ?
+        request()->input('filter.supplier_id') :
+        old('filter.supplier_id')
+    );
 @endphp
 <x-app-layout>
     <x-slot name="header">
@@ -25,6 +31,12 @@
             <option value="">Привязан к цвету</option>
             <option value="true" {{ $has_cvet == 'true' ? 'selected' : '' }}>true</option>
             <option value="false" {{ $has_cvet == 'false' ? 'selected' : '' }}>false</option>
+        </x-select>
+        <x-select name="filter[supplier_id]">
+            <option value="">Поставщик</option>
+            @foreach ($suppliers as $supplier)
+                <option value="{{ $supplier->id }}" {{$supplier_id == $supplier->id ? 'selected' : ''}}>{{ $supplier->name }}</option>
+            @endforeach    
         </x-select>
         <x-button class="ml-3">
             <p>Фильтровать</p>
@@ -71,5 +83,4 @@
         </tbody>
     </table>
     {{ $prRolls->links() }}
-
 </x-app-layout>

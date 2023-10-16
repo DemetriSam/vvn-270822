@@ -151,7 +151,8 @@ class PrRollController extends Controller
         }
 
         $prRolls = $query->paginate(30)->withQueryString();
-        return view('pr_roll.index', ['prRolls' => $prRolls]);
+        $suppliers = Supplier::all();
+        return view('pr_roll.index', compact('prRolls', 'suppliers'));
     }
 
     /**

@@ -94,6 +94,10 @@ class FilterLayers
             $query->whereNull('pr_cvet_id') :
             $query;
 
+        $query = isset($filter['supplier_id']) && $filter['supplier_id'] ?
+            $query->where('supplier_id', $filter['supplier_id']) :
+            $query;
+
         return $query;
     }
 }
