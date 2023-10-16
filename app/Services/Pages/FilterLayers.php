@@ -82,8 +82,7 @@ class FilterLayers
             $haystack = $filter['search_in'];
             $needle = $filter['like'];
             $query = $query
-                ->where($haystack, 'like', '%' . $needle . '%')
-                ->orWhere($haystack, 'like', '%' . strtoupper($needle) . '%');
+                ->where($haystack, 'like', '%' . $needle . '%');
         }
 
         $query = isset($filter['has_cvet']) && $filter['has_cvet'] === 'true' ?
