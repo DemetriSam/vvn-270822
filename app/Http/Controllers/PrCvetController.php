@@ -12,6 +12,7 @@ use App\Models\PropertyValue;
 use App\Services\Pages\FilterLayers;
 use App\Services\Tags\ProductSeoTags;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class PrCvetController extends Controller
 {
@@ -42,7 +43,14 @@ class PrCvetController extends Controller
             return (object) ['property' => $property, 'options' => $options];
         });
 
-        return view('pr_cvet.index', compact('prCvets', 'prCollections', 'colors', 'propFilters'));
+        $quantities = DB::table('pr_rolls')
+            ->select(DB::raw('pr_cvet_id, sum(quantity_m2) as quantity'))
+            ->groupBy('pr_cvet_id')
+            ->get()
+            ->pluck('quantity', 'pr_cvet_id')
+            ->map(fn ($q) => round($q, 2));
+
+        return view('pr_cvet.index', compact('prCvets', 'prCollections', 'colors', 'propFilters', 'quantities'));
     }
 
     /**

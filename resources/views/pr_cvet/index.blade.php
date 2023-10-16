@@ -19,9 +19,10 @@
                 <th>Имя в каталоге</th>
                 <th>Заголовок</th>
                 <th>Оттенок</th>
-                <th>Статус публикации</th>
+                <th>Опубликовано</th>
                 <th>Изображение</th>
                 <th>Вес</th>
+                <th>Кол-во(м2)</th>
                 <th>Действия</th>
             </tr>
         </thead>
@@ -40,6 +41,7 @@
                 <td>{{ $cvet->published }}</td>
                 <td>{{ $cvet->getFirstMedia('images') ? 'yes' : 'no' }}</td>
                 <td>{{ $cvet->sort }}</td>
+                <td>{{ $quantities[$cvet->id] ?? 0 }}</td>
                 <td>
                     <a href="{{ route('pr_cvets.edit', ['pr_cvet' => $cvet->id]) }}">Редактировать</a>
                     @if ($cvet->isPublished())
