@@ -42,7 +42,7 @@
                         {{ $image('product_narrow')}}
                     </div>
                     <div class="wide">
-                        {{ $image('product_wide')}}
+                        {{ $image('product_wide')->attributes(['alt' => $alt]) }}
                     </div>
                     <!-- <div class="gallery__sharing sharing">
                         <div class="sharing__wrapper">

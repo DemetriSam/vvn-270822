@@ -10,7 +10,7 @@
             <div class="product-card__item product-card__item_h1 h1 nodes__label">
                 <h1>{{ $title }}</h1>
             </div>
-            <x-public.gallery :images="$prCvet->images" />
+            <x-public.gallery :images="$prCvet->images" :alt="$title"/>
 
 
             <div class="specs__item product-card__item product-card__item_spec composition">
