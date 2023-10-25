@@ -21,3 +21,4 @@ images/nginx/ssl/production.crt
 images/nginx/ssl/production.key
 /etc
 /images
+script.php
