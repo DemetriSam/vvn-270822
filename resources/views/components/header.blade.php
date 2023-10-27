@@ -4,10 +4,10 @@
 			<section class="row region region-top-header">
 
 				<div class="contacts_in_header">
-					<div id="header_phone_number" class="_icon-phone">{{ __('public.contacts.phone') }}</div>
-					<div class="_icon-mail">{{ __('public.contacts.email') }}</div>
+					<div id="header_phone_number" class="_icon-phone">{{ $phone ?? __('public.contacts.phone') }}</div>
+					<div class="_icon-mail">{{ $email ?? __('public.contacts.email') }}</div>
 
-					<div id="header_address" class="_icon-pin">{{ __('public.contacts.address') }}</div>
+					<div id="header_address" class="_icon-pin">{{ $address ?? __('public.contacts.address') }}</div>
 				</div>
 				<!-- <div class="header__search">
 					<div class="search-form">

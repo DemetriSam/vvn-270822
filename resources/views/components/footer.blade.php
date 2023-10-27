@@ -28,10 +28,10 @@
             </nav>
         </div>
         <div class="footer__item contacts_in_header">
-            <div id="header_phone_number" class="contacts__item _icon-phone">{{ __('public.contacts.phone') }}</div>
-            <div class="contacts__item _icon-mail">{{ __('public.contacts.email') }}</div>
+            <div id="header_phone_number" class="contacts__item _icon-phone">{{ $phone ?? __('public.contacts.phone') }}</div>
+            <div class="contacts__item _icon-mail">{{ $email ?? __('public.contacts.email') }}</div>
 
-            <div id="header_address" class="contacts__item _icon-pin">{{ __('public.contacts.address') }}
+            <div id="header_address" class="contacts__item _icon-pin">{{ $address ?? __('public.contacts.address') }}
             </div>
         </div>
         <div class="footer__item copyright">

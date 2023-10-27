@@ -22,9 +22,15 @@
         Route::get('/admin', function () {
             return view('dashboard');
         })->middleware(['auth'])->name('admin.index');
-        Route::get('/admin', function () {
-            return view('dashboard');
-        })->middleware(['auth'])->name('dashboard');
+        Route::get('/admin', [Controllers\SiteInfoController::class, 'index'])->middleware(['auth'])->name('dashboard');
+        Route::patch('/admin', [Controllers\SiteInfoController::class, 'update'])->middleware(['auth'])->name('site_info.update');
+        Route::get('/admin/add-param', [Controllers\SiteInfoController::class, 'create'])->middleware(['auth'])->name('site_info.create');
+        Route::post('/admin', [Controllers\SiteInfoController::class, 'store'])->middleware(['auth'])->name('site_info.store');
+        Route::get('/admin/delete-param', [Controllers\SiteInfoController::class, 'delete'])->middleware(['auth'])->name('site_info.delete');
+        Route::delete('/admin/delete-param', [Controllers\SiteInfoController::class, 'destroy'])->middleware(['auth'])->name('site_info.destroy');
+        Route::get('/admin/phpinfo', function () {
+            return view('phpinfo');
+        })->middleware(['auth'])->name('phpinfo');
 
         Route::group([
             'prefix' => 'admin',
