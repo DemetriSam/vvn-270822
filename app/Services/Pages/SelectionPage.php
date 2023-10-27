@@ -24,7 +24,7 @@ class SelectionPage extends PageBuilder
         $this->createSelection();
     }
 
-    protected function getLineProvider() : LinesProvider
+    protected function getLineProvider(): LinesProvider
     {
         return new SelectionLinesProvider($this->args);
     }
