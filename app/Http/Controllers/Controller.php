@@ -30,7 +30,7 @@ class Controller extends BaseController
             'category_id' => $category->id,
             'pageN' => $request->page,
         ]);
-        
+
         $h1 = $seoTags->getH1();
         $title = $seoTags->getTitle();
         $description = $seoTags->getDescription();
@@ -88,7 +88,7 @@ class Controller extends BaseController
 
         if ($products?->count() > $productsOnPage) {
             $carpets = array_merge($carpets, [
-                'route' => ['catalog', ['category' => 'carpets']],
+                'route' => ['page', ['page' => 'carpets']],
                 'linktext' => 'Смотреть все ковровые покрытия',
             ]);
         }
@@ -110,7 +110,7 @@ class Controller extends BaseController
 
         if ($products?->count() > $productsOnPage) {
             $cinovki = array_merge($cinovki, [
-                'route' => ['catalog', ['category' => 'cinovki']],
+                'route' => ['page', ['page' => 'cinovki']],
                 'linktext' => 'Смотреть все циновки',
             ]);
         }
@@ -143,7 +143,7 @@ class Controller extends BaseController
             'category_id' => $category->id,
             'pageN' => $request->page
         ]);
-        
+
         $h1 = $seoTags->getH1();
         $title = $seoTags->getTitle();
         $description = $seoTags->getDescription();
