@@ -117,7 +117,7 @@ class PrCvetController extends Controller
     public function show(PrCvet $prCvet, ProductSeoTags $seoTags)
     {
         if (!$prCvet->isPublished()) {
-            return redirect()->route('catalog', ['category' => $prCvet->category->slug]);
+            return redirect()->route('page', ['page' => $prCvet->category->slug]);
         }
 
         $seoTags->initLineProvider(['product_id' => $prCvet->id]);

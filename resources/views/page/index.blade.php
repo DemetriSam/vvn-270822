@@ -18,7 +18,7 @@
                     <td>{{ $page->id }}</td>
                     <td>
                         <a class="text-blue-600 hover:text-blue-900"
-                            href="{{ route('pages.show', ['page' => $page->id]) }}">
+                            href="{{ route('page', ['page' => $page->slug]) }}">
                             {{ $page->slug }}
                         </a>
                     </td>

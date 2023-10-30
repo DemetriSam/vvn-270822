@@ -48,13 +48,13 @@
 					<ul block="block-bootstrap-barrio-main-navigation row" class="clearfix nav navbar-nav menu__list">
 
 						<li class="nav-item menu__item _icon-Rectangle">
-							<a href="{{ route('catalog', ['category' => 'carpets']) }}" title="carpets" class="nav-link nav-link--ru-carpets" data-drupal-link-system-path="carpets">
+							<a href="{{ route('page', ['page' => 'carpets']) }}" title="carpets" class="nav-link nav-link--ru-carpets" data-drupal-link-system-path="carpets">
 								Ковровые покрытия
 							</a>
 						</li>
 
 						<li class="nav-item menu__item">
-							<a href="{{ route('catalog', ['category' => 'cinovki']) }}" class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
+							<a href="{{ route('page', ['page' => 'cinovki']) }}" class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
 								Циновки из сизаля
 							</a>
 						</li>

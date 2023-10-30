@@ -130,16 +130,6 @@
         Route::get('/{page:slug}', [Controllers\PageController::class, 'show'])
             ->name('page');
 
-        //Страницы выборок
-        Route::get('/kovrolin-poliamid', [Controllers\SelectionController::class, 'kovrolinPoliamid'])
-            ->name('kovrolin-poliamid');
-        Route::get('/kovrolin-poliester', [Controllers\SelectionController::class, 'kovrolinPoliester'])
-            ->name('kovrolin-poliester');
-
-        //Страницы каталога
-        Route::get('/{category:slug}', [Controllers\Controller::class, 'catalog'])
-            ->name('catalog');
-
         //Форма вызова дизайнера
         Route::put('/request/mesurement', [Controllers\MeteringFormController::class, 'sendRequest'])
             ->name('request.mesurement');
