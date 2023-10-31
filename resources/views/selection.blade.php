@@ -15,4 +15,23 @@
     </section>
     <br>
     <article>{!! $text_content !!}</article>
+    <style>
+        article {
+            max-width: 574px;
+            margin: 0 auto;
+
+        }
+        article ul {
+            padding-left: 1em;
+        }
+        article p, ul {
+            margin: 0 0 1em 0;
+            line-height: 1.5;
+        }
+
+        article ul li {
+            margin: 0 0 0.3em 0;
+            list-style-type: circle;
+        }
+    </style>
 </x-layout>
