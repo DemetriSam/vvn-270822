@@ -83,6 +83,8 @@
 </div>
 <div>
     <x-label for="text-content" value="Текст на странице" />
-    <input id="text-content" type="hidden" name="text-content" value="{{ $text_content }}">
-    <trix-editor class="trix-content" input="text-content"></trix-editor>
+    <textarea name="text-content" id="editor">{{ $text_content }}</textarea>
 </div>
+
+<script src="/ckeditor5/build/ckeditor.js"></script>
+<script src="/ckeditor5/sample/script.js"></script>

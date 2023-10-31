@@ -15,5 +15,18 @@
         "sass": "^1.54.9",
         "tailwindcss": "^3.1.8",
         "vite": "^3.0.0"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-autoformat": "^40.0.0",
+        "@ckeditor/ckeditor5-basic-styles": "^40.0.0",
+        "@ckeditor/ckeditor5-block-quote": "^40.0.0",
+        "@ckeditor/ckeditor5-editor-classic": "^40.0.0",
+        "@ckeditor/ckeditor5-essentials": "^40.0.0",
+        "@ckeditor/ckeditor5-heading": "^40.0.0",
+        "@ckeditor/ckeditor5-link": "^40.0.0",
+        "@ckeditor/ckeditor5-list": "^40.0.0",
+        "@ckeditor/ckeditor5-paragraph": "^40.0.0",
+        "@ckeditor/ckeditor5-theme-lark": "^40.0.0",
+        "@ckeditor/vite-plugin-ckeditor5": "^0.1.3"
     }
 }

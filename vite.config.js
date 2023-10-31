@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 
 export default defineConfig({
     plugins: [
@@ -13,5 +14,7 @@ export default defineConfig({
             ],
             refresh: ['resources/**'],
         }),
+        ckeditor5({ theme: require.resolve('@ckeditor/ckeditor5-theme-lark') })
     ],
 });
+
