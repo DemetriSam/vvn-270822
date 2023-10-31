@@ -6,7 +6,15 @@
         {{ $description }}
     </x-slot:description>
     <h1 style="text-align: center">{{ $h1 }}</h1>
-    <br>
+    <div class="decorline"><img src="../../../img/icons/DecorLine.svg" alt=""></div>
+    <style>
+        div.decorline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+        }
+    </style>
     <section class="recomendations">
         <x-public.nodes :products="$products"/>
         <div class="recomendations__paginator">
