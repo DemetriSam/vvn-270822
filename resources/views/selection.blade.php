@@ -32,7 +32,7 @@
         article ul {
             padding-left: 1em;
         }
-        article p, ul {
+        article p, article ul {
             margin: 0 0 1em 0;
             line-height: 1.5;
         }
