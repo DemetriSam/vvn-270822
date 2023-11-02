@@ -58,6 +58,13 @@
 								Циновки из сизаля
 							</a>
 						</li>
+						@if(DB::table('pages')->where('name', 'about')->first())
+							<li class="nav-item menu__item">
+								<a href="{{ route('page', ['page' => 'about']) }}" class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
+									О компании
+								</a>
+							</li>
+						@endif
 					</ul>
 					<div class="contacts_in_burger">
 						<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>

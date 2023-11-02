@@ -11,6 +11,7 @@ use App\Services\Pages\EloqPageReader;
 use App\Services\Pages\PageBuilder;
 use App\Services\Pages\PageBuilderFactory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Validation\Rule;
 
 class PageController extends Controller
@@ -41,7 +42,8 @@ class PageController extends Controller
             $options = $values->filter(fn ($value) => $value->property_id === $property->id);
             return (object) ['property' => $property, 'options' => $options];
         });
-        return view('page.create', compact('prCollections', 'colors', 'propFilters'));
+        $pageType = FacadesRequest::input('type');
+        return view('page.create', compact('prCollections', 'colors', 'propFilters', 'pageType'));
     }
 
     /**
@@ -97,7 +99,8 @@ class PageController extends Controller
             $options = $values->filter(fn ($value) => $value->property_id === $property->id);
             return (object) ['property' => $property, 'options' => $options];
         });
-        return view('page.edit', compact('page', 'prCollections', 'colors', 'propFilters'));
+        $pageType = $page->type;
+        return view('page.edit', compact('page', 'prCollections', 'colors', 'propFilters', 'pageType'));
     }
 
     /**

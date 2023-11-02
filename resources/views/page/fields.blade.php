@@ -75,12 +75,14 @@
 <div class="hidden">
     <x-label for="type" value="Тип страницы" />
 
-    <x-input id="type" class="block mt-1 w-full" type="text" name="type" value="selection" autofocus />
+    <x-input id="type" class="block mt-1 w-full" type="text" name="type" value="{{ $pageType }}" autofocus />
 </div>
-<div>
-    <x-label for="filter" value="Фильтры" />
-    @include('filters')
-</div>
+@if($pageType === 'selection')
+    <div>
+        <x-label for="filter" value="Фильтры" />
+        @include('filters')
+    </div>
+@endif
 <div>
     <x-label for="text-content" value="Текст на странице" />
     <textarea name="text-content" id="editor">{{ $text_content }}</textarea>
@@ -88,3 +90,20 @@
 
 <script src="/ckeditor5/build/ckeditor.js"></script>
 <script src="/ckeditor5/sample/script.js"></script>
+
+<style>
+    .ck-content ul {
+        padding-left: 1em;
+    }
+
+    .ck-content p,
+    .ck-content ul {
+        margin: 0 0 1em 0;
+        line-height: 1.5;
+    }
+
+    .ck-content ul li {
+        margin: 0 0 0.3em 0;
+        list-style-type: circle;
+    }
+</style>

@@ -34,6 +34,8 @@ class PageBuilderFactory
                 return new ColorPage($reader, $this->renderer, $this->args);
             case 'selection':
                 return new SelectionPage($reader, $this->renderer, $this->args);
+            case 'article':
+                return new ArticlePage($reader, $this->renderer, $this->args);
             default:
                 throw new Exception('Such Page does not exist');
         }

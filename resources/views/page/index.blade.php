@@ -1,14 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1>Выборки</h1>
-        <a href="{{ route('pages.create') }}">Создать новую выборку</a>
+        <h1>Страницы</h1>
+        <a href="{{ route('pages.create', ['type' => 'selection']) }}">Создать новую выборку</a>
+        <a href="{{ route('pages.create', ['type' => 'article']) }}">Создать новую статью</a>
     </x-slot>
     
     <table class="w-full">
         <thead class="border-b-2 border-solid border-black text-left">
             <tr>
                 <th>Id</th>
-                <th>Машинное имя</th>
+                <th>Slug</th>
+                <th>Тип страницы</th>
                 <th>Действия</th>
             </tr>
         </thead>
@@ -22,6 +24,7 @@
                             {{ $page->slug }}
                         </a>
                     </td>
+                    <td>{{ $page->type }}</td>
                     <td><a href="{{ route('pages.edit', ['page' => $page]) }}">Редактировать</a></td>
                 </tr>
             @endforeach
