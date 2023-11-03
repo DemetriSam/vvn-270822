@@ -6,35 +6,37 @@
 import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 
 import { Alignment } from '@ckeditor/ckeditor5-alignment';
+import { Autoformat } from '@ckeditor/ckeditor5-autoformat';
 import {
 	Bold,
-	Code,
 	Italic,
+	Strikethrough,
 	Subscript,
 	Superscript,
 	Underline
 } from '@ckeditor/ckeditor5-basic-styles';
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
-import { CodeBlock } from '@ckeditor/ckeditor5-code-block';
 import { Essentials } from '@ckeditor/ckeditor5-essentials';
 import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
 import { FontBackgroundColor, FontColor } from '@ckeditor/ckeditor5-font';
 import { Heading } from '@ckeditor/ckeditor5-heading';
-import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
-import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
+import { DataFilter, DataSchema, GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
 import {
 	AutoImage,
 	Image,
 	ImageCaption,
+	ImageInsert,
+	ImageResize,
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload
 } from '@ckeditor/ckeditor5-image';
 import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
-import { Link, LinkImage } from '@ckeditor/ckeditor5-link';
+import { AutoLink, Link, LinkImage } from '@ckeditor/ckeditor5-link';
 import { List, ListProperties } from '@ckeditor/ckeditor5-list';
-import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
+import { MediaEmbed, MediaEmbedToolbar } from '@ckeditor/ckeditor5-media-embed';
+import { PageBreak } from '@ckeditor/ckeditor5-page-break';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
 import { RemoveFormat } from '@ckeditor/ckeditor5-remove-format';
@@ -60,6 +62,7 @@ import {
 	TableToolbar
 } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
+import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 import { EditorWatchdog } from '@ckeditor/ckeditor5-watchdog';
 import { WordCount } from '@ckeditor/ckeditor5-word-count';
 
@@ -70,20 +73,23 @@ class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
 		Alignment,
 		AutoImage,
+		AutoLink,
+		Autoformat,
 		BlockQuote,
 		Bold,
-		Code,
-		CodeBlock,
+		DataFilter,
+		DataSchema,
 		Essentials,
 		FindAndReplace,
 		FontBackgroundColor,
 		FontColor,
 		GeneralHtmlSupport,
 		Heading,
-		Highlight,
 		HorizontalLine,
 		Image,
 		ImageCaption,
+		ImageInsert,
+		ImageResize,
 		ImageStyle,
 		ImageToolbar,
 		ImageUpload,
@@ -95,11 +101,14 @@ class Editor extends ClassicEditor {
 		List,
 		ListProperties,
 		MediaEmbed,
+		MediaEmbedToolbar,
+		PageBreak,
 		Paragraph,
 		PasteFromOffice,
 		RemoveFormat,
 		SelectAll,
 		ShowBlocks,
+		SimpleUploadAdapter,
 		SourceEditing,
 		SpecialCharacters,
 		SpecialCharactersArrows,
@@ -108,6 +117,7 @@ class Editor extends ClassicEditor {
 		SpecialCharactersLatin,
 		SpecialCharactersMathematical,
 		SpecialCharactersText,
+		Strikethrough,
 		Style,
 		Subscript,
 		Superscript,
@@ -126,38 +136,41 @@ class Editor extends ClassicEditor {
 		toolbar: {
 			items: [
 				'sourceEditing',
+				'showBlocks',
+				'removeFormat',
+				'|',
 				'undo',
 				'redo',
-				'heading',
 				'|',
 				'bold',
 				'italic',
 				'underline',
+				'fontColor',
+				'fontBackgroundColor',
+				'strikethrough',
+				'|',
 				'link',
-				'bulletedList',
-				'numberedList',
-				'alignment',
-				'|',
-				'outdent',
-				'indent',
-				'|',
-				'imageUpload',
+				'imageInsert',
 				'blockQuote',
 				'insertTable',
 				'mediaEmbed',
-				'showBlocks',
-				'removeFormat',
+				'|',
+				'bulletedList',
+				'numberedList',
+				'|',
+				'alignment',
+				'outdent',
+				'indent',
 				'-',
-				'style',
+				'specialCharacters',
 				'subscript',
 				'superscript',
-				'highlight',
-				'fontColor',
-				'fontBackgroundColor',
 				'findAndReplace',
-				'code',
-				'codeBlock',
-				'specialCharacters'
+				'|',
+				'horizontalLine',
+				'pageBreak',
+				'|',
+				'heading'
 			],
 			shouldNotGroupWhenFull: true
 		},

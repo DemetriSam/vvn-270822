@@ -16,18 +16,12 @@ watchdog.setDestructor(editor => {
 
 watchdog.on('error', handleSampleError);
 
-watchdog
-	.create(document.querySelector('#editor'), {
-		// Editor configuration.
-	})
-	.catch(handleSampleError);
-
 function handleSampleError(error) {
 	const issueUrl = 'https://github.com/ckeditor/ckeditor5/issues';
 
 	const message = [
 		'Oops, something went wrong!',
-		`Please, report the following error on ${issueUrl} with the build id "bo2ab3289hxe-to8xek9k83sk" and the error stack trace:`
+		`Please, report the following error on ${issueUrl} with the build id "yg6x712t7z8h-csd452cwsnv" and the error stack trace:`
 	].join('\n');
 
 	console.error(message);
