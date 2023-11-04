@@ -1,8 +1,4 @@
 {
-  "resources/fonts/icons.woff2": {
-    "file": "assets/icons.86c0e4ef.woff2",
-    "src": "resources/fonts/icons.woff2"
-  },
   "resources/img/icons/check.svg": {
     "file": "assets/check.b6226fee.svg",
     "src": "resources/img/icons/check.svg"
@@ -14,6 +10,10 @@
   "resources/img/gallery/union.svg": {
     "file": "assets/union.9a4f6775.svg",
     "src": "resources/img/gallery/union.svg"
+  },
+  "resources/fonts/icons.woff2": {
+    "file": "assets/icons.86c0e4ef.woff2",
+    "src": "resources/fonts/icons.woff2"
   },
   "resources/img/icons/red_heart.svg": {
     "file": "assets/red_heart.cfe71996.svg",
