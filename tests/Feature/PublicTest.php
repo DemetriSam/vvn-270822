@@ -58,7 +58,7 @@ class PublicTest extends TestCase
      */
     public function test_all_dynamic_routes_return_200()
     {
-        Page::all()->each(function ($page) {
+        Page::where('published', 'true')->each(function ($page) {
             $url = route('page', ['page' => $page]);
             $response = $this->get($url);
             try {

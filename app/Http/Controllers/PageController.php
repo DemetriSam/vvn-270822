@@ -7,8 +7,6 @@ use App\Models\Page;
 use App\Models\PrCollection;
 use App\Models\Property;
 use App\Models\PropertyValue;
-use App\Services\Pages\EloqPageReader;
-use App\Services\Pages\PageBuilder;
 use App\Services\Pages\PageBuilderFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
@@ -23,7 +21,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::all()->sort();
         return view('page.index', ['pages' => $pages]);
     }
 
@@ -78,6 +76,11 @@ class PageController extends Controller
      */
     public function show(Request $request, Page $page, PageBuilderFactory $factory)
     {
+        // $user = $request->user();
+        // $notAdmin = !optional($user)->hasRole('admin');
+        // $notPublished = $page->published !== 'true';
+        // if ($notPublished && $notAdmin) return redirect('/');
+
         $factory->addData(['pageN' => $request->pageN]);
         $pageBuilder = $factory->getPageBuilder($page);
         return $pageBuilder->render();
@@ -130,9 +133,10 @@ class PageController extends Controller
             'listing' => 'pr_cvets',
             'filter' => isset($input['filter']) ? $input['filter'] : [],
         ]);
+        $input['published'] = $input['published'] ?? 'false';
         $page->fill($input);
         $page->save();
-        return back()->with('success', 'Page was updated');
+        return redirect()->route('pages.index')->with('success', 'Page was updated');
     }
 
     /**
@@ -154,5 +158,16 @@ class PageController extends Controller
             ->getUrl('widthOfArticleColumn');
 
         return json_encode(compact('url'));
+    }
+
+    public function publish(Page $page)
+    {
+        $page->publish();
+        return back();
+    }
+    public function retract(Page $page)
+    {
+        $page->retract();
+        return back();
     }
 }

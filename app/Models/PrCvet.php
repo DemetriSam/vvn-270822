@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Interfaces\HasPublicStatus;
+use App\Models\Traits\PublicStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -9,10 +11,11 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class PrCvet extends Model implements HasMedia
+class PrCvet extends Model implements HasMedia, HasPublicStatus
 {
     use HasFactory;
     use InteractsWithMedia;
+    use PublicStatus;
 
     protected const MIN_QUANTITY_M2 = 8;
 
@@ -112,23 +115,6 @@ class PrCvet extends Model implements HasMedia
     public function category()
     {
         return $this->prCollection->category();
-    }
-
-    public function isPublished()
-    {
-        return $this->published === 'true';
-    }
-
-    public function retract()
-    {
-        $this->published = 'false';
-        $this->save();
-    }
-
-    public function publish()
-    {
-        $this->published = 'true';
-        $this->save();
     }
 
     public function updatePublicStatusByQuantity()

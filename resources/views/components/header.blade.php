@@ -58,7 +58,7 @@
 								Циновки из сизаля
 							</a>
 						</li>
-						@if(DB::table('pages')->where('name', 'about')->first())
+						@if(optional(DB::table('pages')->where('name', 'about')->first())->published === 'true')
 							<li class="nav-item menu__item">
 								<a href="{{ route('page', ['page' => 'about']) }}" class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
 									О компании

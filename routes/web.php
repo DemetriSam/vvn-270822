@@ -78,10 +78,14 @@
             Route::get('/pr_rolls/{id}/delete', [Controllers\PrRollController::class, 'delete'])
                 ->name('pr_rolls.delete');
 
-            //Страницы выборок
+            //Страницы
             Route::resource('pages', Controllers\PageController::class);
             Route::get('/pages/{id}/delete', [Controllers\PageController::class, 'delete'])
                 ->name('pages.delete');
+            Route::get('/pages/{page}/publish', [Controllers\PageController::class, 'publish'])
+                ->name('pages.publish');
+            Route::get('/pages/{page}/retract', [Controllers\PageController::class, 'retract'])
+                ->name('pages.retract');
 
             //Загрузка файлов для обновления остатков
             Route::post('/upload/excel/', [Controllers\PrRollController::class, 'uploadExcelFile'])

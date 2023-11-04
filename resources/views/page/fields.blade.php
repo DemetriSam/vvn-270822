@@ -122,4 +122,12 @@
             list-style-type: circle;
         }
     </style>
+
+    <div>
+        @php
+            $isPublished = $page->published === 'true';
+        @endphp
+        <x-input id=published type="checkbox" name="published" value="true" :checked="$isPublished"/>
+        <x-label class="inline-block" for="published" value="Опубликовать" />
+    </div>
 @endif

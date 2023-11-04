@@ -25,7 +25,14 @@
                         </a>
                     </td>
                     <td>{{ $page->type }}</td>
-                    <td><a href="{{ route('pages.edit', ['page' => $page]) }}">Редактировать</a></td>
+                    <td>
+                        <a href="{{ route('pages.edit', ['page' => $page]) }}">Редактировать</a>
+                        @if ($page->isPublished())
+                            <a href="{{ route('pages.retract', ['page' => $page->id]) }}">Снять с публикации</a>
+                        @else
+                            <a href="{{ route('pages.publish', ['page' => $page->id]) }}">Опубликовать</a>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>
