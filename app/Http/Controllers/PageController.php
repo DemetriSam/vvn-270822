@@ -76,10 +76,10 @@ class PageController extends Controller
      */
     public function show(Request $request, Page $page, PageBuilderFactory $factory)
     {
-        // $user = $request->user();
-        // $notAdmin = !optional($user)->hasRole('admin');
-        // $notPublished = $page->published !== 'true';
-        // if ($notPublished && $notAdmin) return redirect('/');
+        $user = $request->user();
+        $notAdmin = !optional($user)->hasRole('admin');
+        $notPublished = $page->published !== 'true';
+        if ($notPublished && $notAdmin) return redirect('/');
 
         $factory->addData(['pageN' => $request->pageN]);
         $pageBuilder = $factory->getPageBuilder($page);
