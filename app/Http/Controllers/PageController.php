@@ -65,8 +65,8 @@ class PageController extends Controller
             'listing' => 'pr_cvets',
             'filter' => isset($input['filter']) ? $input['filter'] : [],
         ]);
-        Page::create($input);
-        return redirect()->route('pages.index')->with('success', 'New page was created');
+        $id = Page::create($input)->id;
+        return redirect()->route('pages.edit', ['page' => $id])->with('success', 'New page was created');
     }
 
     /**
@@ -144,5 +144,15 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         //
+    }
+
+    public function storepic(Request $request, Page $page)
+    {
+        $url = $page
+            ->addAllMediaFromRequest()->first()
+            ->toMediaCollection('images')
+            ->getUrl('widthOfArticleColumn');
+
+        return json_encode(compact('url'));
     }
 }

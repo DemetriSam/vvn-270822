@@ -83,27 +83,43 @@
         @include('filters')
     </div>
 @endif
-<div>
-    <x-label for="text-content" value="Текст на странице" />
-    <textarea name="text-content" id="editor">{{ $text_content }}</textarea>
-</div>
 
-<script src="/ckeditor5/build/ckeditor.js"></script>
-<script src="/ckeditor5/sample/script.js"></script>
+@if(Route::currentRouteName() === 'pages.edit')
+    <div>
+        <x-label for="text-content" value="Текст на странице" />
+        <textarea name="text-content" id="editor">{{ $text_content }}</textarea>
+    </div>
 
-<style>
-    .ck-content ul {
-        padding-left: 1em;
-    }
+    <script src="/ckeditor5/build/ckeditor.js"></script>
+    <script src="/ckeditor5/sample/script.js"></script>
+    <script>
+        watchdog
+            .create(document.querySelector('#editor'), {
+                // Editor configuration.
+                simpleUpload: {
+                    uploadUrl: "{{ route('pictures.store', ['page' => $page->id]) }}",
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    }
+                }
+            })
+            .catch(handleSampleError);
+    </script>
 
-    .ck-content p,
-    .ck-content ul {
-        margin: 0 0 1em 0;
-        line-height: 1.5;
-    }
+    <style>
+        .ck-content ul {
+            padding-left: 1em;
+        }
 
-    .ck-content ul li {
-        margin: 0 0 0.3em 0;
-        list-style-type: circle;
-    }
-</style>
+        .ck-content p,
+        .ck-content ul {
+            margin: 0 0 1em 0;
+            line-height: 1.5;
+        }
+
+        .ck-content ul li {
+            margin: 0 0 0.3em 0;
+            list-style-type: circle;
+        }
+    </style>
+@endif

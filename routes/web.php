@@ -96,6 +96,10 @@
                 ->name('upload.edit');
             Route::post('/upload/update-db', [Controllers\PrRollController::class, 'updateDatabase'])
                 ->name('upload.update.db');
+
+            //Загрузка картинок для статей
+            Route::post('/pictures/store/for/{page}', [Controllers\PageController::class, 'storepic'])
+                ->name('pictures.store');
         });
 
 
