@@ -19,9 +19,9 @@
                 <div class="specs__subitem specs__subitem_filler"></div>
                 <div class="specs__subitem specs__subitem_value">
                     @if($prCvet->composition === 'Нейлон')
-                    <a href="{{ route('kovrolin-poliamid')}}">{{ $prCvet->composition }}</a>
+                    <a href="{{ route('page', ['page' => 'kovrolin-poliamid'])}}">{{ $prCvet->composition }}</a>
                     @elseif($prCvet->composition === 'Полиэстер')
-                    <a href="{{ route('kovrolin-poliester')}}">{{ $prCvet->composition }}</a>
+                    <a href="{{ route('page', ['page' => 'kovrolin-poliester'])}}">{{ $prCvet->composition }}</a>
                     @else
                     {{ $prCvet->composition }}
                     @endif
