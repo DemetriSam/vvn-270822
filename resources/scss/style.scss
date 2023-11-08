@@ -1463,23 +1463,27 @@ video {
 //</ПОПАП С ФОРМОЙ>====================================================================================================
 
 //<СТРАНИЦА С КОНТЕНТОМ>====================================================================================================
-article {
+#article-text {
 	max-width: 574px;
 	margin: 0 auto;
 
 }
 
-article ul {
+#article-text h3 {
+	margin: 0 0 0.3em 0;
+}
+
+#article-text ul {
 	padding-left: 1em;
 }
 
-article p,
-article ul {
+#article-text p,
+#article-text ul {
 	margin: 0 0 1em 0;
 	line-height: 1.5;
 }
 
-article ul li {
+#article-text ul li {
 	margin: 0 0 0.3em 0;
 	list-style-type: circle;
 }

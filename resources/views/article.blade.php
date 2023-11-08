@@ -7,6 +7,6 @@
     </x-slot:description>
     <h1 style="text-align: center">{{ $h1 }}</h1>
     <div class="decorline"><img src="../../../img/icons/DecorLine.svg" alt=""></div>
-    <article>{!! $text_content !!}</article>
+    <section id="article-text">{!! $text_content !!}</section>
 
 </x-layout>

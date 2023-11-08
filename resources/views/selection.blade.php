@@ -18,7 +18,7 @@
         $pageN = Request::input('pageN');
     @endphp
     @if (!isset($pageN))
-        <article>{!! $text_content !!}</article>
+        <section id="article-text">{!! $text_content !!}</section>
     @endif
 
 </x-layout>
