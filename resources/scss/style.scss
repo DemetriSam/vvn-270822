@@ -1495,6 +1495,22 @@ div.decorline {
 	margin: 20px auto;
 }
 
+#article-text blockquote {
+	display: inline-block;
+	box-shadow: 0px 6px 16px 0px rgba(113, 130, 140, 0.15);
+	border-radius: 4px;
+	max-width: 574px;
+	@include adaptiv-value("padding", 30, 15, 1);
+	@include adaptiv-value("padding-top", 20, 10, 1);
+	@include adaptiv-value("padding-bottom", 14, 7, 1);
+	margin-bottom: 2em;
+
+	p {
+		margin: 0;
+		font-size: 1.1rem;
+	}
+}
+
 //</СТРАНИЦА С КОНТЕНТОМ>====================================================================================================
 
 
