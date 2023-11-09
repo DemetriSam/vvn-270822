@@ -8,6 +8,7 @@ use App\Models\PrCollection;
 use App\Models\Property;
 use App\Models\PropertyValue;
 use App\Services\Pages\PageBuilderFactory;
+use App\Services\TextFormat\IdTagger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Validation\Rule;
@@ -134,6 +135,11 @@ class PageController extends Controller
             'filter' => isset($input['filter']) ? $input['filter'] : [],
         ]);
         $input['published'] = $input['published'] ?? 'false';
+
+        $tagger = new IdTagger;
+        $tagger->setHtml($input['text-content']);
+        $input['text-content'] = $tagger->format();
+
         $page->fill($input);
         $page->save();
         return redirect()->route('pages.index')->with('success', 'Page was updated');

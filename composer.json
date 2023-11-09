@@ -19,6 +19,7 @@
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.4.1",
         "healey/robots": "^1.0",
+        "imangazaliev/didom": "^2.0",
         "intervention/image": "2.*",
         "intervention/imagecache": "^2.4",
         "jackmartin/laravel-yandex-geocode": "^1.2",
