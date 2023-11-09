@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Page;
 use App\Models\PrCvet;
 use App\Services\Tags\CategorySeoTags;
 use App\Services\Tags\ColorSeoTags;
@@ -153,7 +154,10 @@ class Controller extends BaseController
             ->where('pr_cvets.published', 'true')
             ->paginate(12);
 
-        return view('color', compact('color', 'category', 'products', 'title', 'description', 'h1'));
+        $page = Page::firstWhere('slug', 'color-' . $color->slug);
+        $text_content = optional($page)->{'text-content'};
+
+        return view('selection', compact('color', 'category', 'products', 'title', 'description', 'h1', 'text_content'));
     }
 
     public function whatsapp()
