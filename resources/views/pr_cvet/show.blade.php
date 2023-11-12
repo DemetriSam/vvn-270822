@@ -73,7 +73,11 @@
         </div>
     </section>
     <section class="recomendations">
+        @if(!$sameColor->isEmpty())
         <x-public.nodes title="Еще в том же цвете" :products="$sameColor" :route="['catalog.color', ['category' => $prCvet->category->slug, 'color' => $prCvet->color->slug]]" />
+        @endif
+        @if(!$sameCollection->isEmpty())
         <x-public.nodes title="В той же коллекции" :products="$sameCollection" />
+        @endif
     </section>
 </x-layout>
