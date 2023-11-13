@@ -1,11 +1,19 @@
 {
+  "resources/fonts/icons.woff2": {
+    "file": "assets/icons.86c0e4ef.woff2",
+    "src": "resources/fonts/icons.woff2"
+  },
+  "resources/img/icons/loading.gif": {
+    "file": "assets/loading.9f0ae08f.gif",
+    "src": "resources/img/icons/loading.gif"
+  },
   "resources/img/icons/check.svg": {
     "file": "assets/check.b6226fee.svg",
     "src": "resources/img/icons/check.svg"
   },
-  "resources/fonts/icons.woff2": {
-    "file": "assets/icons.86c0e4ef.woff2",
-    "src": "resources/fonts/icons.woff2"
+  "resources/img/icons/red_heart.svg": {
+    "file": "assets/red_heart.cfe71996.svg",
+    "src": "resources/img/icons/red_heart.svg"
   },
   "resources/img/gallery/union.svg": {
     "file": "assets/union.9a4f6775.svg",
@@ -14,14 +22,6 @@
   "resources/img/icons/Rectangle.svg": {
     "file": "assets/Rectangle.ccecc808.svg",
     "src": "resources/img/icons/Rectangle.svg"
-  },
-  "resources/img/icons/loading.gif": {
-    "file": "assets/loading.9f0ae08f.gif",
-    "src": "resources/img/icons/loading.gif"
-  },
-  "resources/img/icons/red_heart.svg": {
-    "file": "assets/red_heart.cfe71996.svg",
-    "src": "resources/img/icons/red_heart.svg"
   },
   "resources/fonts/icons.woff": {
     "file": "assets/icons.e025f8f1.woff",
@@ -37,14 +37,14 @@
     "src": "resources/js/src_js/app.js",
     "isEntry": true
   },
-  "resources/scss/style.scss": {
-    "file": "assets/style.d8437044.css",
-    "src": "resources/scss/style.scss",
+  "resources/css/app.scss": {
+    "file": "assets/app.544c4ab7.css",
+    "src": "resources/css/app.scss",
     "isEntry": true
   },
-  "resources/css/app.scss": {
-    "file": "assets/app.d4344ab8.css",
-    "src": "resources/css/app.scss",
+  "resources/scss/style.scss": {
+    "file": "assets/style.084f0c3c.css",
+    "src": "resources/scss/style.scss",
     "isEntry": true
   }
 }
