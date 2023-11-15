@@ -64,7 +64,10 @@ class PrCvet extends Model implements HasMedia, HasPublicStatus
     public function __get($property)
     {
         if ($property === 'quantity') {
-            return $this->prRolls()->pluck('quantity_m2')->sum();
+            $quantity = $this->prRolls()->pluck('quantity_m2')->sum();
+            $quantity = round($quantity, 2);
+            $quantity = str_replace('.', ',', $quantity);
+            return $quantity;
         }
         if ($property === 'price') {
             $price = $this->current_price ? $this->current_price :

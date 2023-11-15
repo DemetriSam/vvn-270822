@@ -30,7 +30,7 @@
         <a id="title-link-{{$product->id}}" href="{{ $url }}" {{-- style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 100%; font-size: 16px;" --}}>{{ $product->title }}</a>
     </div>
     <div class="specs__item product-card__item product-card__item_spec price nodes__price">
-        {{ $product->price }}
+        {{ $product->price }} <br><br>В наличии: {{ $product->quantity . ' кв.метров' }}
     </div>
     <div class="nodes__heart"><img class="add-to-cart" src="../../img/icons/Like.svg" alt="">
     </div>

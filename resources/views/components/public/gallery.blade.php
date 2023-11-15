@@ -17,7 +17,7 @@
                             <div class="indicator__item indicator__item_middle"></div>
                             <div class="indicator__item indicator__item_last"></div>
                         </div>
-                        <div class="stock-status">Много на складе</div>
+                        <div class="stock-status">В наличии: {{ $quantity . ' кв.метров' }}</div>
                     </div>
                     <style>
                         .wide {

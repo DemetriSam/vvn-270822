@@ -980,22 +980,22 @@ video {
 		background: #FFFFFF;
 		box-shadow: 0px 6px 16px rgba(113, 130, 140, 0.15);
 		border-radius: 4px;
-		padding: 0 15px 0 15px;
+		padding: 0 15px 20px 15px;
 		//height: 370px;
 		max-width: 100%;
 
 
 		display: grid;
 		grid-template-columns: 1fr 40px;
-		grid-template-rows: fit-content(534px) 1fr 1fr 40px;
+		grid-template-rows: fit-content(534px) 1fr 1fr;
 
 		@media (min-width: $md4+px) {
-			padding: 0 20px 0 20px;
+			padding: 0 20px 30px 20px;
 
 		}
 
 		@media (min-width: $md3+px) {
-			grid-template-rows: fit-content(534px) 1fr 1fr 50px;
+			grid-template-rows: fit-content(534px) 1fr 1fr;
 
 		}
 
@@ -1012,6 +1012,7 @@ video {
 
 	.nodes__item &__img {
 		grid-column-end: span 2;
+		margin-bottom: 37px;
 
 		img {
 			width: 100%;
@@ -1033,14 +1034,10 @@ video {
 	.nodes__item &__label {
 		font-weight: bold;
 		color: #112279;
-		padding: 0 0 16px 0;
-		grid-row-start: 3;
+		padding: 0;
+		grid-row-start: 2;
+		margin-bottom: 8px;
 		@include adaptiv-value("font-size", 23, 16, 0);
-
-		@media (min-width: $md3+px) {
-			padding: 0 0 12px 0;
-
-		}
 
 	}
 
@@ -1055,9 +1052,17 @@ video {
 
 	}
 
+	.nodes__item &__stock {
+		grid-row-start: 4;
+		font-weight: bold;
+		color: #888888;
+		@include adaptiv-value("font-size", 18, 14, 0);
+		@include adaptiv-value("font-size", 18, 14, 0);
+	}
+
 	.nodes__item &__price {
 		grid-column-start: 1;
-		grid-row-start: 4;
+		grid-row-start: 3;
 		font-weight: bold;
 		color: #888888;
 		@include adaptiv-value("font-size", 18, 14, 0);
@@ -1072,7 +1077,7 @@ video {
 
 	&__heart {
 		grid-column-start: 2;
-		grid-row-start: 3;
+		grid-row-start: 2;
 		grid-row-end: span 2;
 		text-align: right;
 
