@@ -154,7 +154,7 @@ class Controller extends BaseController
             ->where('pr_cvets.published', 'true')
             ->paginate(12);
 
-        $page = Page::firstWhere('slug', 'color-' . $color->slug);
+        $page = Page::firstWhere('slug', implode('-', ['color',  $color->slug, 'category', $category->slug]));
         $text_content = optional($page)->{'text-content'};
 
         return view('selection', compact('color', 'category', 'products', 'title', 'description', 'h1', 'text_content'));
