@@ -8,26 +8,24 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0.0",
+        "php": "^8.1.0",
         "ext-curl": "*",
         "ext-exif": "*",
         "ext-fileinfo": "*",
         "ext-gd": "*",
         "ext-gmp": "*",
         "ext-json": "*",
-        "doctrine/dbal": "^2.6",
-        "fruitcake/laravel-cors": "^3.0",
+        "doctrine/dbal": "^3.0",
         "guzzlehttp/guzzle": "^7.4.1",
-        "healey/robots": "^1.0",
         "imangazaliev/didom": "^2.0",
         "intervention/image": "2.*",
         "intervention/imagecache": "^2.4",
         "jackmartin/laravel-yandex-geocode": "^1.2",
         "khill/lavacharts": "^3.1",
         "laravel/breeze": "^1.10",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^10.0",
         "laravel/helpers": "^1.2",
-        "laravel/sanctum": "^3.0",
+        "laravel/sanctum": "^3.2",
         "laravel/scout": "^v9.4.9",
         "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.3",
@@ -47,19 +45,16 @@
         "spatie/laravel-sluggable": "^3.4.0",
         "spatie/laravel-tags": "^4.3.2",
         "spatie/laravel-translatable": "^6.0.0",
-        "spiti/smsclient": "1.1.0",
-        "symfony/translation": "^v5.1.10",
-        "tymon/jwt-auth": "dev-develop",
         "vearutop/php-obscene-censor-rus": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
+        "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.1",
-        "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0",
+        "phpunit/phpunit": "^10.0",
+        "spatie/laravel-ignition": "^2.0",
         "squizlabs/php_codesniffer": "^3.6"
     },
     "autoload": {
@@ -100,7 +95,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",
