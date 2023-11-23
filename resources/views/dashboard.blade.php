@@ -1,4 +1,5 @@
 <x-app-layout>
+привет
     <x-slot name="header">
         <h1>Глобальные настройки</h1>
     </x-slot>
