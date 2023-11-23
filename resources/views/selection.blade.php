@@ -7,6 +7,8 @@
     </x-slot:description>
     <h1 style="text-align: center">{{ $h1 }}</h1>
     <div class="decorline"><img src="../../../img/icons/DecorLine.svg" alt=""></div>
+    <div id="filters" class="filters"><x-public.filters.up-down status="down" /></div>
+    <div id="filters" class="filters"><x-public.filters.checkbox status="down" /></div>
     <section class="recomendations">
         <x-public.nodes :products="$products"/>
         <div class="recomendations__paginator">
