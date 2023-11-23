@@ -16,7 +16,7 @@
             @foreach ($records as $record)
                 <div>
                     <x-label for="key" :value="$record->label ?? $record->key" />
-                    <x-input :id="$record->key" class="block mt-1 w-full" type="text" :name="$record->key" :value="old($record->key) ?? $record->value" required autofocus />
+                    <x-input :id="$record->key" class="block mt-2 w-full" type="text" :name="$record->key" :value="old($record->key) ?? $record->value" required autofocus />
                 </div>
             @endforeach
 
