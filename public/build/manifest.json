@@ -1,12 +1,19 @@
 {
-  "resources/img/icons/check.svg": {
-    "file": "assets/check.b6226fee.svg",
-    "src": "resources/img/icons/check.svg"
-  },
   "resources/fonts/icons.woff2": {
     "file": "assets/icons.86c0e4ef.woff2",
     "src": "resources/fonts/icons.woff2"
   },
+<<<<<<< HEAD
+=======
+  "resources/img/icons/check.svg": {
+    "file": "assets/check.b6226fee.svg",
+    "src": "resources/img/icons/check.svg"
+  },
+  "resources/img/gallery/union.svg": {
+    "file": "assets/union.9a4f6775.svg",
+    "src": "resources/img/gallery/union.svg"
+  },
+>>>>>>> main
   "resources/img/icons/loading.gif": {
     "file": "assets/loading.9f0ae08f.gif",
     "src": "resources/img/icons/loading.gif"
@@ -14,6 +21,7 @@
   "resources/img/icons/Rectangle.svg": {
     "file": "assets/Rectangle.ccecc808.svg",
     "src": "resources/img/icons/Rectangle.svg"
+<<<<<<< HEAD
   },
   "resources/img/icons/red_heart.svg": {
     "file": "assets/red_heart.cfe71996.svg",
@@ -22,6 +30,12 @@
   "resources/img/gallery/union.svg": {
     "file": "assets/union.9a4f6775.svg",
     "src": "resources/img/gallery/union.svg"
+=======
+>>>>>>> main
+  },
+  "resources/img/icons/red_heart.svg": {
+    "file": "assets/red_heart.cfe71996.svg",
+    "src": "resources/img/icons/red_heart.svg"
   },
   "resources/fonts/icons.woff": {
     "file": "assets/icons.e025f8f1.woff",
@@ -43,7 +57,7 @@
     "isEntry": true
   },
   "resources/scss/style.scss": {
-    "file": "assets/style.616c09ae.css",
+    "file": "assets/style.78255e88.css",
     "src": "resources/scss/style.scss",
     "isEntry": true
   }
