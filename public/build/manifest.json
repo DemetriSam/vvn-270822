@@ -3,13 +3,13 @@
     "file": "assets/icons.86c0e4ef.woff2",
     "src": "resources/fonts/icons.woff2"
   },
-  "resources/img/icons/loading.gif": {
-    "file": "assets/loading.9f0ae08f.gif",
-    "src": "resources/img/icons/loading.gif"
-  },
   "resources/img/icons/check.svg": {
     "file": "assets/check.b6226fee.svg",
     "src": "resources/img/icons/check.svg"
+  },
+  "resources/img/icons/loading.gif": {
+    "file": "assets/loading.9f0ae08f.gif",
+    "src": "resources/img/icons/loading.gif"
   },
   "resources/img/gallery/union.svg": {
     "file": "assets/union.9a4f6775.svg",
@@ -38,7 +38,7 @@
     "isEntry": true
   },
   "resources/scss/style.scss": {
-    "file": "assets/style.78255e88.css",
+    "file": "assets/style.088c8f3f.css",
     "src": "resources/scss/style.scss",
     "isEntry": true
   },
