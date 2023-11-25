@@ -160,6 +160,11 @@ class Controller extends BaseController
         return view('selection', compact('color', 'category', 'products', 'title', 'description', 'h1', 'text_content'));
     }
 
+    public function blog()
+    {
+        return view('blog');
+    }
+
     public function whatsapp()
     {
         return view('index');

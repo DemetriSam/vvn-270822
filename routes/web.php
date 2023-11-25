@@ -116,6 +116,9 @@
         //Избранное
         Route::get('/favorites', [Controllers\Controller::class, 'favorites'])->name('favorites');
 
+        //Статьи
+        Route::get('/blog', [Controllers\Controller::class, 'blog'])->name('blog');
+
         Route::get('/test', fn () => 'test');
 
 

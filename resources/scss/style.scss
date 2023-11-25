@@ -1531,6 +1531,182 @@ div.decorline {
 //</СТРАНИЦА С КОНТЕНТОМ>====================================================================================================
 
 
+//<РАЗДЕЛ СО СТАТЬЯМИ>====================================================================================================
+
+.article-tag {
+	background-color: #F3CCA3;
+	width: fit-content;
+	height: fit-content;
+	@include adaptiv-value("padding", 14, 8, 1);
+	@include adaptiv-value("padding-left", 20, 12, 1);
+	@include adaptiv-value("padding-right", 20, 12, 1);
+	border-radius: 4px;
+
+	@include adaptiv-value("font-size", 16, 12, 1);
+	font-weight: 700;
+	color: #6B5B51;
+}
+
+.article-tag.article-tag_op1 {
+	background-color: #E2E7FC;
+	color: #7C8DC8;
+}
+
+.article-tag.article-tag_op2 {
+	background-color: #CAECE2;
+	color: #86B8A9;
+}
+
+.article-tag.article-tag_op3 {
+	background-color: #CCE3F8;
+	color: #7E9FBD;
+}
+
+.article-tag.article-tag_op4 {
+	background-color: #F5F4C6;
+	color: #B1B06E;
+}
+
+.article-tag.article-tag_op5 {
+	background-color: white;
+	border: 1px solid var(--BeigeLight, #F3CCA3);
+	color: #6B5B51;
+}
+
+.article-tag.article-tag_op6 {
+	background-color: white;
+	border: 1px solid #CCE3F8;
+	color: #7E9FBD;
+}
+
+.article-tag.article-tag_op7 {
+	background-color: white;
+	border: 1px solid #F5F4C6;
+	color: #B1B06E;
+}
+
+.tag-bar {
+	display: flex;
+	flex-wrap: wrap;
+	@include adaptiv-value("gap", 12, 8, 1);
+	@include adaptiv-value("margin-bottom", 40, 25, 1);
+
+}
+
+.tag-bar__tag {
+	flex-shrink: 0;
+	scroll-snap-align: center;
+}
+
+.artann {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.artann .artann__tag {
+	@include adaptiv-value("padding", 8, 6, 1);
+	@include adaptiv-value("padding-left", 12, 10, 1);
+	@include adaptiv-value("padding-right", 12, 10, 1);
+}
+
+.artann__pic {
+	border-radius: 8px;
+	box-shadow: 0px 6px 16px 0px rgba(113, 130, 140, 0.15);
+}
+
+.artann__label {
+	color: #112279;
+	font-family: Nunito;
+	@include adaptiv-value("font-size", 23, 16, 1);
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+.artann__label a:active,
+.artann__label a.text:hover,
+.artann__label a.text:visited,
+.artann__label a {
+	text-decoration: none;
+	color: #112279;
+}
+
+.artann__text {
+	color: #888888;
+	font-family: Nunito;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.artann .artann__author {
+	@media (min-width: $md3+px) {
+		border-bottom: none;
+	}
+}
+
+.author {
+	display: flex;
+	@include adaptiv-value("gap", 14, 12, 1);
+	padding-top: 12px;
+	padding-bottom: 12px;
+	border-top: solid;
+	border-bottom: solid;
+	border-width: 1px;
+	border-color: #F4F4F4;
+}
+
+.author div {
+	margin: auto 0;
+}
+
+.author__pic {
+	border-radius: 50%;
+	box-shadow: 0px 6px 16px 0px rgba(113, 130, 140, 0.15);
+	@include adaptiv-value("width", 38, 34, 1);
+}
+
+.author__name-role {}
+
+.author__name {
+	font-weight: 700;
+	@include adaptiv-value("font-size", 14, 12, 1);
+}
+
+.author__role {
+	@include adaptiv-value("font-size", 12, 10, 1);
+}
+
+.anns {
+	display: flex;
+	flex-wrap: wrap;
+	flex-shrink: 0;
+	@include adaptiv-value("row-gap", 50, 35, 1);
+	column-gap: 30px;
+	max-width: $md2/2+px;
+	margin: 0 auto;
+
+	@media(min-width: $md3+px) {
+		max-width: 100%;
+	}
+}
+
+.anns__ann {
+	@media(min-width: $md3+px) {
+		max-width: 290px;
+	}
+
+	@media(min-width: $md2+px) {
+		max-width: 360px;
+	}
+}
+
+
+
+//</РАЗДЕЛ СО СТАТЬЯМИ>====================================================================================================
+
 
 
 //===================================================================================================================================

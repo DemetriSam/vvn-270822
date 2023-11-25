@@ -48,23 +48,28 @@
 					<ul block="block-bootstrap-barrio-main-navigation row" class="clearfix nav navbar-nav menu__list">
 
 						<li class="nav-item menu__item _icon-Rectangle">
-							<a href="{{ route('page', ['page' => 'carpets']) }}" title="carpets" class="nav-link nav-link--ru-carpets" data-drupal-link-system-path="carpets">
+							<a href="{{ route('page', ['page' => 'carpets']) }}" title="carpets" class="nav-link nav-link--ru-carpets">
 								Ковровые покрытия
 							</a>
 						</li>
 
 						<li class="nav-item menu__item">
-							<a href="{{ route('page', ['page' => 'cinovki']) }}" class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
+							<a href="{{ route('page', ['page' => 'cinovki']) }}" class="nav-link menu__link nav-link--ru-cinovki">
 								Циновки из сизаля
 							</a>
 						</li>
 						@if(optional(DB::table('pages')->where('name', 'about')->first())->published === 'true')
 							<li class="nav-item menu__item">
-								<a href="{{ route('page', ['page' => 'about']) }}" class="nav-link`menu__link nav-link--ru-cinovki" data-drupal-link-system-path="cinovki">
+								<a href="{{ route('page', ['page' => 'about']) }}" class="nav-link menu__link nav-link--ru-cinovki">
 									О нас
 								</a>
 							</li>
 						@endif
+						<li class="nav-item menu__item">
+							<a href="{{ route('blog') }}" class="nav-link menu__link nav-link--ru-cinovki">
+								Статьи
+							</a>
+						</li>
 					</ul>
 					<div class="contacts_in_burger">
 						<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>
