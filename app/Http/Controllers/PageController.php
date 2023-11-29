@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Color;
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\PrCollection;
 use App\Models\Property;
 use App\Models\PropertyValue;
@@ -65,6 +66,9 @@ class PageController extends Controller
             'filter' => isset($input['filter']) ? $input['filter'] : [],
         ]);
         $id = Page::create($input)->id;
+        if ($input['type'] === 'blog') {
+            Post::create(['page_id' => $id]);
+        }
         return redirect()->route('pages.edit', ['page' => $id])->with('success', 'New page was created');
     }
 
@@ -136,12 +140,26 @@ class PageController extends Controller
         ]);
         $input['published'] = $input['published'] ?? 'false';
 
-        $tagger = new IdTagger;
-        $tagger->setHtml($input['text-content']);
-        $input['text-content'] = $tagger->format();
+        if ($input['text-content'] ?? false) {
+            $tagger = new IdTagger;
+            $tagger->setHtml($input['text-content']);
+            $input['text-content'] = $tagger->format();
+        }
 
         $page->fill($input);
         $page->save();
+
+        $post = $page->post;
+        $post->ann = $input['ann'];
+        $post->save();
+
+        if (isset($request->image)) {
+            $mediaItem = $post
+                ->getMedia('blog')
+                ->each(fn ($mediaItem) => $mediaItem->delete());
+            $post->addMediaFromRequest('image')->withResponsiveImages()->toMediaCollection('blog');
+        }
+
         return redirect()->route('pages.index')->with('success', 'Page was updated');
     }
 
@@ -159,7 +177,7 @@ class PageController extends Controller
     public function storepic(Request $request, Page $page)
     {
         $url = $page
-            ->addAllMediaFromRequest()->first()
+            ->addAllMediaFromRequest()->first()->withResponsiveImages()
             ->toMediaCollection('images')
             ->getUrl('widthOfArticleColumn');
 

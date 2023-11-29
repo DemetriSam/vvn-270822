@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\PrCvet;
 use App\Services\Tags\CategorySeoTags;
 use App\Services\Tags\ColorSeoTags;
@@ -162,7 +163,9 @@ class Controller extends BaseController
 
     public function blog()
     {
-        return view('blog');
+        $posts = Post::all()->filter(fn ($post) => $post->isPublished());
+
+        return view('blog', compact('posts'));
     }
 
     public function whatsapp()

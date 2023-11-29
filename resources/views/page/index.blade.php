@@ -3,6 +3,7 @@
         <h1>Страницы</h1>
         <a href="{{ route('pages.create', ['type' => 'selection']) }}">Создать новую выборку</a>
         <a href="{{ route('pages.create', ['type' => 'article']) }}">Создать новую статью</a>
+        <a href="{{ route('pages.create', ['type' => 'blog']) }}">Создать новую запись в блоге</a>
     </x-slot>
     
     <table class="w-full">

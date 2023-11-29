@@ -58,6 +58,13 @@
 								Циновки из сизаля
 							</a>
 						</li>
+						@if(DB::table('posts')->join('pages', 'posts.page_id', '=', 'pages.id')->where('published', 'true')->first())
+							<li class="nav-item menu__item">
+								<a href="{{ route('blog') }}" class="nav-link menu__link nav-link--ru-cinovki">
+									Профессиональный блог
+								</a>
+							</li>
+						@endif
 						@if(optional(DB::table('pages')->where('name', 'about')->first())->published === 'true')
 							<li class="nav-item menu__item">
 								<a href="{{ route('page', ['page' => 'about']) }}" class="nav-link menu__link nav-link--ru-cinovki">
@@ -65,11 +72,6 @@
 								</a>
 							</li>
 						@endif
-						<li class="nav-item menu__item">
-							<a href="{{ route('blog') }}" class="nav-link menu__link nav-link--ru-cinovki">
-								Статьи
-							</a>
-						</li>
 					</ul>
 					<div class="contacts_in_burger">
 						<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>
