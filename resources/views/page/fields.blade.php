@@ -122,7 +122,26 @@
             list-style-type: circle;
         }
     </style>
+    @if($pageType === 'blog')
+        <div>
+            <x-label for="ann" value="Анонс" />
+            <x-input id="ann" class="block mt-1 w-full" type="text" name="ann" :value="old('ann') ?? $page->ann" autofocus />
+        </div>
+        <div>
+            <x-label for="image" value="Изображение" />
 
+            <x-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" autofocus />
+        </div>
+        @php
+        $mediaItem = $page->post->getFirstMedia('blog');
+        @endphp
+        @if($mediaItem)
+            <div>
+                <x-input id=images_for_remove type="checkbox" name="images_for_remove[]" value="{{ $mediaItem->name }}" />
+                <x-label class="inline-block" for="images_for_remove" value="Удалить картинкy {{ $mediaItem->getUrl() }}?" />
+            </div>
+        @endif
+    @endif
     <div>
         @php
             $isPublished = $page->published === 'true';

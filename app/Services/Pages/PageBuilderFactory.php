@@ -36,6 +36,8 @@ class PageBuilderFactory
                 return new SelectionPage($reader, $this->renderer, $this->args);
             case 'article':
                 return new ArticlePage($reader, $this->renderer, $this->args);
+            case 'blog':
+                return new ArticlePage($reader, $this->renderer, $this->args);
             default:
                 throw new Exception('Such Page does not exist');
         }

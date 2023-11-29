@@ -216,8 +216,6 @@ class PrCvetController extends Controller
 
     public function addImages(PrCvet $prCvet, Request $request)
     {
-        $has = $request->has('images');
-        $hasFile = $request->hasFile('images');
         if (isset($request->images)) {
             $prCvet
                 ->addMultipleMediaFromRequest(['images'])
