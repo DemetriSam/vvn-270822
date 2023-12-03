@@ -27,4 +27,7 @@
             <x-blog-article :post="$post" />
         @endforeach
     </div>
+    <div class="recomendations__paginator">
+        {{ $posts->links('vendor.pagination.default') }}
+    </div>
 </x-layout>

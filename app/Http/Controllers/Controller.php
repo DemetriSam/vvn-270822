@@ -163,7 +163,9 @@ class Controller extends BaseController
 
     public function blog()
     {
-        $posts = Post::all()->filter(fn ($post) => $post->isPublished());
+        $posts = Post::join('pages', 'pages.id', '=', 'posts.page_id')
+            ->where('pages.published', 'true')
+            ->paginate(12);
 
         return view('blog', compact('posts'));
     }
