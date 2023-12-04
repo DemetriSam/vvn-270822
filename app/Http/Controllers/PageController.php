@@ -149,15 +149,18 @@ class PageController extends Controller
         $page->fill($input);
         $page->save();
 
-        $post = $page->post;
-        $post->ann = $input['ann'];
-        $post->save();
+        if (isset($page->post)) {
+            $post = $page->post;
+            $post->ann = $input['ann'];
+            $post->published = $input['published'];
+            $post->save();
 
-        if (isset($request->image)) {
-            $mediaItem = $post
-                ->getMedia('blog')
-                ->each(fn ($mediaItem) => $mediaItem->delete());
-            $post->addMediaFromRequest('image')->withResponsiveImages()->toMediaCollection('blog');
+            if (isset($request->image)) {
+                $mediaItem = $post
+                    ->getMedia('blog')
+                    ->each(fn ($mediaItem) => $mediaItem->delete());
+                $post->addMediaFromRequest('image')->withResponsiveImages()->toMediaCollection('blog');
+            }
         }
 
         return redirect()->route('pages.index')->with('success', 'Page was updated');
@@ -187,11 +190,17 @@ class PageController extends Controller
     public function publish(Page $page)
     {
         $page->publish();
+        if (isset($page->post)) {
+            $page->post->publish();
+        }
         return back();
     }
     public function retract(Page $page)
     {
         $page->retract();
+        if (isset($page->post)) {
+            $page->post->retract();
+        }
         return back();
     }
 }

@@ -163,7 +163,7 @@ class Controller extends BaseController
 
     public function blog()
     {
-        $posts = Post::paginate(12);
+        $posts = Post::where('published', 'true')->paginate(12);
 
         return view('blog', compact('posts'));
     }
