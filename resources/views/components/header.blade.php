@@ -74,10 +74,10 @@
 						@endif
 					</ul>
 					<div class="contacts_in_burger">
-						<div id="header_phone_number" class="_icon-phone">+7 (495) 729 96 33</div>
-						<div class="_icon-mail">info@dizanarium.ru</div>
+						<div id="header_phone_number" class="_icon-phone">{{ $phone ?? __('public.contacts.phone') }}</div>
+						<div class="_icon-mail">{{ $email ?? __('public.contacts.email') }}</div>
 
-						<div id="header_address" class="_icon-pin">г. Москва, Нахимовский проспект, 24, ЦДиИ Экспострой, 3 павильон, 174 место
+						<div id="header_address" class="_icon-pin">{{ $address ?? __('public.contacts.address') }}
 						</div>
 					</div>
 				</nav>
