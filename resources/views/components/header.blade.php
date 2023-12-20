@@ -58,7 +58,7 @@
 								Циновки из сизаля
 							</a>
 						</li>
-						@if(DB::table('posts')->join('pages', 'posts.page_id', '=', 'pages.id')->where('published', 'true')->first())
+						@if(DB::table('posts')->where('published', 'true')->first())
 							<li class="nav-item menu__item">
 								<a href="{{ route('blog') }}" class="nav-link menu__link nav-link--ru-cinovki">
 									Профессиональный блог

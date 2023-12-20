@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\PublicStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Image\Manipulations;
@@ -13,6 +14,7 @@ class Post extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
+    use PublicStatus;
 
     public $fillable = ['page_id', 'ann'];
 
