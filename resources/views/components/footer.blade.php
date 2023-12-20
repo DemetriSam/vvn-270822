@@ -28,7 +28,7 @@
             </nav>
         </div>
         <div class="footer__item contacts_in_header">
-            <div id="header_phone_number" class="contacts__item _icon-phone">{{ $phone ?? __('public.contacts.phone') }}</div>
+            <div id="header_phone_number" class="contacts__item _icon-phone"><a href="tel:{{$phoneForLink}}">{{ $phone ?? __('public.contacts.phone') }}</a></div>
             <div class="contacts__item _icon-mail">{{ $email ?? __('public.contacts.email') }}</div>
 
             <div id="header_address" class="contacts__item _icon-pin">{{ $address ?? __('public.contacts.address') }}

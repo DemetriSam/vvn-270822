@@ -62,15 +62,17 @@
         $phone = optional(DB::table('site-info')->where('key', 'phone')->first())->value;   
         $email = optional(DB::table('site-info')->where('key', 'email')->first())->value;   
         $address = optional(DB::table('site-info')->where('key', 'address')->first())->value;
+
+        $phoneForLink = preg_replace("/[^0-9]/", "", $phone);
     @endphp
-    <x-header :phone="$phone" :email="$email" :address="$address" />
+    <x-header :phone="$phone" :phoneForLink="$phoneForLink" :email="$email" :address="$address" />
     <div class="wrapper">
         <main class="page">
             <div class="_container">
                 {{ $slot }}
             </div>
         </main>
-        <x-footer :phone="$phone" :email="$email" :address="$address" />
+        <x-footer :phone="$phone" :phoneForLink="$phoneForLink" :email="$email" :address="$address" />
     </div>
     <div class="popup" id="designer-form-region">
         <a href="##" class="popup__area"></a>

@@ -4,7 +4,7 @@
 			<section class="row region region-top-header">
 
 				<div class="contacts_in_header">
-					<div id="header_phone_number" class="_icon-phone">{{ $phone ?? __('public.contacts.phone') }}</div>
+					<div id="header_phone_number" class="_icon-phone"><a href="tel:{{$phoneForLink}}">{{ $phone ?? __('public.contacts.phone') }}</a></div>
 					<div class="_icon-mail">{{ $email ?? __('public.contacts.email') }}</div>
 
 					<div id="header_address" class="_icon-pin">{{ $address ?? __('public.contacts.address') }}</div>
@@ -74,7 +74,7 @@
 						@endif
 					</ul>
 					<div class="contacts_in_burger">
-						<div id="header_phone_number" class="_icon-phone">{{ $phone ?? __('public.contacts.phone') }}</div>
+						<div id="header_phone_number" class="_icon-phone"><a href="tel:{{$phoneForLink}}">{{ $phone ?? __('public.contacts.phone') }}</a></div>
 						<div class="_icon-mail">{{ $email ?? __('public.contacts.email') }}</div>
 
 						<div id="header_address" class="_icon-pin">{{ $address ?? __('public.contacts.address') }}
