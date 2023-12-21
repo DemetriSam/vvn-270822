@@ -23,6 +23,10 @@ nav.navbar {
 	line-height: 58px;
 	color: white;
 
+	a {
+		color: white;
+	}
+
 	.contacts_in_header {
 		display: flex;
 
@@ -272,6 +276,10 @@ nav.navbar {
 		color: white;
 		height: 42px;
 		line-height: 42px;
+
+		a {
+			color: white;
+		}
 	}
 
 	box-shadow: 0px 6px 16px rgba(113, 130, 140, 0.15);
