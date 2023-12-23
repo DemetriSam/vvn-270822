@@ -16,7 +16,7 @@
     ])
     
     @production
-        @if(!isset($published) || !$published === 'false')
+        @if(!isset($published) || $published === 'true')
             <!-- Google tag (gtag.js) -->
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-7TXR23ZY9W"></script>
             <script>
