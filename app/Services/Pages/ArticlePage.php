@@ -16,10 +16,15 @@ class ArticlePage extends PageBuilder
         return $this->reader->getName();
     }
 
+    private function getPublished()
+    {
+        return $this->reader->getPublished();
+    }
+
     protected function init(): void
     {
         $this->renderer->viewName = 'article';
-        $this->renderer->addData(['name' => $this->getName()]);
+        $this->renderer->addData(['name' => $this->getName(), 'published' => $this->getPublished()]);
         $this->args = array_merge($this->args, ['name' => $this->getName()]);
     }
 

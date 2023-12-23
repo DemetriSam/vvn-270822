@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :published="$published">
     <x-slot:title>
         {{ $title }}
     </x-slot:title>

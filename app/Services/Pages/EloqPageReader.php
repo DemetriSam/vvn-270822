@@ -36,4 +36,9 @@ class EloqPageReader implements PageReader
         $params = is_array($params) ? $params : json_decode($params, true);
         return $params ?? [];
     }
+
+    public function getPublished(): string
+    {
+        return $this->page->published;
+    }
 }

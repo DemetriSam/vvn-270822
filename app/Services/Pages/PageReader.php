@@ -9,4 +9,5 @@ interface PageReader
     public function getName();
     public function getFilters();
     public function getParams(): array;
+    public function getPublished(): string;
 }
