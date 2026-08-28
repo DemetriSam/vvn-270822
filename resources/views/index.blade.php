@@ -21,13 +21,13 @@
             <div class="main-banner__button call_designer_div">
                 <a href="#designer-form-region" class="call_designer button">Вызвать дизайнера на замер</a>
             </div>
-            <div class="main-banner__form">
+            {{-- <div class="main-banner__form">
                 @if(Session::has('message'))
                 <p class="">{{ Session::get('message') }}</p>
                 @endif
                 @include('designer-form')
 
-            </div>
+            </div> --}}
         </div>
     </section>
     @if($carpets)
